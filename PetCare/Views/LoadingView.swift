@@ -9,18 +9,19 @@ import UIKit
 import Lottie
 
 class LoadingView: UIViewController {
-
-    private var _animationView: AnimationView?
-
+    
+    private var animationView: AnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureAnimationView()
         animate()
     }
-
+    
     private func configureAnimationView() {
-        _animationView = AnimationView(name: "loadingCat")
-        guard let animationView = _animationView else { return }
+        animationView = AnimationView(name: "loadingCat")
+        guard let animationView = animationView else { return }
         
         let animationSize = CGSize(width: view.bounds.width * 0.5, height: view.bounds.height * 0.5)
         let animationFrame = CGRect(
@@ -28,16 +29,27 @@ class LoadingView: UIViewController {
             size: animationSize
         )
         animationView.frame = animationFrame
+        animationView.backgroundColor = .white
         
         animationView.loopMode = .loop
-        animationView.animationSpeed = 10
+        animationView.animationSpeed = 1.5
         
         view.addSubview(animationView)
     }
-
+    
     private func animate() {
-        guard let animationView = _animationView else { return }
+        guard let animationView = animationView else { return }
         animationView.play()
     }
+    
+    private func stopAnimation() {
+        guard let animationView = animationView else { return }
+        animationView.stop()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("stopped")
+        stopAnimation()
+    }
 }
-

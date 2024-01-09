@@ -11,8 +11,7 @@
 		4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */; };
 		B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB422B486FC200592B31 /* AppDelegate.swift */; };
 		B04BDB452B486FC200592B31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB442B486FC200592B31 /* SceneDelegate.swift */; };
-		B04BDB472B486FC200592B31 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB462B486FC200592B31 /* ViewController.swift */; };
-		B04BDB4A2B486FC200592B31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB482B486FC200592B31 /* Main.storyboard */; };
+		B04BDB472B486FC200592B31 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB462B486FC200592B31 /* MainViewController.swift */; };
 		B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */; };
 		B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB4E2B486FC300592B31 /* Assets.xcassets */; };
 		B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */; };
@@ -26,6 +25,15 @@
 		B04BDB912B4B211100592B31 /* 4.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8E2B4B211100592B31 /* 4.json */; };
 		B04BDB922B4B211100592B31 /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8F2B4B211100592B31 /* 5.json */; };
 		B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB932B4C11A600592B31 /* LoadingView.swift */; };
+		B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */; };
+		B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */; };
+		B0EB68D22B4C4EA90078D29D /* AnimalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */; };
+		B0EB68D42B4C4F670078D29D /* VetAppointmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D32B4C4F670078D29D /* VetAppointmentViewController.swift */; };
+		B0EB68D62B4C4F920078D29D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */; };
+		B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */; };
+		B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DB2B4C7DE80078D29D /* Animal.swift */; };
+		B0EB68DE2B4C831D0078D29D /* AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */; };
+		B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */; };
 		B7C10BC6EE8159CD3C47A820 /* Pods_PetCareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D80AA55724F2A207DD12FCD /* Pods_PetCareTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,8 +62,7 @@
 		B04BDB3F2B486FC200592B31 /* PetCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04BDB422B486FC200592B31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B04BDB442B486FC200592B31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B04BDB462B486FC200592B31 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B04BDB492B486FC200592B31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B04BDB462B486FC200592B31 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B04BDB4C2B486FC200592B31 /* PetCare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PetCare.xcdatamodel; sourceTree = "<group>"; };
 		B04BDB4E2B486FC300592B31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B04BDB512B486FC300592B31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -72,6 +79,15 @@
 		B04BDB8E2B4B211100592B31 /* 4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.json; sourceTree = "<group>"; };
 		B04BDB8F2B4B211100592B31 /* 5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.json; sourceTree = "<group>"; };
 		B04BDB932B4C11A600592B31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsViewController.swift; sourceTree = "<group>"; };
+		B0EB68D32B4C4F670078D29D /* VetAppointmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VetAppointmentViewController.swift; sourceTree = "<group>"; };
+		B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAnimalView.swift; sourceTree = "<group>"; };
+		B0EB68DB2B4C7DE80078D29D /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
+		B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalView.swift; sourceTree = "<group>"; };
+		B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalViewController.swift; sourceTree = "<group>"; };
 		B4B93210732F5A367B703D89 /* Pods-PetCare-PetCareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare-PetCareUITests.debug.xcconfig"; path = "Target Support Files/Pods-PetCare-PetCareUITests/Pods-PetCare-PetCareUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D563D8595AAC766E5B862F3E /* Pods-PetCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.release.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.release.xcconfig"; sourceTree = "<group>"; };
 		DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetCare_PetCareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -201,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */,
+				B0EB68DB2B4C7DE80078D29D /* Animal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -209,8 +226,9 @@
 			isa = PBXGroup;
 			children = (
 				B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */,
-				B04BDB482B486FC200592B31 /* Main.storyboard */,
 				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
+				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
+				B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,7 +236,13 @@
 		B04BDB7A2B4B0A7200592B31 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B04BDB462B486FC200592B31 /* ViewController.swift */,
+				B04BDB462B486FC200592B31 /* MainViewController.swift */,
+				B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */,
+				B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */,
+				B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */,
+				B0EB68D32B4C4F670078D29D /* VetAppointmentViewController.swift */,
+				B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */,
+				B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -368,7 +392,6 @@
 				B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */,
 				B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */,
 				B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */,
-				B04BDB4A2B486FC200592B31 /* Main.storyboard in Resources */,
 				B04BDB8C2B4B1BFF00592B31 /* 3.json in Resources */,
 				B04BDB8A2B4B1BFF00592B31 /* 1.json in Resources */,
 				B04BDB912B4B211100592B31 /* 4.json in Resources */,
@@ -501,8 +524,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */,
-				B04BDB472B486FC200592B31 /* ViewController.swift in Sources */,
+				B0EB68D62B4C4F920078D29D /* SettingsViewController.swift in Sources */,
+				B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */,
+				B0EB68D42B4C4F670078D29D /* VetAppointmentViewController.swift in Sources */,
+				B0EB68D22B4C4EA90078D29D /* AnimalsViewController.swift in Sources */,
+				B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */,
+				B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */,
+				B04BDB472B486FC200592B31 /* MainViewController.swift in Sources */,
+				B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */,
 				B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */,
+				B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */,
+				B0EB68DE2B4C831D0078D29D /* AddAnimalView.swift in Sources */,
 				B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */,
 				B04BDB452B486FC200592B31 /* SceneDelegate.swift in Sources */,
 			);
@@ -541,14 +573,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B04BDB482B486FC200592B31 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B04BDB492B486FC200592B31 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -692,7 +716,7 @@
 				INFOPLIST_FILE = "PetCare/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -721,7 +745,7 @@
 				INFOPLIST_FILE = "PetCare/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

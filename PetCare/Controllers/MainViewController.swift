@@ -7,7 +7,7 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         configureAndShowAnimationView()
     }
 
@@ -15,21 +15,16 @@ class MainViewController: UIViewController {
         animationView = LoadingView()
         animationView?.modalPresentationStyle = .fullScreen
         present(animationView!, animated: true) {
-            // Simulating the scenario where you want to load the main view after 2 seconds
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.hideAnimationViewAndLoadMainView()
             }
         }
     }
 
-    private func hideAnimationViewAndLoadView() {
-        animationView?.dismiss(animated: true)
-        // load the tab bar controller
-        let navigationController = UINavigationController(rootViewController: HomeViewController())
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
-
-    }
-
-  
+    private func hideAnimationViewAndLoadMainView() {
+           animationView?.dismiss(animated: true)
+           let navigationController = TabBarController()
+           navigationController.modalPresentationStyle = .fullScreen
+           present(navigationController, animated: true)
+       }
 }
