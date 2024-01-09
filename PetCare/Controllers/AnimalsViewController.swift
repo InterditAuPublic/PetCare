@@ -7,45 +7,64 @@
 import UIKit
 
 class AnimalsViewController: UIViewController, NoAnimalsDelegate {
-
-    let animals : [String] = []
-//    let animals = ["test"]
-
+    
+    var animals : [Animal] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .magenta
+        view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         addButton.tintColor = .orange
         navigationItem.rightBarButtonItem = addButton
     }
-
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchAnimals()
         updateUI()
     }
-
+    
+    private func fetchAnimals() {
+        if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
+            animals = fetchedAnimals
+            print(animals)
+        }
+    }
+    
     private func updateUI() {
         view.subviews.forEach { $0.removeFromSuperview() }
-
+        
         if animals.isEmpty {
             let noAnimalView = NoAnimalView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
             noAnimalView.center = view.center
             noAnimalView.delegate = self
             view.addSubview(noAnimalView)
-            
-
         } else {
             // Display the list of animals
-//            let animalsTableView = UITableView(frame: view.bounds, style: .plain)
-//  
-//            animalsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-//            view.addSubview(animalsTableView)
+            let animalsTableView = UITableView(frame: view.bounds, style: .plain)
+            animalsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+            animalsTableView.delegate = self
+            animalsTableView.dataSource = self
+            view.addSubview(animalsTableView)
         }
     }
 }
+
+extension AnimalsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return animals.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let animal = animals[indexPath.row]
+        cell.textLabel?.text = animal.name
+        return cell
+    }
+}
+
 
 extension AnimalsViewController {
     @objc func didTapAddButton() {

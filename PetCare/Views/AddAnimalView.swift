@@ -27,6 +27,7 @@ class AddAnimalView: UIScrollView {
     
     // MARK: - Properties
     let speciesOptions: [Species] = Species.allSpecies
+//    let sexeOptions: [Sexe] = Sexe.allSexe
     
     private let contentView: UIView = {
             let view = UIView()
@@ -47,47 +48,27 @@ class AddAnimalView: UIScrollView {
         contentView.addSubview(nameTextField)
         contentView.addSubview(speciesLabel)
         contentView.addSubview(speciesPicker)
+        contentView.addSubview(breedLabel)
+        contentView.addSubview(breedTextField)
         contentView.addSubview(sexSegmentedControl)
         contentView.addSubview(birthDateLabel)
         contentView.addSubview(birthDatePicker)
         contentView.addSubview(weightLabel)
         contentView.addSubview(weightTextField)
-        contentView.addSubview(heightLabel)
-        contentView.addSubview(heightTextField)
         contentView.addSubview(colorLabel)
         contentView.addSubview(colorTextField)
-        contentView.addSubview(veterinarianLabel)
-        contentView.addSubview(veterinarianTextField)
-        contentView.addSubview(lastVisitLabel)
-        contentView.addSubview(lastVisitDatePicker)
-        contentView.addSubview(alergiesLabel)
-        contentView.addSubview(alergiesTextField)
         contentView.addSubview(commentsLabel)
         contentView.addSubview(commentsTextField)
         contentView.addSubview(nextButton)
-
-        
-
-//        // Make the image view rounded
-//        animalImageView.layer.cornerRadius = 75  // Half of the height (or width) for a perfect circle
-//        animalImageView.clipsToBounds = true
-//        animalImageView.contentMode = .scaleAspectFit
         
         /// Image view constraints
         NSLayoutConstraint.activate([
             animalImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            // animalImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            // animalImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             animalImageView.heightAnchor.constraint(equalToConstant: 150),
-            // Set the width of the image view to be equal to its height
             animalImageView.widthAnchor.constraint(equalTo: animalImageView.heightAnchor),
-            
-            // center the image view horizontally
             animalImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-            
-            
         ])
-        
+       
         /// Identifier label constraints
         NSLayoutConstraint.activate([
                 identifireLabel.topAnchor.constraint(equalTo: animalImageView.bottomAnchor, constant: 20),
@@ -132,11 +113,25 @@ class AddAnimalView: UIScrollView {
 
         /// Sex segmented control contraints
         NSLayoutConstraint.activate([
-            sexSegmentedControl.topAnchor.constraint(equalTo: speciesPicker.bottomAnchor, constant: 20),
+            breedLabel.topAnchor.constraint(equalTo: speciesPicker.bottomAnchor, constant: 20),
+            breedLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            breedLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+        
+        /// Species picker constraints
+        NSLayoutConstraint.activate([
+            breedTextField.topAnchor.constraint(equalTo: breedLabel.bottomAnchor, constant: 10),
+            breedTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            breedTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
+
+        /// Sex segmented control contraints
+        NSLayoutConstraint.activate([
+            sexSegmentedControl.topAnchor.constraint(equalTo: breedTextField.bottomAnchor, constant: 20),
             sexSegmentedControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             sexSegmentedControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
-
+        
         /// Birthdate label constraints
         NSLayoutConstraint.activate([
             birthDateLabel.topAnchor.constraint(equalTo: sexSegmentedControl.bottomAnchor, constant: 20),
@@ -165,23 +160,9 @@ class AddAnimalView: UIScrollView {
             weightTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
 
-        /// Height label constraints
-        NSLayoutConstraint.activate([
-            heightLabel.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 20),
-            heightLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            heightLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Height text field constaints
-        NSLayoutConstraint.activate([
-            heightTextField.topAnchor.constraint(equalTo: heightLabel.bottomAnchor, constant: 10),
-            heightTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            heightTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
         /// Color label constraints
         NSLayoutConstraint.activate([
-            colorLabel.topAnchor.constraint(equalTo: heightTextField.bottomAnchor, constant: 20),
+            colorLabel.topAnchor.constraint(equalTo: weightTextField.bottomAnchor, constant: 20),
             colorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             colorLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -193,51 +174,9 @@ class AddAnimalView: UIScrollView {
             colorTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
 
-        /// Veterinarian label constraints
-        NSLayoutConstraint.activate([
-            veterinarianLabel.topAnchor.constraint(equalTo: colorTextField.bottomAnchor, constant: 20),
-            veterinarianLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            veterinarianLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Veterinarian text field constaints
-        NSLayoutConstraint.activate([
-            veterinarianTextField.topAnchor.constraint(equalTo: veterinarianLabel.bottomAnchor, constant: 10),
-            veterinarianTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            veterinarianTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Last visit label constraints
-        NSLayoutConstraint.activate([
-            lastVisitLabel.topAnchor.constraint(equalTo: veterinarianTextField.bottomAnchor, constant: 20),
-            lastVisitLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            lastVisitLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Last visit date picker contraints
-        NSLayoutConstraint.activate([
-            lastVisitDatePicker.topAnchor.constraint(equalTo: lastVisitLabel.bottomAnchor, constant: 10),
-            lastVisitDatePicker.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            lastVisitDatePicker.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Alergies label constraints
-        NSLayoutConstraint.activate([
-            alergiesLabel.topAnchor.constraint(equalTo: lastVisitDatePicker.bottomAnchor, constant: 20),
-            alergiesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            alergiesLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
-        /// Alergies text field contraints
-        NSLayoutConstraint.activate([
-            alergiesTextField.topAnchor.constraint(equalTo: alergiesLabel.bottomAnchor, constant: 10),
-            alergiesTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            alergiesTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
-        ])
-
         /// Comments label constraints
         NSLayoutConstraint.activate([
-            commentsLabel.topAnchor.constraint(equalTo: alergiesTextField.bottomAnchor, constant: 20),
+            commentsLabel.topAnchor.constraint(equalTo: colorTextField.bottomAnchor, constant: 20),
             commentsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             commentsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
@@ -283,6 +222,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Identifiant de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -298,6 +238,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Nom de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -313,24 +254,47 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Espèce de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
 
-    let animalImageView: UIImageView = {
+    lazy var animalImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.crop.circle.badge.plus")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 75
         imageView.clipsToBounds = true
+        imageView.tintColor = .orange
         imageView.contentMode = .scaleAspectFit
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGestureRecognizer)
         return imageView
+    }()
+    
+    let breedLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Race"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let breedTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Race de l'animal"
+        textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
     }()
 
     // create a selector for the sex of the animal
     let sexSegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Mâle", "Femelle"])
         segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentTintColor = UIColor(red: 0.996, green: 0.945, blue: 0.878, alpha: 1)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.orange], for: .selected)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
@@ -347,7 +311,7 @@ class AddAnimalView: UIScrollView {
         datePicker.datePickerMode = .date
         datePicker.maximumDate = Date()
         datePicker.preferredDatePickerStyle = .inline
-
+        datePicker.tintColor = .orange
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
@@ -363,6 +327,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Poids de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -378,6 +343,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Taille de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -393,6 +359,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Couleur de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -408,6 +375,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Vétérinaire de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -423,6 +391,7 @@ class AddAnimalView: UIScrollView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
+        datePicker.tintColor = .orange
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
@@ -438,6 +407,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Allergies de l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -453,6 +423,7 @@ class AddAnimalView: UIScrollView {
         let textField = UITextField()
         textField.placeholder = "Commentaires sur l'animal"
         textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -480,19 +451,21 @@ class AddAnimalView: UIScrollView {
         speciesPicker.dataSource = self
     }
     
+    @objc private func imageViewTapped() {
+        showImagePicker()
+    }
+    
     @objc private func nextButtonTapped() {
         // Get values from various UI elements
         let identifierValue = identifier.text ?? ""
         let nameValue = nameTextField.text ?? ""
-        let speciesValue = speciesTextField.text ?? ""
+        // Retrieve the selected species name from the picker
+        let selectedSpeciesRow = speciesPicker.selectedRow(inComponent: 0)
+        let speciesValue = speciesOptions[selectedSpeciesRow].rawValue
         let sexValue = sexSegmentedControl.selectedSegmentIndex == 0 ? "Mâle" : "Femelle"
         let birthDateValue = birthDatePicker.date
         let weightValue = weightTextField.text ?? ""
-        let heightValue = heightTextField.text ?? ""
         let colorValue = colorTextField.text ?? ""
-        let veterinarianValue = veterinarianTextField.text ?? ""
-        let lastVisitValue = lastVisitDatePicker.date
-        let alergiesValue = alergiesTextField.text ?? ""
         let commentsValue = commentsTextField.text ?? ""
         let imageValue = animalImageView.image?.pngData() ?? Data()
 
@@ -504,11 +477,7 @@ class AddAnimalView: UIScrollView {
             "sex": sexValue,
             "birthDate": birthDateValue,
             "weight": weightValue,
-            "height": heightValue,
             "color": colorValue,
-            "veterinarian": veterinarianValue,
-            "lastVisit": lastVisitValue,
-            "alergies": alergiesValue,
             "comments": commentsValue,
             "image": imageValue
         ]
@@ -516,6 +485,19 @@ class AddAnimalView: UIScrollView {
         // Call the delegate method to pass the information
         animalDelegate?.nextButtonTapped(with: animalInfo)
     }
+    
+    private func showImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+
+        // Present the image picker
+        if let viewController = findViewController() {
+            viewController.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 // Set the delegate of the text field to the view controller
@@ -545,6 +527,33 @@ extension AddAnimalView: UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return speciesOptions.count
+    }
+}
+
+extension UIView {
+    func findViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while let nextResponder = responder?.next {
+            responder = nextResponder
+            if let viewController = responder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
+}
+
+extension AddAnimalView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.editedImage] as? UIImage {
+            animalImageView.image = pickedImage
+        }
+
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 

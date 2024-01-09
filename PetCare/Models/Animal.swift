@@ -12,6 +12,7 @@ struct Animal: Codable {
     var identifier: String? // I-CAD number
     var name: String?
     var sexe: String?
+//    var sexe: Sexe?
     var species: Species?
     var breed: String?
     var birthDate: Date?
@@ -26,23 +27,33 @@ struct Animal: Codable {
 }
 
 enum Species: String, CaseIterable, Codable {
-    case dog = "Chien"
-    case cat = "Chat"
-    case rabbit = "Lapin"
-    case ferret = "Furet"
+    case dog = "Dog"
+    case cat = "Cat"
+    case rabbit = "Rabbit"
+    case ferret = "Ferret"
     case hamster = "Hamster"
-    case mouse = "Souris"
+    case mouse = "Mouse"
     case rat = "Rat"
     case chinchilla = "Chinchilla"
-    case turtle = "Tortue"
-    case lizard = "Lézard"
-    case snake = "Serpent"
-    case bird = "Oiseau"
-    case fish = "Poisson"
-    case other = "Autre"
+    case turtle = "Turttle"
+    case lizard = "Liard"
+    case snake = "Snake"
+    case bird = "Bird"
+    case fish = "Fish"
+    case other = "Other"
     
     // Propriété calculée pour obtenir une liste de toutes les espèces
     static var allSpecies: [Species] {
         return self.allCases
     }
 }
+
+
+//enum Sexe: String, CaseIterable, Codable {
+//    case male = "Male"
+//    case female = "Female"
+//
+//    static var allSexe: [Sexe] {
+//        return self.allCases
+//    }
+//}

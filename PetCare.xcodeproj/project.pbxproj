@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2D8A745CB6AA866D7C379AFD /* Pods_PetCare_PetCareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */; };
 		4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */; };
+		B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */; };
+		B006407F2B4DC144002A4139 /* AnimalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407E2B4DC144002A4139 /* AnimalsView.swift */; };
 		B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB422B486FC200592B31 /* AppDelegate.swift */; };
 		B04BDB452B486FC200592B31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB442B486FC200592B31 /* SceneDelegate.swift */; };
 		B04BDB472B486FC200592B31 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB462B486FC200592B31 /* MainViewController.swift */; };
@@ -59,6 +61,8 @@
 		59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetCare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601CD90CBB86942FE805F358 /* Pods-PetCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.debug.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.debug.xcconfig"; sourceTree = "<group>"; };
 		65D73E0EB6A0019121299614 /* Pods-PetCareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCareTests.debug.xcconfig"; path = "Target Support Files/Pods-PetCareTests/Pods-PetCareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B006407E2B4DC144002A4139 /* AnimalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsView.swift; sourceTree = "<group>"; };
 		B04BDB3F2B486FC200592B31 /* PetCare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetCare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04BDB422B486FC200592B31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B04BDB442B486FC200592B31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +138,15 @@
 				DFE555EF0614059EA2D37D0E /* Pods-PetCareTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B006407B2B4DBE90002A4139 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */,
+				B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		B04BDB362B486FC200592B31 = {
@@ -216,7 +229,7 @@
 		B04BDB782B4B0A6000592B31 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */,
+				B006407B2B4DBE90002A4139 /* CoreData */,
 				B0EB68DB2B4C7DE80078D29D /* Animal.swift */,
 			);
 			path = Models;
@@ -229,6 +242,7 @@
 				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
 				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
 				B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */,
+				B006407E2B4DC144002A4139 /* AnimalsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -526,6 +540,7 @@
 				B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */,
 				B0EB68D62B4C4F920078D29D /* SettingsViewController.swift in Sources */,
 				B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */,
+				B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */,
 				B0EB68D42B4C4F670078D29D /* VetAppointmentViewController.swift in Sources */,
 				B0EB68D22B4C4EA90078D29D /* AnimalsViewController.swift in Sources */,
 				B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */,
@@ -534,6 +549,7 @@
 				B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */,
 				B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */,
 				B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */,
+				B006407F2B4DC144002A4139 /* AnimalsView.swift in Sources */,
 				B0EB68DE2B4C831D0078D29D /* AddAnimalView.swift in Sources */,
 				B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */,
 				B04BDB452B486FC200592B31 /* SceneDelegate.swift in Sources */,
