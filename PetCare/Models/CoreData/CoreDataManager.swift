@@ -11,7 +11,8 @@ import CoreData
 class CoreDataManager {
     static let shared = CoreDataManager()
     
-    private init() {} // Private initializer to ensure it's a singleton
+    // Private initializer to ensure it's a singleton
+    private init() {}
     
     // MARK: - Core Data stack
 
@@ -43,7 +44,7 @@ class CoreDataManager {
     
     func saveAnimal(animal: Animal) {
         let context = persistentContainer.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)! // Replace "AnimalEntity" with your actual entity name
+        let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)!
         
         let animalObject = NSManagedObject(entity: entity, insertInto: context)
         
@@ -53,27 +54,34 @@ class CoreDataManager {
         animalObject.setValue(animal.sexe, forKey: "sexe")
         animalObject.setValue(animal.species?.rawValue, forKey: "species")
         animalObject.setValue(animal.breed, forKey: "breed")
-        // Add other properties accordingly
+        animalObject.setValue(animal.birthdate, forKey: "birthdate")
+        animalObject.setValue(animal.color, forKey: "color")
+        animalObject.setValue(animal.weight, forKey: "weight")
+        animalObject.setValue(animal.comments, forKey: "comments")
+        
+        
+        print(animalObject)
 
-        saveContext() // Save the changes to Core Data
+        // Save the changes to Core Data
+        saveContext()
     }
     
     func fetchAnimals() -> [Animal]? {
-            let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest() // Replace with your actual entity name
-
+            let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
             do {
                 let animalsData = try persistentContainer.viewContext.fetch(request)
+                print(animalsData)
                 let animals = animalsData.map { animalData in
                     return Animal(
                         identifier: animalData.identifier,
                         name: animalData.name,
                         sexe: animalData.sexe,
                         species: Species(rawValue: animalData.species ?? ""),
-                        breed: animalData.breed
-//                        birthDate: animalData.birthdate,
-//                        weight: animalData.weight,
-//                        color: animalData.color,
-//                        comments: animalData.comments,
+                        breed: animalData.breed,
+                        birthdate: animalData.birthdate,
+                        weight: animalData.weight,
+                        color: animalData.color,
+                        comments: animalData.comments
 //                        image: animalData.image
                     )
                 }
@@ -83,4 +91,21 @@ class CoreDataManager {
                 return nil
             }
         }
+    
+    func deleteAnimal(animal: Animal) {
+        let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
+        request.predicate = NSPredicate(format: "identifier == %@", animal.identifier ?? "")
+
+        do {
+            let fetchedAnimals = try persistentContainer.viewContext.fetch(request)
+
+            for fetchedAnimal in fetchedAnimals {
+                persistentContainer.viewContext.delete(fetchedAnimal)
+            }
+
+            saveContext()
+        } catch {
+            print("Error deleting animal: \(error)")
+        }
+    }
 }

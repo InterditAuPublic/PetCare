@@ -49,7 +49,6 @@ class LoadingView: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("stopped")
         stopAnimation()
     }
 }

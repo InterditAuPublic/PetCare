@@ -79,14 +79,13 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate {
             identifier: animalInfo["identifier"] as? String,
             name: name,
             sexe: animalInfo["sexe"] as? String,
-//            sexe: sexe,
             species: species,
             breed: animalInfo["breed"] as? String,
-            birthDate: animalInfo["birthDate"] as? Date,
-            weight: animalInfo["weight"] as? Double,
+            birthdate: animalInfo["birthdate"] as? Date,
+            weight: animalInfo["weight"] as? String,
             color: animalInfo["color"] as? String,
-            comments: animalInfo["comments"] as? String,
-            image: animalInfo["image"] as? String
+            comments: animalInfo["comments"] as? String
+//            image: animalInfo["image"] as? String // Realm convert Image as NSData
         )
 
         // TODO: Save the animal (uncomment the code when CoreDataManager is implemented)

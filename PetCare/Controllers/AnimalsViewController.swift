@@ -63,6 +63,15 @@ extension AnimalsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = animal.name
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let animalToDelete = animals[indexPath.row]
+            CoreDataManager.shared.deleteAnimal(animal: animalToDelete)
+            fetchAnimals() // Refresh the data after deletion
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }
 
 

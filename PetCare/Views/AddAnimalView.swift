@@ -139,7 +139,7 @@ class AddAnimalView: UIScrollView {
             birthDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
         
-        /// Birthsate date picker contraints
+        /// Birthdate date picker contraints
         NSLayoutConstraint.activate([
             birthDatePicker.topAnchor.constraint(equalTo: birthDateLabel.bottomAnchor, constant: 10),
             birthDatePicker.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -456,10 +456,9 @@ class AddAnimalView: UIScrollView {
     }
     
     @objc private func nextButtonTapped() {
-        // Get values from various UI elements
         let identifierValue = identifier.text ?? ""
         let nameValue = nameTextField.text ?? ""
-        // Retrieve the selected species name from the picker
+        let breedValue = breedTextField.text ?? ""
         let selectedSpeciesRow = speciesPicker.selectedRow(inComponent: 0)
         let speciesValue = speciesOptions[selectedSpeciesRow].rawValue
         let sexValue = sexSegmentedControl.selectedSegmentIndex == 0 ? "Mâle" : "Femelle"
@@ -467,19 +466,18 @@ class AddAnimalView: UIScrollView {
         let weightValue = weightTextField.text ?? ""
         let colorValue = colorTextField.text ?? ""
         let commentsValue = commentsTextField.text ?? ""
-        let imageValue = animalImageView.image?.pngData() ?? Data()
 
-        // Create a dictionary or a custom struct to hold the values
+        // Create a dictionary to hold the values
         let animalInfo: [String: Any] = [
             "identifier": identifierValue,
             "name": nameValue,
+            "breed": breedValue,
             "species": speciesValue,
-            "sex": sexValue,
-            "birthDate": birthDateValue,
+            "sexe": sexValue,
+            "birthdate": birthDateValue,
             "weight": weightValue,
             "color": colorValue,
             "comments": commentsValue,
-            "image": imageValue
         ]
 
         // Call the delegate method to pass the information

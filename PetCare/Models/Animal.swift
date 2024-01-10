@@ -15,13 +15,13 @@ struct Animal: Codable {
 //    var sexe: Sexe?
     var species: Species?
     var breed: String?
-    var birthDate: Date?
-    var weight: Double?
-    var height: Double?
+    var birthdate: Date?
+    var weight: String?
+//    var height: Double?
     var color: String?
-    var veterinarianID: Int?
-    var lastVisit: Date?
-    var alergies: String?
+//    var veterinarianID: Int?
+//    var lastVisit: Date?
+//    var alergies: String?
     var comments: String?
     var image: String?
 }
