@@ -43,6 +43,7 @@ class CoreDataManager {
     // MARK: - Animal Management
     
     func saveAnimal(animal: Animal) {
+        guard !checkIfIdentifierExists(identifier: animal.identifier) else { return }
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)!
         
@@ -62,7 +63,6 @@ class CoreDataManager {
         
         print(animalObject)
 
-        // Save the changes to Core Data
         saveContext()
     }
     
@@ -82,7 +82,6 @@ class CoreDataManager {
                         weight: animalData.weight,
                         color: animalData.color,
                         comments: animalData.comments
-//                        image: animalData.image
                     )
                 }
                 return animals
@@ -91,6 +90,34 @@ class CoreDataManager {
                 return nil
             }
         }
+
+    func updateAnimal(animal: Animal) {
+        
+        print("in update")
+        
+        // Fetch the existing animal from Core Data based on its identifier
+        let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
+        request.predicate = NSPredicate(format: "identifier == %@", animal.identifier ?? "")
+        
+        do {
+            let existingAnimals = try persistentContainer.viewContext.fetch(request)
+            
+            if let existingAnimal = existingAnimals.first {
+                existingAnimal.name = animal.name
+                existingAnimal.species = animal.species?.rawValue
+                existingAnimal.breed = animal.breed
+                existingAnimal.birthdate = animal.birthdate
+                existingAnimal.weight = animal.weight
+                existingAnimal.color = animal.color
+                existingAnimal.comments = animal.comments
+
+                // Save the context
+                saveContext()
+            }
+        } catch {
+            print("Error updating animal: \(error)")
+        }
+    }
     
     func deleteAnimal(animal: Animal) {
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
@@ -106,6 +133,19 @@ class CoreDataManager {
             saveContext()
         } catch {
             print("Error deleting animal: \(error)")
+        }
+    }
+
+    func checkIfIdentifierExists(identifier: String?) -> Bool {
+        let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
+        request.predicate = NSPredicate(format: "identifier == %@", identifier ?? "")
+
+        do {
+            let fetchedAnimals = try persistentContainer.viewContext.fetch(request)
+            return fetchedAnimals.count > 0
+        } catch {
+            print("Error checking if identifier exists: \(error)")
+            return false
         }
     }
 }

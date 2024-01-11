@@ -18,6 +18,7 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         configureNavigationBar()
         setupUI()
     }
@@ -25,12 +26,11 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate {
     // MARK: - UI Setup
     
     private func configureNavigationBar() {
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
-        navigationController?.navigationBar.tintColor = .orange
+//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
+//        navigationController?.navigationBar.tintColor = .orange
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
         setupAddAnimalView()
     }
     

@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
 
     private func configureAndShowAnimationView() {
         animationView = LoadingView()
-        animationView?.modalPresentationStyle = .fullScreen
+animationView?.modalPresentationStyle = .fullScreen
         present(animationView!, animated: true) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.hideAnimationViewAndLoadMainView()

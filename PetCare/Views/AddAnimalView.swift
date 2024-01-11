@@ -559,3 +559,6 @@ protocol AddAnimalDelegate {
     func selectedSpecies(name: String, species: Species)
     func nextButtonTapped(with animalInfo: [String: Any])
 }
+
+
+
