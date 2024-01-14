@@ -6,14 +6,15 @@
 //
 import UIKit
 
-class AnimalsViewController: UIViewController, NoAnimalsDelegate {
+class AnimalsViewController: UIViewController, NoAnimalsDelegate{
+
+    
     
     var animals : [Animal] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-//        navigationController?.navigationBar.prefersLargeTitles = true
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         addButton.tintColor = .orange
@@ -103,7 +104,6 @@ extension AnimalsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension AnimalsViewController {
     @objc func didTapAddButton() {
-        
         self.navigationController?.pushViewController(AddAnimalViewController(), animated: true)
     }
 }

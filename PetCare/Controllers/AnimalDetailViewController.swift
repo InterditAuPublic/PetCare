@@ -1,62 +1,74 @@
-// AnimalDetailViewController.swift
-
 import UIKit
 
 class AnimalDetailViewController: UIViewController {
-    
+
     var animalDetailView: AnimalDetailView?
     var selectedAnimal: Animal?
-    
+
     init(selectedAnimal: Animal) {
-        // Initialize 'selectedAnimal' before calling super.init()
         self.selectedAnimal = selectedAnimal
         super.init(nibName: nil, bundle: nil)
-        // Initialize any additional configurations or dependencies here
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
-        
-        // Example: Set up AnimalDetailView
-        animalDetailView = AnimalDetailView(selectedAnimal: selectedAnimal ?? Animal())
+
+        animalDetailView = AnimalDetailView(animal: selectedAnimal)
         guard let animalDetailView = animalDetailView else { return }
-        
-        // Add AnimalDetailView as a subview
+
         view.addSubview(animalDetailView)
         animalDetailView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Set up constraints for AnimalDetailView
+
         NSLayoutConstraint.activate([
             animalDetailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             animalDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             animalDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             animalDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-//        animalDetailView.animalForm?.loadAnimalDetails(animal: selectedAnimal)
-        animalDetailView.animalForm?.animal = selectedAnimal
-        
-        // Add Save button to rightBarButtonItem
+
+        animalDetailView.animalForm?.delegate = self
+
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem = saveButton
     }
-    
+
     @objc private func saveButtonTapped() {
-        // Example: Retrieve form values from AnimalForm
-        print("in save Detail")
+        guard let animalForm = animalDetailView?.animalForm else { return }
+        let formFields = animalForm.getFormFields()
 
-        let formValues = animalDetailView?.animalForm?.getFormValues() ?? [:]
-        print("Form values: \(formValues)")
+//        for field in formFields {
+//            let updatedValue = field.value
+//            let fieldLabel = field.labelText
+//
+//            // You can handle the updated values and fields accordingly
+//            print("VC Updated value for \(fieldLabel): \(updatedValue ?? "")")
+//        }
 
-        // Example: Save form values to Core Data
-        CoreDataManager.shared.saveAnimal(animal: selectedAnimal ?? Animal())
+        var animal = Animal()
+        animal.identifier = formFields[0].value as? String
+        animal.name = formFields[1].value as? String
+        animal.breed = formFields[2].value as? String
+        animal.birthdate = formFields[3].value as? Date
+        animal.weight = formFields[4].value as? String
+        animal.color = formFields[5].value as? String
+        
+        print("NEW ANIMAL \(animal)")
         
 
+
+      // save the animal to the database
+      CoreDataManager.shared.updateAnimal(animal: animal)
+    }
+
+}
+
+extension AnimalDetailViewController: FormDelegate {
+    func formDidUpdateValue(_ value: Any?, forField field: FormField) {
+        print("upadtaed")
     }
 }

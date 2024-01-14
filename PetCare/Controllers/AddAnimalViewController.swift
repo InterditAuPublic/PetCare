@@ -106,6 +106,7 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate {
 
     // TODO:  implement this method when CoreDataManager is implemented
     private func saveAnimalToCoreData(_ animal: Animal) {
+        
         CoreDataManager.shared.saveAnimal(animal: animal)
         print("Animal saved to Core Data")
     }

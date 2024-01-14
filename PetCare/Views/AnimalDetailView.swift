@@ -1,33 +1,24 @@
-// AnimalDetailView.swift
-
 import UIKit
 
 class AnimalDetailView: UIScrollView {
-    
-    // MARK: - Properties
+
     var animalForm: AnimalForm?
-    var selectedAnimal: Animal
-    
-    // MARK: - Initializers
-    init(selectedAnimal: Animal) {
-        self.selectedAnimal = selectedAnimal
+
+    init(animal: Animal?) {
         super.init(frame: .zero)
+        animalForm = AnimalForm(animal: animal)
+
         setupUI()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    // MARK: - UI Configuration
+
     private func setupUI() {
-        // Create an instance of AnimalForm
-        animalForm = AnimalForm(frame: frame, animal: selectedAnimal)
         guard let animalForm = animalForm else { return }
-        
-        // Add AnimalForm as a subview
         addSubview(animalForm)
+        
         // Venter the form in the scroll view
         animalForm.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
@@ -40,15 +31,6 @@ class AnimalDetailView: UIScrollView {
         ])
         
         animalForm.translatesAutoresizingMaskIntoConstraints = false
-        
-        
     }
-    
-    // MARK: - Actions
-    
-    @objc private func saveButtonTapped() {
-        // Access form values from AnimalForm
-        let formValues = animalForm?.getFormValues() ?? [:]
-        print("Form values: \(formValues)")
-    }
+
 }

@@ -17,7 +17,7 @@ class CoreDataManager {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "PetCare") // Replace "PetCare" with your actual Core Data model name
+        let container = NSPersistentContainer(name: "PetCare")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -92,13 +92,14 @@ class CoreDataManager {
         }
 
     func updateAnimal(animal: Animal) {
+        print("In update CoreData")
         
-        print("in update")
-        
-        // Fetch the existing animal from Core Data based on its identifier
+        print(animal)
+//
+//        // Fetch the existing animal from Core Data based on its identifier
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
         request.predicate = NSPredicate(format: "identifier == %@", animal.identifier ?? "")
-        
+//        
         do {
             let existingAnimals = try persistentContainer.viewContext.fetch(request)
             
