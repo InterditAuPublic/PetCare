@@ -41,13 +41,13 @@ class AnimalDetailViewController: UIViewController {
         guard let animalForm = animalDetailView?.animalForm else { return }
         let formFields = animalForm.getFormFields()
 
-//        for field in formFields {
-//            let updatedValue = field.value
-//            let fieldLabel = field.labelText
-//
-//            // You can handle the updated values and fields accordingly
-//            print("VC Updated value for \(fieldLabel): \(updatedValue ?? "")")
-//        }
+       for field in formFields {
+           let updatedValue = field.value
+           let fieldLabel = field.labelText
+
+           // You can handle the updated values and fields accordingly
+           print("VC Updated value for \(fieldLabel): \(updatedValue ?? "")")
+       }
 
         var animal = Animal()
         animal.identifier = formFields[0].value as? String
@@ -56,10 +56,6 @@ class AnimalDetailViewController: UIViewController {
         animal.birthdate = formFields[3].value as? Date
         animal.weight = formFields[4].value as? String
         animal.color = formFields[5].value as? String
-        
-        print("NEW ANIMAL \(animal)")
-        
-
 
       // save the animal to the database
       CoreDataManager.shared.updateAnimal(animal: animal)
@@ -69,6 +65,8 @@ class AnimalDetailViewController: UIViewController {
 
 extension AnimalDetailViewController: FormDelegate {
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        print("upadtaed")
+        // change the value of the animal 
+        print("In update")
+     // update the animal in the database
     }
 }

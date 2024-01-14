@@ -1,23 +1,23 @@
 import UIKit
 
 class AnimalForm: FormView, FormDelegate {
-
-
+    
+    
     var animal: Animal?
-
+    
     init(animal: Animal?) {
         super.init(formFields: [])
         self.animal = animal
         setupForm()
     }
-
+    
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
     private func setupForm() {
         // Create form fields for the AnimalForm
-        let imageField = ImageFormField()
+        let imageField = ImageFormField(value: "animal_default_image")
         let identifierField = TextFormField(labelText: "Identifier", placeholder: "Enter identifier", value: animal?.identifier)
         let nameField = TextFormField(labelText: "Name", placeholder: "Enter name", value: animal?.name)
         let genderField = SegmentFormField(labelText: "Gender", placeholder: "Male", segments: ["Male", "Female"])
@@ -26,7 +26,7 @@ class AnimalForm: FormView, FormDelegate {
         let weightField = TextFormField(labelText: "Weight", placeholder: "Enter weight", value: animal?.weight)
         let colorField = TextFormField(labelText: "Color", placeholder: "Enter color", value: animal?.color)
         let commentsFields = TextFormField(labelText: "Comments", placeholder: "Comments", value: animal?.comments)
-
+        
         // Add the form fields to the AnimalForm
         addFormField(imageField)
         addFormField(identifierField)
@@ -41,31 +41,31 @@ class AnimalForm: FormView, FormDelegate {
     }
     
     func getFormFields() -> [FormField] {
-            return formFields
-        }
+        return formFields
+    }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
         print("In update")
         // Handle the form field update
-            if let textValue = value as? String {
-                switch field.labelText {
-                case "Identifier":
-                    animal?.identifier = textValue
-                case "Name":
-                    animal?.name = textValue
-                case "Breed":
-                    animal?.breed = textValue
-                case "Weight":
-                    animal?.weight = textValue
-                case "Color":
-                    animal?.color = textValue
-                default:
-                    break
-                }
-            } else if let dateValue = value as? Date {
-                if field.labelText == "Birth Date" {
-                    animal?.birthdate = dateValue
-                }
+        if let textValue = value as? String {
+            switch field.labelText {
+            case "Identifier":
+                animal?.identifier = textValue
+            case "Name":
+                animal?.name = textValue
+            case "Breed":
+                animal?.breed = textValue
+            case "Weight":
+                animal?.weight = textValue
+            case "Color":
+                animal?.color = textValue
+            default:
+                break
+            }
+        } else if let dateValue = value as? Date {
+            if field.labelText == "Birth Date" {
+                animal?.birthdate = dateValue
             }
         }
+    }
 }

@@ -147,17 +147,23 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
     }
     
     private func createImageView(for formField: FormField) -> UIImageView {
+
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = formField.value as? UIImage ?? UIImage(systemName: "person.crop.circle.badge.plus")
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.image = UIImage(named: "animal_default_image")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 75
         imageView.clipsToBounds = true
         imageView.tintColor = .orange
+        imageView.backgroundColor = .orange
+        imageView.contentMode = .scaleAspectFit
+        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+       
         imageView.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
+        imageView.addGestureRecognizer(tapGesture)
+        
         return imageView
     }
     
@@ -189,8 +195,6 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
     }
     
     @objc private func imageViewTapped(_ sender: UITapGestureRecognizer) {
-        print("Tapped")
-        
         let imagePicker = UIImagePickerController()
         
         imagePicker.sourceType = .photoLibrary
@@ -201,14 +205,39 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
         if let viewController = findViewController() {
             viewController.present(imagePicker, animated: true, completion: nil)
         }
-                
-        guard let index = formFields.firstIndex(where: { $0 is ImageFormField }) else {
-            return
-        }
-    
-        if let imageFormField = formFields[index] as? ImageFormField {
-            print(sender)
-            delegate?.formDidUpdateValue(sender, forField: imageFormField)
-        }
     }
+
+    // UIImagePickerControllerDelegate method to handle image selection
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        // Get the selected image from the info dictionary
+        if let pickedImage = info[.editedImage] as? UIImage {
+            // Save the index of the ImageFormField for later reference
+            guard let index = formFields.firstIndex(where: { $0 is ImageFormField }) else {
+                return
+            }
+
+            // Create a mutable copy of the ImageFormField
+            var updatedImageFormField = formFields[index] as! ImageFormField
+            // Update the value of the ImageFormField with the selected image
+            updatedImageFormField.value = pickedImage
+
+            // Replace the old ImageFormField with the updated one in the formFields array
+            formFields[index] = updatedImageFormField
+
+            // Notify the delegate about the update
+            delegate?.formDidUpdateValue(pickedImage, forField: updatedImageFormField)
+
+            // Update the corresponding UIImageView in the UI
+            for subview in arrangedSubviews {
+                if let imageView = subview.subviews.compactMap({ $0 as? UIImageView }).first {
+                    imageView.image = pickedImage
+                }
+            }
+        }
+
+        // Dismiss the image picker
+        picker.dismiss(animated: true, completion: nil)
+    }
+
 }
+

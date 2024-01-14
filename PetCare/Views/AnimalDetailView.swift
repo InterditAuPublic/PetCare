@@ -7,7 +7,6 @@ class AnimalDetailView: UIScrollView {
     init(animal: Animal?) {
         super.init(frame: .zero)
         animalForm = AnimalForm(animal: animal)
-
         setupUI()
     }
 
@@ -27,7 +26,7 @@ class AnimalDetailView: UIScrollView {
             animalForm.topAnchor.constraint(equalTo: topAnchor),
             animalForm.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             animalForm.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            animalForm.bottomAnchor.constraint(equalTo: bottomAnchor)
+            animalForm.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100)
         ])
         
         animalForm.translatesAutoresizingMaskIntoConstraints = false

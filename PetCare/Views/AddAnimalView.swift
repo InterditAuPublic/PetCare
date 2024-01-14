@@ -261,7 +261,7 @@ class AddAnimalView: UIScrollView {
 
     lazy var animalImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.crop.circle.badge.plus")
+        imageView.image = UIImage(named: "animal_default_image")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 75
         imageView.clipsToBounds = true
