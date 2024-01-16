@@ -164,8 +164,9 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func createSegmentedControl(for formField: FormField) -> UISegmentedControl {
-        let segmentedControl = UISegmentedControl(items: (formField.value as? [String]) ?? [])
-        segmentedControl.selectedSegmentIndex = formField.selected as? Int ?? 0
+        let segmentedControl = UISegmentedControl(items: formField.values as? [String] ?? [])
+        segmentedControl.tintColor = .orange
+        segmentedControl.selectedSegmentIndex == 0 ? true : false
         segmentedControl.addTarget(self, action: #selector(segmentedControlDidChange(_:)), for: .valueChanged)
         return segmentedControl
     }
@@ -238,7 +239,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         guard let index = formFields.firstIndex(where: { ($0 as? SegmentFormField)?.placeholder == nil }) else {
             return
         }
-        formFields[index].selected = sender.titleForSegment(at: sender.selectedSegmentIndex)
+        formFields[index].value = sender.titleForSegment(at: sender.selectedSegmentIndex)
         delegate?.formDidUpdateValue(sender.titleForSegment(at: sender.selectedSegmentIndex), forField: formFields[index])
     }
     

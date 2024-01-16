@@ -94,7 +94,7 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate
         var animal = Animal()
         animal.image = formFields[0].value as? String
         animal.identifier = formFields[1].value as? String
-        animal.sexe = formFields[4].value as? Int64
+        animal.sexe = formFields[4].value as? Bool
         animal.breed = formFields[5].value as? String
         animal.birthdate = formFields[6].value as? Date
         animal.weight = formFields[7].value as? String

@@ -7,7 +7,7 @@
         <attribute name="comments" optional="YES" attributeType="String"/>
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="sexe" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sexe" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="species" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
     </entity>

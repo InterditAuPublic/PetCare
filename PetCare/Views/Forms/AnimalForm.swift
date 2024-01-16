@@ -26,7 +26,7 @@ class AnimalForm: FormView, FormDelegate {
         let identifierField = TextFormField(labelText: "Identifier", placeholder: "Enter identifier", value: animal?.identifier)
         let nameField = TextFormField(labelText: "Name", placeholder: "Enter name", value: animal?.name)
         let species = PickerFormField(values: Species.allSpecies, labelText: "Species", value:animal?.species)
-        let genderField = SegmentFormField(labelText: "Gender", value: ["Male", "Female"], selected: Int(animal?.sexe ?? 0))
+        let genderField = SegmentFormField(labelText: "Gender", value: true, values: ["Male", "Female"])
         let breedField = TextFormField(labelText: "Breed", placeholder: "Enter breed", value: animal?.breed)
         let birthDateField = DateFormField(labelText: "Birth Date", placeholder: "Select birth date", value: animal?.birthdate)
         let weightField = TextFormField(labelText: "Weight", placeholder: "Enter weight", value: animal?.weight)
@@ -74,7 +74,7 @@ class AnimalForm: FormView, FormDelegate {
             if field.labelText == "Birth Date" {
                 animal?.birthdate = dateValue
             }
-        } else if let selectedValue = value as? Int64 {
+        } else if let selectedValue = value as? Bool {
             if field.labelText == "Sexe" {
                 print("sex")
                 animal?.sexe = selectedValue

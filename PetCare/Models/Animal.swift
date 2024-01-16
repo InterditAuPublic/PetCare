@@ -11,7 +11,7 @@ struct Animal: Codable {
     var id: Int?
     var identifier: String? // I-CAD number
     var name: String?
-    var sexe: Int64?
+    var sexe: Bool?
 //    var sexe: Sexe?
     var species: Species?
     var breed: String?
