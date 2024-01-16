@@ -43,6 +43,8 @@ class CoreDataManager {
     // MARK: - Animal Management
     
     func saveAnimal(animal: Animal) {
+        print("DANS CORE DATA \(animal)")
+        
         guard !checkIfIdentifierExists(identifier: animal.identifier) else { return }
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)!

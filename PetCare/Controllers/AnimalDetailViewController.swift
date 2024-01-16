@@ -46,17 +46,28 @@ class AnimalDetailViewController: UIViewController {
            let fieldLabel = field.labelText
 
            // You can handle the updated values and fields accordingly
-           print("VC Updated value for \(fieldLabel): \(updatedValue ?? "")")
+           print("ADVC Updated value for \(fieldLabel): \(updatedValue ?? "")")
        }
+        
+        guard let speciesRawValue = formFields[3].value as? String,
+              let species = Species(rawValue: speciesRawValue) else {
+//            showAlert(message: "Vous devez sélectionner une espèce pour votre animal")
+            return
+        }
 
         var animal = Animal()
-        animal.identifier = formFields[0].value as? String
-        animal.name = formFields[1].value as? String
-        animal.breed = formFields[2].value as? String
-        animal.birthdate = formFields[3].value as? Date
-        animal.weight = formFields[4].value as? String
-        animal.color = formFields[5].value as? String
-
+        animal.image = formFields[0].value as? String
+        animal.identifier = formFields[1].value as? String
+        animal.name = formFields[2].value as? String
+        animal.sexe = formFields[4].value as? Int64
+        animal.breed = formFields[5].value as? String
+        animal.birthdate = formFields[6].value as? Date
+        animal.weight = formFields[7].value as? String
+        animal.color = formFields[8].value as? String
+        animal.comments = formFields[9].value as? String
+        
+        animal.species = species
+        
       // save the animal to the database
       CoreDataManager.shared.updateAnimal(animal: animal)
     }

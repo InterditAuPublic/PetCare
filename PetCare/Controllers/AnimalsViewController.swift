@@ -8,8 +8,6 @@ import UIKit
 
 class AnimalsViewController: UIViewController, NoAnimalsDelegate{
 
-    
-    
     var animals : [Animal] = []
     
     override func viewDidLoad() {

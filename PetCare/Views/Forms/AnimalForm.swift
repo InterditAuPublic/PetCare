@@ -4,11 +4,16 @@ class AnimalForm: FormView, FormDelegate {
     
     
     var animal: Animal?
+    let speciesOptions: [Species] = Species.allSpecies
+    
+
+  
     
     init(animal: Animal?) {
         super.init(formFields: [])
         self.animal = animal
         setupForm()
+        print(speciesOptions)
     }
     
     required init(coder: NSCoder) {
@@ -20,7 +25,8 @@ class AnimalForm: FormView, FormDelegate {
         let imageField = ImageFormField(value: "animal_default_image")
         let identifierField = TextFormField(labelText: "Identifier", placeholder: "Enter identifier", value: animal?.identifier)
         let nameField = TextFormField(labelText: "Name", placeholder: "Enter name", value: animal?.name)
-        let genderField = SegmentFormField(labelText: "Gender", placeholder: "Male", segments: ["Male", "Female"])
+        let species = PickerFormField(values: Species.allSpecies, labelText: "Species", value:animal?.species)
+        let genderField = SegmentFormField(labelText: "Gender", value: ["Male", "Female"], selected: Int(animal?.sexe ?? 0))
         let breedField = TextFormField(labelText: "Breed", placeholder: "Enter breed", value: animal?.breed)
         let birthDateField = DateFormField(labelText: "Birth Date", placeholder: "Select birth date", value: animal?.birthdate)
         let weightField = TextFormField(labelText: "Weight", placeholder: "Enter weight", value: animal?.weight)
@@ -31,12 +37,14 @@ class AnimalForm: FormView, FormDelegate {
         addFormField(imageField)
         addFormField(identifierField)
         addFormField(nameField)
+        addFormField(species)
         addFormField(genderField)
         addFormField(breedField)
         addFormField(birthDateField)
         addFormField(weightField)
         addFormField(colorField)
         addFormField(commentsFields)
+        
         delegate = self
     }
     
@@ -66,6 +74,17 @@ class AnimalForm: FormView, FormDelegate {
             if field.labelText == "Birth Date" {
                 animal?.birthdate = dateValue
             }
+        } else if let selectedValue = value as? Int64 {
+            if field.labelText == "Sexe" {
+                print("sex")
+                animal?.sexe = selectedValue
+            }
+        } else if let selectedValue = value as? Species {
+            if field.labelText == "Species" {
+                print("sepcies")
+                animal?.species = selectedValue
+            }
         }
     }
 }
+

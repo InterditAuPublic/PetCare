@@ -11,7 +11,7 @@ struct Animal: Codable {
     var id: Int?
     var identifier: String? // I-CAD number
     var name: String?
-    var sexe: String?
+    var sexe: Int64?
 //    var sexe: Sexe?
     var species: Species?
     var breed: String?
@@ -47,13 +47,3 @@ enum Species: String, CaseIterable, Codable {
         return self.allCases
     }
 }
-
-
-//enum Sexe: String, CaseIterable, Codable {
-//    case male = "Male"
-//    case female = "Female"
-//
-//    static var allSexe: [Sexe] {
-//        return self.allCases
-//    }
-//}

@@ -5,12 +5,14 @@ protocol FormField {
     var labelText: String? { get set }
     var placeholder: String? { get set }
     var value: Any? { get set }
+    var values: Any? { get set }
+    var selected: Any? { get set}
     var inputViewType: InputViewType { get }
 }
 
 // Define an enum for input view types
 enum InputViewType {
-    case text, date, segment, image
+    case text, date, segment, image, picker
 }
 
 // Define a protocol for the form itself
@@ -20,17 +22,24 @@ protocol FormDelegate: AnyObject {
 
 // Implement a basic text form field conforming to FormField
 struct TextFormField: FormField {
+    
+    
+    var selected: Any?
     var labelText: String?
     var placeholder: String?
     var value: Any?
+    var values: Any?
     var inputViewType: InputViewType = .text
 }
 
 // Implement a date form field conforming to FormField
 struct DateFormField: FormField {
+    var selected: Any?
+    
     var labelText: String?
     var placeholder: String?
     var value: Any?
+    var values: Any?
     var inputViewType: InputViewType = .date
 }
 
@@ -39,20 +48,33 @@ struct SegmentFormField: FormField {
     var labelText: String?
     var placeholder: String?
     var value: Any?
-    var segments: [String]
+    var selected: Any?
+    var values: Any?
     var inputViewType: InputViewType = .segment
 }
 
 // Implement an image form field conforming to FormField
 struct ImageFormField: FormField {
+    var selected: Any?
+    
     var labelText: String?
     var placeholder: String?
     var value: Any?
+    var values: Any?
     var inputViewType: InputViewType = .image
 }
 
+struct PickerFormField: FormField {
+    var selected: Any?
+    var values: Any?
+    var labelText: String?
+    var placeholder: String?
+    var value: Any?
+    var inputViewType: InputViewType = .picker
+}
+
 // Implement the main Form class
-class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     weak var delegate: FormDelegate?
     
@@ -115,6 +137,8 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
             return createSegmentedControl(for: formField)
         case .image:
             return createImageView(for: formField)
+        case .picker:
+            return createPickerView(for: formField)
         }
     }
     
@@ -141,13 +165,13 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
     
     private func createSegmentedControl(for formField: FormField) -> UISegmentedControl {
         let segmentedControl = UISegmentedControl(items: (formField.value as? [String]) ?? [])
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentIndex = formField.selected as? Int ?? 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlDidChange(_:)), for: .valueChanged)
         return segmentedControl
     }
     
     private func createImageView(for formField: FormField) -> UIImageView {
-
+        
         let imageView = UIImageView()
         imageView.image = UIImage(named: "animal_default_image")
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -158,13 +182,37 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
         imageView.contentMode = .scaleAspectFit
         imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-       
+        
+        
         imageView.isUserInteractionEnabled = true
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
         imageView.addGestureRecognizer(tapGesture)
         
         return imageView
+    }
+    
+    private func createPickerView(for formField: FormField) -> UIPickerView {
+        let pickerView = UIPickerView()
+        pickerView.tintColor = .orange
+        pickerView.dataSource = self
+        pickerView.delegate = self
+
+        // Set the default value for the picker view
+        var selected = 0
+        if let value = formField.value as? Int {
+            selected = value
+            print("Selected INT: \(selected)")
+        }
+        if let values = formField.value as? Species {
+            print("Values: \(values)")
+            selected = Species.allCases.firstIndex(of: values) ?? 1
+            print("Selected: \(selected)")
+        }
+
+        pickerView.selectRow(selected, inComponent: 0, animated: true)
+        
+        return pickerView
     }
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
@@ -190,7 +238,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
         guard let index = formFields.firstIndex(where: { ($0 as? SegmentFormField)?.placeholder == nil }) else {
             return
         }
-        formFields[index].value = sender.titleForSegment(at: sender.selectedSegmentIndex)
+        formFields[index].selected = sender.titleForSegment(at: sender.selectedSegmentIndex)
         delegate?.formDidUpdateValue(sender.titleForSegment(at: sender.selectedSegmentIndex), forField: formFields[index])
     }
     
@@ -206,7 +254,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
             viewController.present(imagePicker, animated: true, completion: nil)
         }
     }
-
+    
     // UIImagePickerControllerDelegate method to handle image selection
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Get the selected image from the info dictionary
@@ -215,18 +263,18 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
             guard let index = formFields.firstIndex(where: { $0 is ImageFormField }) else {
                 return
             }
-
+            
             // Create a mutable copy of the ImageFormField
             var updatedImageFormField = formFields[index] as! ImageFormField
             // Update the value of the ImageFormField with the selected image
             updatedImageFormField.value = pickedImage
-
+            
             // Replace the old ImageFormField with the updated one in the formFields array
             formFields[index] = updatedImageFormField
-
+            
             // Notify the delegate about the update
             delegate?.formDidUpdateValue(pickedImage, forField: updatedImageFormField)
-
+            
             // Update the corresponding UIImageView in the UI
             for subview in arrangedSubviews {
                 if let imageView = subview.subviews.compactMap({ $0 as? UIImageView }).first {
@@ -234,10 +282,123 @@ class FormView: UIStackView, UIImagePickerControllerDelegate & UINavigationContr
                 }
             }
         }
-
+        
         // Dismiss the image picker
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func pickerViewDidChange(_ sender: UIPickerView) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return
+        }
+        
+        if let pickerFormField = formFields[index] as? PickerFormField {
+            formFields[index].value = sender.selectedRow(inComponent: 0)
+            delegate?.formDidUpdateValue(sender.selectedRow(inComponent: 0), forField: pickerFormField)
+        }
+    }
+    
+    // MARK: - UIPickerViewDataSource
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1 // Assuming a single column for simplicity, adjust as needed
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return 0
+        }
+        
+        if let pickerFormField = formFields[index] as? PickerFormField,
+                   let values = pickerFormField.values as? [Species] {
+                    return values.count
+                }
+        return 0
+    }
+    
+    // MARK: - UIPickerViewDelegate
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return nil
+        }
+        if let pickerFormField = formFields[index] as? PickerFormField,
+           let values = pickerFormField.values as? [Species] {
+                    return "\(values[row].rawValue)"
+                }
+        return nil
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return
+        }
+        
+        if var pickerFormField = formFields[index] as? PickerFormField {
 
+            if let values = pickerFormField.values as? [Species] {
+                pickerFormField.value = values[row].rawValue
+            }
+
+            formFields[index] = pickerFormField
+
+            delegate?.formDidUpdateValue(row, forField: pickerFormField)
+
+            
+            
+            
+        }
+        
+    }
+    
+    // MARK: - UIPickerViewDataSource
+    
+    //extension FormView: UIPickerViewDataSource {
+    //
+    //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    //        return 1 // Assuming a single column for simplicity, adjust as needed
+    //    }
+    //
+    //    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+    //            return 0
+    //        }
+    //
+    //        if let pickerFormField = formFields[index] as? PickerFormField,
+    //           let values = pickerFormField.values as? [Any] {
+    //            return values.count
+    //        }
+    //        return 0
+    //    }
+    //}
+    //
+    //// MARK: - UIPickerViewDelegate
+    //
+    //extension FormView: UIPickerViewDelegate {
+    //
+    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+    //            return nil
+    //        }
+    //
+    //
+    //           if let pickerFormField = formFields[index] as? PickerFormField,
+    //           let speciesArray = pickerFormField.values as? [Species] {
+    //            return speciesArray[row].rawValue
+    //        }
+    //        return nil
+    //    }
+    //
+    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+    //            return
+    //        }
+    //
+    //        if var pickerFormField = formFields[index] as? PickerFormField {
+    //            pickerFormField.value = Species.allSpecies
+    //        }
+    //    }
+    //}
+    
 }
 
