@@ -56,7 +56,6 @@ struct SegmentFormField: FormField {
 // Implement an image form field conforming to FormField
 struct ImageFormField: FormField {
     var selected: Any?
-    
     var labelText: String?
     var placeholder: String?
     var value: Any?
@@ -74,7 +73,7 @@ struct PickerFormField: FormField {
 }
 
 // Implement the main Form class
-class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     weak var delegate: FormDelegate?
     
@@ -109,10 +108,13 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     private func addFormFieldView(for formField: FormField) {
         let formFieldView = UIStackView()
         formFieldView.axis = .vertical
+        
         formFieldView.spacing = 5
         
         let bottomSpacing = UIView()
         bottomSpacing.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        
+        
         formFieldView.addArrangedSubview(bottomSpacing)
         
         let label = UILabel()
@@ -166,7 +168,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     private func createSegmentedControl(for formField: FormField) -> UISegmentedControl {
         let segmentedControl = UISegmentedControl(items: formField.values as? [String] ?? [])
         segmentedControl.tintColor = .orange
-        segmentedControl.selectedSegmentIndex == 0 ? true : false
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlDidChange(_:)), for: .valueChanged)
         return segmentedControl
     }
@@ -181,12 +183,9 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         imageView.tintColor = .orange
         imageView.backgroundColor = .orange
         imageView.contentMode = .scaleAspectFit
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        
         imageView.isUserInteractionEnabled = true
-        
+        imageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
         imageView.addGestureRecognizer(tapGesture)
         
@@ -199,22 +198,51 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         pickerView.dataSource = self
         pickerView.delegate = self
 
-        // Set the default value for the picker view
-        var selected = 0
-        if let value = formField.value as? Int {
-            selected = value
-            print("Selected INT: \(selected)")
-        }
-        if let values = formField.value as? Species {
-            print("Values: \(values)")
-            selected = Species.allCases.firstIndex(of: values) ?? 1
-            print("Selected: \(selected)")
-        }
+        // formField.value example: Optional(PetCare.Species.other)
 
-        pickerView.selectRow(selected, inComponent: 0, animated: true)
+        // set the selected row in the picker view based on the value in the picker form field
+//        setPickerViewSelectedRow(for: formField)
+        setupPickerViewDefault(for: formField)
         
         return pickerView
     }
+    
+    private func setupPickerViewDefault(for formField: FormField) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
+              var pickerFormField = formFields[index] as? PickerFormField,
+              let values = pickerFormField.values as? [Species] else {
+            return
+        }
+        
+        pickerFormField.value = values.first?.rawValue
+        formFields[index] = pickerFormField
+    }
+
+    private func setupPickerViewSelectedRow(for formField: FormField) {
+        print("setupPickerViewSelectedRow")
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
+              var pickerFormField = formFields[index] as? PickerFormField,
+
+              let values = pickerFormField.values as? [Species] else {
+                print("return")
+            return
+        }
+
+        print("values : \(values)")
+        if let value = pickerFormField.value as? String,
+           let selectedRow = values.firstIndex(where: { $0.rawValue == value }) {
+            print("selectedRow : \(selectedRow)")
+            print("pickerFormField : \(pickerFormField)")
+            print("pickerFormField.value : \(pickerFormField.value)")
+
+            pickerFormField.value = selectedRow
+            formFields[index] = pickerFormField
+        }
+
+
+    }
+
+
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
         guard let index = formFields.firstIndex(where: { ($0 as? TextFormField)?.placeholder == sender.placeholder }) else {
@@ -288,73 +316,18 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         picker.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func pickerViewDidChange(_ sender: UIPickerView) {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return
-        }
-        
-        if let pickerFormField = formFields[index] as? PickerFormField {
-            formFields[index].value = sender.selectedRow(inComponent: 0)
-            delegate?.formDidUpdateValue(sender.selectedRow(inComponent: 0), forField: pickerFormField)
-        }
-    }
-    
-    // MARK: - UIPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1 // Assuming a single column for simplicity, adjust as needed
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return 0
-        }
-        
-        if let pickerFormField = formFields[index] as? PickerFormField,
-                   let values = pickerFormField.values as? [Species] {
-                    return values.count
-                }
-        return 0
-    }
-    
-    // MARK: - UIPickerViewDelegate
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return nil
-        }
-        if let pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [Species] {
-                    return "\(values[row].rawValue)"
-                }
-        return nil
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return
-        }
-        
-        if var pickerFormField = formFields[index] as? PickerFormField {
-
-            if let values = pickerFormField.values as? [Species] {
-                pickerFormField.value = values[row].rawValue
-            }
-
-            formFields[index] = pickerFormField
-
-            delegate?.formDidUpdateValue(row, forField: pickerFormField)
-
-            
-            
-            
-        }
-        
-    }
-    
-    // MARK: - UIPickerViewDataSource
-    
-    //extension FormView: UIPickerViewDataSource {
+    //    @objc private func pickerViewDidChange(_ sender: UIPickerView) {
+    //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+    //            return
+    //        }
+    //
+    //        if let pickerFormField = formFields[index] as? PickerFormField {
+    //            formFields[index].value = sender.selectedRow(inComponent: 0)
+    //            delegate?.formDidUpdateValue(sender.selectedRow(inComponent: 0), forField: pickerFormField)
+    //        }
+    //    }
+    //
+    //    // MARK: - UIPickerViewDataSource
     //
     //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
     //        return 1 // Assuming a single column for simplicity, adjust as needed
@@ -366,27 +339,22 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     //        }
     //
     //        if let pickerFormField = formFields[index] as? PickerFormField,
-    //           let values = pickerFormField.values as? [Any] {
-    //            return values.count
-    //        }
+    //                   let values = pickerFormField.values as? [Species] {
+    //                    return values.count
+    //                }
     //        return 0
     //    }
-    //}
     //
-    //// MARK: - UIPickerViewDelegate
-    //
-    //extension FormView: UIPickerViewDelegate {
+    // MARK: - UIPickerViewDelegate
     //
     //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
     //            return nil
     //        }
-    //
-    //
-    //           if let pickerFormField = formFields[index] as? PickerFormField,
-    //           let speciesArray = pickerFormField.values as? [Species] {
-    //            return speciesArray[row].rawValue
-    //        }
+    //        if let pickerFormField = formFields[index] as? PickerFormField,
+    //           let values = pickerFormField.values as? [Species] {
+    //                    return "\(values[row].rawValue)"
+    //                }
     //        return nil
     //    }
     //
@@ -396,10 +364,115 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     //        }
     //
     //        if var pickerFormField = formFields[index] as? PickerFormField {
-    //            pickerFormField.value = Species.allSpecies
+    //
+    //            if let values = pickerFormField.values as? [Species] {
+    //                pickerFormField.value = values[row].rawValue
+    //            }
+    //
+    //            formFields[index] = pickerFormField
+    //
+    //            delegate?.formDidUpdateValue(row, forField: pickerFormField)
+    //        }
+    //
+    //    }
+    
+    //    // set the default value for the picker view
+    //    func setPickerViewDefaultValue(for formField: FormField) {
+    //        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+    //            return
+    //        }
+    //
+    //        if var pickerFormField = formFields[index] as? PickerFormField {
+    //            if let values = pickerFormField.values as? [Species] {
+    //                pickerFormField.value = values[0].rawValue
+    //            }
+    //            formFields[index] = pickerFormField
     //        }
     //    }
-    //}
-    
 }
 
+extension FormView: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // func to set the number of rows in the picker view based on the number of values in the picker form field
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return 0
+        }
+        
+        if let pickerFormField = formFields[index] as? PickerFormField,
+           let values = pickerFormField.values as? [Species] {
+            return values.count
+        }
+        return 0
+    }
+    
+    // func to set the title for each row in the picker view based on the values in the picker form field
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return nil
+        }
+        
+        if let pickerFormField = formFields[index] as? PickerFormField,
+           let values = pickerFormField.values as? [Species] {
+            return "\(values[row].rawValue)"
+        }
+        return nil
+    }
+
+    // func to set the default value for the picker view
+    func setPickerViewDefaultValue(for formField: FormField) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return
+        }
+        
+        if var pickerFormField = formFields[index] as? PickerFormField,
+           let values = pickerFormField.values as? [Species] {
+            pickerFormField.value = values.first?.rawValue
+            formFields[index] = pickerFormField
+        }
+    }
+
+    // func to set the selected row in the picker view based on the value in the picker form field
+    func setPickerViewSelectedRow(for formField: FormField) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return
+        }
+        
+        if var pickerFormField = formFields[index] as? PickerFormField,
+           let values = pickerFormField.values as? [Species] {
+            if let value = pickerFormField.value as? String,
+               let selectedRow = values.firstIndex(where: { $0.rawValue == value }) {
+                pickerFormField.selected = selectedRow
+                formFields[index] = pickerFormField
+            }
+        }
+    }
+}
+
+
+// MARK: - UIPickerViewDelegate
+
+extension FormView: UIPickerViewDelegate {
+
+    // func to update the value of the picker form field when the user selects a row in the picker view
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
+            return
+        }
+        
+        if var pickerFormField = formFields[index] as? PickerFormField {
+            if let values = pickerFormField.values as? [Species] {
+                pickerFormField.value = values[row].rawValue
+            }
+            
+            formFields[index] = pickerFormField
+            
+            delegate?.formDidUpdateValue(row, forField: pickerFormField)
+        }
+    }
+    
+}

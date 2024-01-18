@@ -23,9 +23,6 @@ class VeterinarianForm: FormView, FormDelegate {
     }
     
     private func setupForm() {
-        // Create form fields for the VeterinarianForm
-        
-        // Add the form fields to the VeterinarianForm
         
         delegate = self
     }
