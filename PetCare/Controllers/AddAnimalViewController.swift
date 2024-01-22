@@ -6,13 +6,13 @@
 //
 import UIKit
 
-class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate {
+class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, AddAnimalDelegate, FormDelegate {
+    
     func nextButtonTapped(with animalInfo: [String : Any]) {
         print("next")
     }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        
         
     }
     
@@ -29,18 +29,19 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate
         super.viewDidLoad()
         view.backgroundColor = .white
         configureNavigationBar()
+        setupTapGesture()
         setupUI()
     }
     
     // MARK: - UI Setup
-    
     private func configureNavigationBar() {
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.orange]
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.tintColor = .orange
     }
     
     private func setupUI() {
         setupAddAnimalView()
+        setupKeyboardNotifications()
     }
     
     private func setupAddAnimalView() {
@@ -64,15 +65,6 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate
         guard let animalForm = addAnimalView.animalForm else { return }
         
         let formFields = animalForm.getFormFields()
-        
-        // print the form values to the console and the form index
-        
-        for field in formFields {
-            
-            print("Field: \(field.labelText ?? "") - Value: \(field.value ?? "")")
-            
-        }
-        
         
         guard let name = formFields[2].value as? String, !name.isEmpty else {
             showAlert(message: "Vous devez entrer un nom pour votre animal")
@@ -110,6 +102,45 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate
     func selectedSpecies(name: String, species: Species) {
         print("Selected species: \(name) - \(species)")
     }
+    
+    func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        addAnimalView.contentInset = contentInsets
+        addAnimalView.scrollIndicatorInsets = contentInsets
+
+        // Si nécessaire, ajustez la position de la vue ou de ses sous-vues ici
+        // Par exemple, déplacez le formulaire vers le haut pour exposer les champs cachés
+        // en fonction de la taille du clavier
+    }
+    @objc func keyboardWillHide() {
+        let contentInsets = UIEdgeInsets.zero
+        addAnimalView.contentInset = contentInsets
+        addAnimalView.scrollIndicatorInsets = contentInsets
+    }
+    func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+
     
     //    func nextButtonTapped(with animalInfo: [String: Any]) {
     //        print("Received animal information: \(animalInfo)")
@@ -169,4 +200,8 @@ class AddAnimalViewController: UIViewController, AddAnimalDelegate, FormDelegate
         CoreDataManager.shared.saveAnimal(animal: animal)
         print("Animal saved to Core Data")
     }
+    
+    deinit {
+           removeKeyboardNotifications()
+       }
 }

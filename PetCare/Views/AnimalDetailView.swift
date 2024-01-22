@@ -24,8 +24,8 @@ class AnimalDetailView: UIScrollView {
         // Set up constraints for AnimalForm
         NSLayoutConstraint.activate([
             animalForm.topAnchor.constraint(equalTo: topAnchor),
-            animalForm.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 20),
-            animalForm.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: -20),
+            animalForm.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            animalForm.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             animalForm.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -100)
         ])
         

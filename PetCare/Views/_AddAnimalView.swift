@@ -52,28 +52,6 @@ extension AddAnimalView: UITextFieldDelegate {
     }
 }
 
-//extension AddAnimalView: UIPickerViewDelegate {
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return speciesOptions[row].rawValue
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        
-//        let selectedSpecies = speciesOptions[row]
-//        animalDelegate?.selectedSpecies(name: selectedSpecies.rawValue, species: selectedSpecies)
-//    }
-//}
-//
-//extension AddAnimalView: UIPickerViewDataSource {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return speciesOptions.count
-//    }
-//}
-
 extension UIView {
     func findViewController() -> UIViewController? {
         var responder: UIResponder? = self
