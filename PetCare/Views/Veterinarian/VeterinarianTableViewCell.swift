@@ -1,3 +1,10 @@
+//
+//  VeterinarianTableViewCell.swift
+//  PetCare
+//
+//  Created by Melvin Poutrel on 22/01/2024.
+//
+
 import UIKit
 
 class VeterinarianTableViewCell: UITableViewCell {
@@ -65,22 +72,33 @@ class VeterinarianTableViewCell: UITableViewCell {
     // MARK: - UI Setup
     
     private func setupUI() {
-        // Create a vertical stack view for the layout
+        // Create a horizontal stack view for the layout
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
+        stackView.axis = .horizontal
         stackView.spacing = 8 // Adjust the spacing between components
+
+        // Create a vertical stack view for the labels
+        let labelsStackView = UIStackView()
+        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
+        labelsStackView.axis = .vertical
+        labelsStackView.spacing = 8 // Adjust the spacing between labels
+
+        // Add subviews to the labels stack view
+        labelsStackView.addArrangedSubview(nameLabel)
+        labelsStackView.addArrangedSubview(addressLabel)
         
-        // Add subviews to the stack view
+        
+
+        // Add subviews to the main stack view
         stackView.addArrangedSubview(iconImageView)
-        stackView.addArrangedSubview(nameLabel)
-        stackView.addArrangedSubview(addressLabel)
+        stackView.addArrangedSubview(labelsStackView)
         stackView.addArrangedSubview(phoneButton)
         stackView.addArrangedSubview(navigationButton)
-        
+
         // Add the stack view to the contentView
         contentView.addSubview(stackView)
-        
+
         // Set constraints for the stack view
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -88,11 +106,10 @@ class VeterinarianTableViewCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
-        
+
         // Set the height constraint for the image view
-        iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//        iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
-    
     // MARK: - Icon Image Views
     
 
