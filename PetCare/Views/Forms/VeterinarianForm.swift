@@ -9,12 +9,11 @@ import UIKit
 
 class VeterinarianForm: FormView, FormDelegate {
     
+    var veterinarian: Veterinarian?
     
-    var _veto: Veterinarian?
-    
-    init(veto: Veterinarian?) {
+    init(veterinarian: Veterinarian?) {
         super.init(formFields: [])
-        self._veto = veto
+        self.veterinarian = veterinarian
         setupForm()
     }
     
@@ -23,6 +22,26 @@ class VeterinarianForm: FormView, FormDelegate {
     }
     
     private func setupForm() {
+        let image = ImageFormField(value: "veterinary")
+        let name = TextFormField(labelText: "Name", placeholder: "Name of the vet cab")
+        let address = TextFormField(labelText: "Adresse", placeholder: "Adresse of the cab")
+        let zipcode = TextFormField(labelText: "Zip", placeholder: "zipcode of the vet cab")
+        let city = TextFormField(labelText: "City", placeholder: "City of the vet cab")
+        let countryPicker = PickerFormField(values: ["Fr","En","De","Pl","Be","It","Es","Pt","Nl","Sw"], labelText: "Country")
+        let phone = TextFormField(labelText: "Phone", placeholder: "Phone of the vet cab")
+        let email = TextFormField(labelText: "Email", placeholder: "Email of the vet cab")
+        let note = TextFormField(labelText: "Note", placeholder: "Special note")
+        
+        addFormField(image)
+        addFormField(name)
+        addFormField(address)
+        addFormField(zipcode)
+        addFormField(city)
+        addFormField(countryPicker)
+        addFormField(phone)
+        addFormField(email)
+        addFormField(note)
+        
         
         delegate = self
     }

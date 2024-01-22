@@ -7,7 +7,7 @@
 import UIKit
 
 class AnimalsViewController: UIViewController, NoAnimalsDelegate{
-
+    
     var animals : [Animal] = []
     
     override func viewDidLoad() {
@@ -97,14 +97,14 @@ extension AnimalsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let selectedAnimal = animals[indexPath.row]
-            
+        let selectedAnimal = animals[indexPath.row]
+        
         // Create an instance of AnimalDetailViewController
-                let animalDetailViewController = AnimalDetailViewController(selectedAnimal: selectedAnimal)        
-
-            // Push the detail view controller onto the navigation stack
-            navigationController?.pushViewController(animalDetailViewController, animated: true)
-        }
+        let animalDetailViewController = AnimalDetailViewController(selectedAnimal: selectedAnimal)        
+        
+        // Push the detail view controller onto the navigation stack
+        navigationController?.pushViewController(animalDetailViewController, animated: true)
+    }
 }
 
 

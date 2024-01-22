@@ -10,7 +10,6 @@
 		2D8A745CB6AA866D7C379AFD /* Pods_PetCare_PetCareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */; };
 		4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */; };
 		B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */; };
-		B006407F2B4DC144002A4139 /* AnimalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407E2B4DC144002A4139 /* AnimalsView.swift */; };
 		B00640812B4F73E4002A4139 /* AnimalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */; };
 		B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */; };
 		B00640852B4F815E002A4139 /* AnimalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640842B4F815E002A4139 /* AnimalDetailView.swift */; };
@@ -32,7 +31,7 @@
 		B04BDB912B4B211100592B31 /* 4.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8E2B4B211100592B31 /* 4.json */; };
 		B04BDB922B4B211100592B31 /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8F2B4B211100592B31 /* 5.json */; };
 		B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB932B4C11A600592B31 /* LoadingView.swift */; };
-		B08C7EA12B549F1B0090E205 /* _AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08C7EA02B549F1B0090E205 /* _AddAnimalView.swift */; };
+		B08C7EA12B549F1B0090E205 /* AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */; };
 		B09BBBF02B55E6930046E0A9 /* VeterinarianForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */; };
 		B09BBBF22B55E6FF0046E0A9 /* Veterinarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BBBF12B55E6FF0046E0A9 /* Veterinarian.swift */; };
 		B0DADBB32B597ABB002A6BAD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DADBB22B597ABB002A6BAD /* test.swift */; };
@@ -43,8 +42,11 @@
 		B0EB68D62B4C4F920078D29D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */; };
 		B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */; };
 		B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DB2B4C7DE80078D29D /* Animal.swift */; };
-		B0EB68DE2B4C831D0078D29D /* AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */; };
+		B0EB68DE2B4C831D0078D29D /* OLD_AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */; };
 		B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */; };
+		B0F3A4FA2B5E8E060084A6E6 /* AddVetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */; };
+		B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */; };
+		B0F3A5042B5EB2420084A6E6 /* VeterinarianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */; };
 		B7C10BC6EE8159CD3C47A820 /* Pods_PetCareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D80AA55724F2A207DD12FCD /* Pods_PetCareTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +73,6 @@
 		601CD90CBB86942FE805F358 /* Pods-PetCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.debug.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.debug.xcconfig"; sourceTree = "<group>"; };
 		65D73E0EB6A0019121299614 /* Pods-PetCareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCareTests.debug.xcconfig"; path = "Target Support Files/Pods-PetCareTests/Pods-PetCareTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		B006407E2B4DC144002A4139 /* AnimalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsView.swift; sourceTree = "<group>"; };
 		B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTableViewCell.swift; sourceTree = "<group>"; };
 		B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		B00640842B4F815E002A4139 /* AnimalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailView.swift; sourceTree = "<group>"; };
@@ -97,7 +98,7 @@
 		B04BDB8E2B4B211100592B31 /* 4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.json; sourceTree = "<group>"; };
 		B04BDB8F2B4B211100592B31 /* 5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.json; sourceTree = "<group>"; };
 		B04BDB932B4C11A600592B31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		B08C7EA02B549F1B0090E205 /* _AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _AddAnimalView.swift; sourceTree = "<group>"; };
+		B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalView.swift; sourceTree = "<group>"; };
 		B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianForm.swift; sourceTree = "<group>"; };
 		B09BBBF12B55E6FF0046E0A9 /* Veterinarian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Veterinarian.swift; sourceTree = "<group>"; };
 		B0DADBB22B597ABB002A6BAD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
@@ -108,8 +109,11 @@
 		B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAnimalView.swift; sourceTree = "<group>"; };
 		B0EB68DB2B4C7DE80078D29D /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
-		B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalView.swift; sourceTree = "<group>"; };
+		B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_AddAnimalView.swift; sourceTree = "<group>"; };
 		B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalViewController.swift; sourceTree = "<group>"; };
+		B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVetViewController.swift; sourceTree = "<group>"; };
+		B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVeterinarianView.swift; sourceTree = "<group>"; };
+		B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianTableViewCell.swift; sourceTree = "<group>"; };
 		B4B93210732F5A367B703D89 /* Pods-PetCare-PetCareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare-PetCareUITests.debug.xcconfig"; path = "Target Support Files/Pods-PetCare-PetCareUITests/Pods-PetCare-PetCareUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D563D8595AAC766E5B862F3E /* Pods-PetCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.release.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.release.xcconfig"; sourceTree = "<group>"; };
 		DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetCare_PetCareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,15 +272,10 @@
 		B04BDB792B4B0A6C00592B31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B0F3A5022B5E98F40084A6E6 /* Veterinarian */,
+				B0F3A5012B5E98C40084A6E6 /* Other */,
+				B0F3A5002B5E98A60084A6E6 /* Animal */,
 				B00640862B4F8A10002A4139 /* Forms */,
-				B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */,
-				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
-				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
-				B0EB68DD2B4C831D0078D29D /* AddAnimalView.swift */,
-				B006407E2B4DC144002A4139 /* AnimalsView.swift */,
-				B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */,
-				B00640842B4F815E002A4139 /* AnimalDetailView.swift */,
-				B08C7EA02B549F1B0090E205 /* _AddAnimalView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -284,14 +283,9 @@
 		B04BDB7A2B4B0A7200592B31 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B04BDB462B486FC200592B31 /* MainViewController.swift */,
-				B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */,
-				B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */,
-				B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */,
-				B0EB68D32B4C4F670078D29D /* VetAppointmentViewController.swift */,
-				B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */,
-				B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */,
-				B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */,
+				B0F3A4FF2B5E98950084A6E6 /* Main */,
+				B0F3A4FE2B5E98760084A6E6 /* Veterinarian */,
+				B0F3A4FD2B5E98660084A6E6 /* Animal */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -316,6 +310,66 @@
 				B04BDB892B4B1BFF00592B31 /* 3.json */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		B0F3A4FD2B5E98660084A6E6 /* Animal */ = {
+			isa = PBXGroup;
+			children = (
+				B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */,
+				B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */,
+				B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */,
+			);
+			path = Animal;
+			sourceTree = "<group>";
+		};
+		B0F3A4FE2B5E98760084A6E6 /* Veterinarian */ = {
+			isa = PBXGroup;
+			children = (
+				B0EB68D32B4C4F670078D29D /* VetAppointmentViewController.swift */,
+				B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */,
+			);
+			path = Veterinarian;
+			sourceTree = "<group>";
+		};
+		B0F3A4FF2B5E98950084A6E6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B0EB68D52B4C4F920078D29D /* SettingsViewController.swift */,
+				B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */,
+				B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */,
+				B04BDB462B486FC200592B31 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		B0F3A5002B5E98A60084A6E6 /* Animal */ = {
+			isa = PBXGroup;
+			children = (
+				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
+				B00640842B4F815E002A4139 /* AnimalDetailView.swift */,
+				B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */,
+				B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */,
+				B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */,
+			);
+			path = Animal;
+			sourceTree = "<group>";
+		};
+		B0F3A5012B5E98C40084A6E6 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
+				B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		B0F3A5022B5E98F40084A6E6 /* Veterinarian */ = {
+			isa = PBXGroup;
+			children = (
+				B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */,
+				B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */,
+			);
+			path = Veterinarian;
 			sourceTree = "<group>";
 		};
 		C6C28479E606FB3075EA86B6 /* Frameworks */ = {
@@ -574,6 +628,7 @@
 			files = (
 				B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */,
 				B0EB68D62B4C4F920078D29D /* SettingsViewController.swift in Sources */,
+				B0F3A4FA2B5E8E060084A6E6 /* AddVetViewController.swift in Sources */,
 				B09BBBF02B55E6930046E0A9 /* VeterinarianForm.swift in Sources */,
 				B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */,
 				B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */,
@@ -583,17 +638,18 @@
 				B00640852B4F815E002A4139 /* AnimalDetailView.swift in Sources */,
 				B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */,
 				B006408A2B4F8CE2002A4139 /* FormView.swift in Sources */,
+				B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */,
 				B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */,
 				B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */,
 				B09BBBF22B55E6FF0046E0A9 /* Veterinarian.swift in Sources */,
 				B04BDB472B486FC200592B31 /* MainViewController.swift in Sources */,
+				B0F3A5042B5EB2420084A6E6 /* VeterinarianTableViewCell.swift in Sources */,
 				B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */,
 				B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */,
 				B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */,
 				B0DADBB32B597ABB002A6BAD /* test.swift in Sources */,
-				B006407F2B4DC144002A4139 /* AnimalsView.swift in Sources */,
-				B0EB68DE2B4C831D0078D29D /* AddAnimalView.swift in Sources */,
-				B08C7EA12B549F1B0090E205 /* _AddAnimalView.swift in Sources */,
+				B0EB68DE2B4C831D0078D29D /* OLD_AddAnimalView.swift in Sources */,
+				B08C7EA12B549F1B0090E205 /* AddAnimalView.swift in Sources */,
 				B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */,
 				B04BDB452B486FC200592B31 /* SceneDelegate.swift in Sources */,
 				B00640812B4F73E4002A4139 /* AnimalTableViewCell.swift in Sources */,

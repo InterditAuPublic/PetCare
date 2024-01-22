@@ -58,8 +58,10 @@ struct ImageFormField: FormField {
     var placeholder: String?
     var value: Any?
     var values: Any?
+    var picker: Bool?
     var inputViewType: InputViewType = .image
 }
+
 
 struct PickerFormField: FormField {
     var selected: Any?
@@ -172,24 +174,29 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         return segmentedControl
     }
     
-    private func createImageView(for formField: FormField) -> UIImageView {
-        
+    private func createImageView(for formField: FormField) -> UIView {
+        guard let imageFormField = formField as? ImageFormField else {
+            fatalError("Invalid form field type for image")
+        }
+
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "animal_default_image")
+        imageView.image = UIImage(named: (imageFormField.value as? String)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 75
         imageView.clipsToBounds = true
         imageView.tintColor = .orange
-        imageView.backgroundColor = .orange
         imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        imageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
-        imageView.addGestureRecognizer(tapGesture)
-        
+        imageView.isUserInteractionEnabled = imageFormField.picker ?? false
+        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+
+        if imageFormField.picker == true {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
+            imageView.addGestureRecognizer(tapGesture)
+        }
+
         return imageView
     }
+
     
     private func createPickerView(for formField: FormField) -> UIPickerView {
         let pickerView = UIPickerView()
@@ -279,23 +286,22 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     // UIImagePickerControllerDelegate method to handle image selection
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // Get the selected image from the info dictionary
-        if let pickedImage = info[.editedImage] as? UIImage {
-            // Save the index of the ImageFormField for later reference
-            guard let index = formFields.firstIndex(where: { $0 is ImageFormField }) else {
-                return
+        if let pickedImage = info[.editedImage] as? UIImage, let index = formFields.firstIndex(where: { $0 is ImageFormField }) {
+            guard let imageFormField = formFields[index] as? ImageFormField else {
+                fatalError("Invalid form field type for image")
             }
-            
-            // Create a mutable copy of the ImageFormField
-            var updatedImageFormField = formFields[index] as! ImageFormField
-            // Update the value of the ImageFormField with the selected image
-            updatedImageFormField.value = pickedImage
-            
-            // Replace the old ImageFormField with the updated one in the formFields array
-            formFields[index] = updatedImageFormField
-            
-            // Notify the delegate about the update
-            delegate?.formDidUpdateValue(pickedImage, forField: updatedImageFormField)
-            
+
+            if imageFormField.picker == true {
+                // Create a mutable copy of the ImageFormField
+                var updatedImageFormField = imageFormField
+                // Update the value of the ImageFormField with the selected image
+                updatedImageFormField.value = pickedImage
+                // Replace the old ImageFormField with the updated one in the formFields array
+                formFields[index] = updatedImageFormField
+                // Notify the delegate about the update
+                delegate?.formDidUpdateValue(pickedImage, forField: updatedImageFormField)
+            }
+
             // Update the corresponding UIImageView in the UI
             for subview in arrangedSubviews {
                 if let imageView = subview.subviews.compactMap({ $0 as? UIImageView }).first {
@@ -303,7 +309,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
                 }
             }
         }
-        
+
         // Dismiss the image picker
         picker.dismiss(animated: true, completion: nil)
     }

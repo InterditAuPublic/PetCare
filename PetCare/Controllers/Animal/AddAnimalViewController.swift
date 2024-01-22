@@ -8,20 +8,11 @@ import UIKit
 
 class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, AddAnimalDelegate, FormDelegate {
     
-    func nextButtonTapped(with animalInfo: [String : Any]) {
-        print("next")
-    }
-    
-    func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        
-    }
-    
-    
+
     // MARK: - Properties
     var animalToSave: Animal?
     let addAnimalView = AddAnimalView()
     let speciesOptions: [Species] = Species.allSpecies
-    //    let sexeOptions: [Sexe] = Sexe.allSexe
     
     // MARK: - View Lifecycle
     
@@ -77,11 +68,6 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
             showAlert(message: "Vous devez sélectionner une espèce pour votre animal")
             return
         }
-        //
-        //        guard let breed = formFields[4].value as? String else {
-        //        showAlert(message: "La RACE est obligatoire")
-        //            return
-        //        }
         
         var animal = Animal()
         animal.image = formFields[0].value as? String
@@ -140,6 +126,15 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
         NotificationCenter.default.removeObserver(self)
     }
 
+    func nextButtonTapped(with animalInfo: [String : Any]) {
+        print("next")
+    }
+    
+    func formDidUpdateValue(_ value: Any?, forField field: FormField) {
+        
+    }
+    
+    
 
     
     //    func nextButtonTapped(with animalInfo: [String: Any]) {
