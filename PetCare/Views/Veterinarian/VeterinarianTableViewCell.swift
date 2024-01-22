@@ -40,27 +40,29 @@ class VeterinarianTableViewCell: UITableViewCell {
         return label
     }()
     
-    let phoneButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.green, for: .normal)
-        button.setTitle("Call", for: .normal)
-        return button
+    let phoneIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .blue
+        imageView.image = UIImage(systemName: "phone.fill")
+        return imageView
     }()
     
-    let navigationButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.blue, for: .normal)
-        button.setTitle("Navigate", for: .normal)
-        return button
+    let navigationIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .blue
+        imageView.image = UIImage(systemName: "map.fill")
+        return imageView
     }()
     
     // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
- 
+        
         setupUI()
     }
     
@@ -77,28 +79,34 @@ class VeterinarianTableViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 8 // Adjust the spacing between components
-
+        
         // Create a vertical stack view for the labels
         let labelsStackView = UIStackView()
         labelsStackView.translatesAutoresizingMaskIntoConstraints = false
         labelsStackView.axis = .vertical
         labelsStackView.spacing = 8 // Adjust the spacing between labels
-
+        
         // Add subviews to the labels stack view
         labelsStackView.addArrangedSubview(nameLabel)
         labelsStackView.addArrangedSubview(addressLabel)
         
-        
-
         // Add subviews to the main stack view
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(labelsStackView)
-        stackView.addArrangedSubview(phoneButton)
-        stackView.addArrangedSubview(navigationButton)
-
+        stackView.addArrangedSubview(phoneIconImageView)
+        stackView.addArrangedSubview(navigationIconImageView)
+        
+        
+        let phoneTapGesture = UITapGestureRecognizer(target: self, action: #selector(phoneIconTapped))
+        phoneIconImageView.isUserInteractionEnabled = true
+        phoneIconImageView.addGestureRecognizer(phoneTapGesture)
+        
+        let navigationTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigationIconTapped))
+        navigationIconImageView.isUserInteractionEnabled = true
+        navigationIconImageView.addGestureRecognizer(navigationTapGesture)
         // Add the stack view to the contentView
         contentView.addSubview(stackView)
-
+        
         // Set constraints for the stack view
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -106,18 +114,17 @@ class VeterinarianTableViewCell: UITableViewCell {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
         ])
-
+        
         // Set the height constraint for the image view
-//        iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        //        iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     // MARK: - Icon Image Views
     
-
+    
     // MARK: - Tap Gesture Handlers
-    @objc private func phoneButtonTapped() {
+    @objc private func phoneIconTapped() {
         guard let phoneNumber = veterinarian?.phone, !phoneNumber.isEmpty else {
-            // Handle the case where there is no phone number available
-            // Display an alert or take appropriate action
+            //TODO: Display an alert to handle the case where there is no phone number available
             return
         }
         
@@ -126,12 +133,11 @@ class VeterinarianTableViewCell: UITableViewCell {
         }
     }
     
-    @objc private func navigationButtonTapped() {
+    @objc private func navigationIconTapped() {
         guard let veterinarian = veterinarian,
               let address = veterinarian.address,
               let city = veterinarian.city else {
-            // Handle the case where there is no address or city available
-            // Display an alert or take appropriate action
+            //TODO: Display an alert to handle the case where there is no address or city available
             return
         }
         
@@ -156,13 +162,13 @@ class VeterinarianTableViewCell: UITableViewCell {
             UIApplication.shared.open(appleMapsURL, options: [:], completionHandler: nil)
         }
     }
-
+    
     private func openInGoogleMaps(address: String, city: String) {
         if let googleMapsURL = URL(string: "http://maps.google.com/maps/?q=\(address),\(city)") {
             UIApplication.shared.open(googleMapsURL, options: [:], completionHandler: nil)
         }
     }
-
+    
     private func openInWaze(address: String, city: String) {
         if let wazeURL = URL(string: "http://waze.com/?address=\(address),\(city)") {
             UIApplication.shared.open(wazeURL, options: [:], completionHandler: nil)
@@ -195,7 +201,7 @@ class VeterinarianTableViewCell: UITableViewCell {
         
         let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { _ in
             UIPasteboard.general.string = "\(address), \(city)"
-            // Show a toast message
+            // Show a toast message when the adress is copy to the clipboard
             let toastLabel = UILabel(frame: CGRect(x: self.frame.size.width/2 - 75, y: self.frame.size.height/2, width: 150, height: 35))
             toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
             toastLabel.textColor = UIColor.white
@@ -238,10 +244,6 @@ class VeterinarianTableViewCell: UITableViewCell {
             fullAddress += country
         }
         addressLabel.text = fullAddress
-        
-        // Set the actions for buttons if needed
-        phoneButton.addTarget(self, action: #selector(phoneButtonTapped), for: .touchUpInside)
-        navigationButton.addTarget(self, action: #selector(navigationButtonTapped), for: .touchUpInside)
         
         // Store the veterinarian model for later use in button actions
         self.veterinarian = veterinarian

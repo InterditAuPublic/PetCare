@@ -52,6 +52,7 @@ class CoreDataManager {
         let animalObject = NSManagedObject(entity: entity, insertInto: context)
         
         // Set properties of the Core Data entity using the values from the Animal object
+        animalObject.setValue(UUID().uuidString, forKey: "id")
         animalObject.setValue(animal.identifier, forKey: "identifier")
         animalObject.setValue(animal.name, forKey: "name")
         animalObject.setValue(animal.sexe, forKey: "sexe")
@@ -75,6 +76,7 @@ class CoreDataManager {
             print(animalsData)
             let animals = animalsData.map { animalData in
                 return Animal(
+                    id: animalData.id ?? "",
                     identifier: animalData.identifier,
                     name: animalData.name,
                     sexe: animalData.sexe,
@@ -100,7 +102,7 @@ class CoreDataManager {
         //
         //        // Fetch the existing animal from Core Data based on its identifier
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
-        request.predicate = NSPredicate(format: "identifier == %@", animal.identifier ?? "")
+        request.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
         //
         do {
             let existingAnimals = try persistentContainer.viewContext.fetch(request)
@@ -124,7 +126,7 @@ class CoreDataManager {
     
     func deleteAnimal(animal: Animal) {
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
-        request.predicate = NSPredicate(format: "identifier == %@", animal.identifier ?? "")
+        request.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
         
         do {
             let fetchedAnimals = try persistentContainer.viewContext.fetch(request)

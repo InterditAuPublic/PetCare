@@ -8,7 +8,7 @@
 import Foundation
 
 struct Animal: Codable {
-    var id: Int?
+    var id: String?
     var identifier: String? // I-CAD number
     var name: String?
     var sexe: Bool?
