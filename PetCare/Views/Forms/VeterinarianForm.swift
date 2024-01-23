@@ -23,14 +23,14 @@ class VeterinarianForm: FormView, FormDelegate {
     
     private func setupForm() {
         let image = ImageFormField(value: "veterinary")
-        let name = TextFormField(labelText: "Name", placeholder: "Name of the vet cab")
-        let address = TextFormField(labelText: "Adresse", placeholder: "Adresse of the cab")
-        let zipcode = TextFormField(labelText: "Zip", placeholder: "zipcode of the vet cab")
-        let city = TextFormField(labelText: "City", placeholder: "City of the vet cab")
+        let name = TextFormField(labelText: "Name", placeholder: "Name of the vet cab", value: veterinarian?.name)
+        let address = TextFormField(labelText: "Adresse", placeholder: "Adresse of the cab" , value: veterinarian?.address)
+        let zipcode = TextFormField(labelText: "Zip", placeholder: "zipcode of the vet cab", value: veterinarian?.zipcode)
+        let city = TextFormField(labelText: "City", placeholder: "City of the vet cab", value: veterinarian?.city)
         let countryPicker = PickerFormField(values: ["Fr","En","De","Pl","Be","It","Es","Pt","Nl","Sw"], labelText: "Country")
-        let phone = TextFormField(labelText: "Phone", placeholder: "Phone of the vet cab")
-        let email = TextFormField(labelText: "Email", placeholder: "Email of the vet cab")
-        let note = TextFormField(labelText: "Note", placeholder: "Special note")
+        let phone = TextFormField(labelText: "Phone", placeholder: "Phone of the vet cab", value: veterinarian?.phone)
+        let email = TextFormField(labelText: "Email", placeholder: "Email of the vet cab", value: veterinarian?.email)
+        let note = TextFormField(labelText: "Note", placeholder: "Special note", value: veterinarian?.note)
         
         addFormField(image)
         addFormField(name)

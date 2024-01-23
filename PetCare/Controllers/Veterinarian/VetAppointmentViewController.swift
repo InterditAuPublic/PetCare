@@ -38,32 +38,32 @@ class VetAppointmentViewController: UIViewController, UITableViewDelegate, UITab
     private func updateUI() {
         DispatchQueue.main.async {
             if self.veterinarians.isEmpty {
-                // Display the NoAnimalView
-                let noAnimalView = NoAnimalView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-                noAnimalView.center = self.view.center
-           
-                
-                // Remove any existing table view
-                self.view.subviews.forEach { $0.removeFromSuperview() }
-                
-                // Add the NoAnimalView
-                self.view.addSubview(noAnimalView)
+                // Display the NoVeterinarianView
+//                let noVeterinarianView = NoVeterinarianView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+//                noVeterinarianView.center = self.view.center
+//           
+//                
+//                // Remove any existing table view
+//                self.view.subviews.forEach { $0.removeFromSuperview() }
+//                
+//                // Add the NoveterinarianView
+//                self.view.addSubview(noVeterinarianView)
             } else {
                 // Display the UITableView
-                let animalsTableView = UITableView(frame: self.view.bounds, style: .plain)
-                animalsTableView.register(VeterinarianTableViewCell.self, forCellReuseIdentifier: "veterinarianCell")
-                animalsTableView.delegate = self
-                animalsTableView.dataSource = self
+                let veterinariansTableView = UITableView(frame: self.view.bounds, style: .plain)
+                veterinariansTableView.register(VeterinarianTableViewCell.self, forCellReuseIdentifier: "veterinarianCell")
+                veterinariansTableView.delegate = self
+                veterinariansTableView.dataSource = self
                 
-                // Remove any existing NoAnimalView
+                // Remove any existing NoVeterinarianView
                 self.view.subviews.forEach { subview in
-                    if subview is NoAnimalView {
-                        subview.removeFromSuperview()
-                    }
+//                    if subview is NoVeterinarianView {
+//                        subview.removeFromSuperview()
+//                    }
                 }
                 
                 // Add the UITableView
-                self.view.addSubview(animalsTableView)
+                self.view.addSubview(veterinariansTableView)
             }
         }
     }
@@ -86,8 +86,8 @@ class VetAppointmentViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let animalToDelete = veterinarians[indexPath.row]
-            CoreDataManager.shared.deleteVeterinarian(veterinarian: animalToDelete)
+            let veterinarianToDelete = veterinarians[indexPath.row]
+            CoreDataManager.shared.deleteVeterinarian(veterinarian: veterinarianToDelete)
             fetchVeterinarians()
             updateUI()
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -95,8 +95,11 @@ class VetAppointmentViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let selectedAnimal = veterinarians[indexPath.row]
-            
+            let selectedVeterinarian = veterinarians[indexPath.row]
+
+            let veterinarianDetailViewController = VeterinarianDetailViewController(veterinarian: selectedVeterinarian)
+            veterinarianDetailViewController.veterinarian = selectedVeterinarian
+            navigationController?.pushViewController(veterinarianDetailViewController, animated: true)
         }
     
 

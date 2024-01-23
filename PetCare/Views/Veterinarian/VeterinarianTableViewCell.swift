@@ -54,7 +54,7 @@ class VeterinarianTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .blue
-        imageView.image = UIImage(systemName: "map.fill")
+        imageView.image = UIImage(systemName: "location.fill")
         return imageView
     }()
     
@@ -90,12 +90,21 @@ class VeterinarianTableViewCell: UITableViewCell {
         labelsStackView.addArrangedSubview(nameLabel)
         labelsStackView.addArrangedSubview(addressLabel)
         
+        // Create a vertical stack view for the icons
+        let iconsStackView = UIStackView()
+        iconsStackView.translatesAutoresizingMaskIntoConstraints = false
+        iconsStackView.distribution = .fillEqually
+        iconsStackView.axis = .vertical
+        iconsStackView.spacing = 8 // Adjust the spacing between icons
+        
+        // Add subviews to the icons stack view
+        iconsStackView.addArrangedSubview(phoneIconImageView)
+        iconsStackView.addArrangedSubview(navigationIconImageView)
+        
         // Add subviews to the main stack view
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(labelsStackView)
-        stackView.addArrangedSubview(phoneIconImageView)
-        stackView.addArrangedSubview(navigationIconImageView)
-        
+        stackView.addArrangedSubview(iconsStackView)
         
         let phoneTapGesture = UITapGestureRecognizer(target: self, action: #selector(phoneIconTapped))
         phoneIconImageView.isUserInteractionEnabled = true
@@ -104,6 +113,7 @@ class VeterinarianTableViewCell: UITableViewCell {
         let navigationTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigationIconTapped))
         navigationIconImageView.isUserInteractionEnabled = true
         navigationIconImageView.addGestureRecognizer(navigationTapGesture)
+        
         // Add the stack view to the contentView
         contentView.addSubview(stackView)
         
@@ -113,13 +123,15 @@ class VeterinarianTableViewCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
+            // Set the height and width constraint for the image view
+            iconImageView.widthAnchor.constraint(equalToConstant: 60),
+            iconImageView.heightAnchor.constraint(equalToConstant: 60)
         ])
-        
-        // Set the height constraint for the image view
-        //        iconImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
-    // MARK: - Icon Image Views
-    
+
+
+
     
     // MARK: - Tap Gesture Handlers
     @objc private func phoneIconTapped() {
