@@ -8,7 +8,7 @@
 import UIKit
 
 class NoAnimalView: UIView {
-
+    
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add a new animal", for: .normal)
@@ -21,11 +21,11 @@ class NoAnimalView: UIView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddButton))
         button.addGestureRecognizer(tapGesture)
         button.isUserInteractionEnabled = true
-
+        
         return button
     }()
-
-   private lazy var imageView: UIImageView = {
+    
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.crop.circle.badge.plus")
         imageView.tintColor = .orange
@@ -34,14 +34,14 @@ class NoAnimalView: UIView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapImageView))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
-
+        
         return imageView
     }()
-
-@objc private func didTapImageView() {
+    
+    @objc private func didTapImageView() {
         delegate?.didTapAddButton()
     }
-
+    
     private let label: UILabel = {
         let label = UILabel()
         label.text = "You don't have any animals yet. \nTap the button below to add a new animal."
@@ -50,24 +50,24 @@ class NoAnimalView: UIView {
         label.textColor = .white
         return label
     }()
-
+    
     weak var delegate: NoAnimalsDelegate?
-
+    
     @objc func didTapAddButton() {
         delegate?.didTapAddButton()
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(addButton)
         addSubview(label)
         addSubview(imageView)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         addButton.frame = CGRect(x: 20, y: 100, width: frame.size.width-40, height: 52)

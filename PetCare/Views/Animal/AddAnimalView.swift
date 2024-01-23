@@ -1,5 +1,5 @@
 //
-//  _AddAnimalView.swift
+//  AddAnimalView.swift
 //  PetCare
 //
 //  Created by Melvin Poutrel on 15/01/2024.
@@ -8,30 +8,30 @@
 import UIKit
 
 class AddAnimalView: UIScrollView {
-
+    
     var animalForm: AnimalForm?
     var animalDelegate: AddAnimalDelegate?
     
     // MARK: - Properties
     let speciesOptions: [Species] = Species.allSpecies
-
+    
     init() {
         super.init(frame: .zero)
         animalForm = AnimalForm(animal: Animal())
         setupUI()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         guard let animalForm = animalForm else { return }
         addSubview(animalForm)
         
         // Venter the form in the scroll view
         animalForm.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
+        
         // Set up constraints for AnimalForm
         NSLayoutConstraint.activate([
             animalForm.topAnchor.constraint(equalTo: topAnchor),

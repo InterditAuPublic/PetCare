@@ -129,9 +129,9 @@ class VeterinarianTableViewCell: UITableViewCell {
             iconImageView.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
-
-
-
+    
+    
+    
     
     // MARK: - Tap Gesture Handlers
     @objc private func phoneIconTapped() {

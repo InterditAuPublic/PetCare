@@ -1,3 +1,10 @@
+//
+//  FormView.swift
+//  PetCare
+//
+//  Created by Melvin Poutrel on 15/01/2024.
+//
+
 import UIKit
 
 // Define a protocol for form fields
@@ -178,7 +185,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         guard let imageFormField = formField as? ImageFormField else {
             fatalError("Invalid form field type for image")
         }
-
+        
         let imageView = UIImageView()
         imageView.image = UIImage(named: (imageFormField.value as? String)!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -188,15 +195,15 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = imageFormField.picker ?? false
         imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-
+        
         if imageFormField.picker == true {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped(_:)))
             imageView.addGestureRecognizer(tapGesture)
         }
-
+        
         return imageView
     }
-
+    
     
     private func createPickerView(for formField: FormField) -> UIPickerView {
         let pickerView = UIPickerView()
@@ -218,29 +225,29 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         pickerFormField.value = values.first?.rawValue
         formFields[index] = pickerFormField
     }
-
+    
     private func setupPickerViewSelectedRow(for formField: FormField) {
         print("setupPickerViewSelectedRow")
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
               var pickerFormField = formFields[index] as? PickerFormField,
-
-              let values = pickerFormField.values as? [Species] else {
-                print("return")
+              
+                let values = pickerFormField.values as? [Species] else {
+            print("return")
             return
         }
-
+        
         print("values : \(values)")
         if let value = pickerFormField.value as? String,
            let selectedRow = values.firstIndex(where: { $0.rawValue == value }) {
             print("selectedRow : \(selectedRow)")
             print("pickerFormField : \(pickerFormField)")
             print("pickerFormField.value : \(pickerFormField.value)")
-
+            
             pickerFormField.value = selectedRow
             formFields[index] = pickerFormField
         }
-
-
+        
+        
     }
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
@@ -290,7 +297,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
             guard let imageFormField = formFields[index] as? ImageFormField else {
                 fatalError("Invalid form field type for image")
             }
-
+            
             if imageFormField.picker == true {
                 // Create a mutable copy of the ImageFormField
                 var updatedImageFormField = imageFormField
@@ -301,7 +308,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
                 // Notify the delegate about the update
                 delegate?.formDidUpdateValue(pickedImage, forField: updatedImageFormField)
             }
-
+            
             // Update the corresponding UIImageView in the UI
             for subview in arrangedSubviews {
                 if let imageView = subview.subviews.compactMap({ $0 as? UIImageView }).first {
@@ -309,11 +316,11 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
                 }
             }
         }
-
+        
         // Dismiss the image picker
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
 }
 
 extension FormView: UIPickerViewDataSource {
@@ -347,7 +354,7 @@ extension FormView: UIPickerViewDataSource {
         }
         return nil
     }
-
+    
     // func to set the default value for the picker view
     func setPickerViewDefaultValue(for formField: FormField) {
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
@@ -360,7 +367,7 @@ extension FormView: UIPickerViewDataSource {
             formFields[index] = pickerFormField
         }
     }
-
+    
     // func to set the selected row in the picker view based on the value in the picker form field
     func setPickerViewSelectedRow(for formField: FormField) {
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
@@ -382,7 +389,7 @@ extension FormView: UIPickerViewDataSource {
 // MARK: - UIPickerViewDelegate
 
 extension FormView: UIPickerViewDelegate {
-
+    
     // func to update the value of the picker form field when the user selects a row in the picker view
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {

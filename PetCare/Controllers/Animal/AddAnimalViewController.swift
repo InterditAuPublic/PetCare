@@ -4,11 +4,12 @@
 //
 //  Created by Melvin Poutrel on 08/01/2024.
 //
+
 import UIKit
 
 class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, AddAnimalDelegate, FormDelegate {
     
-
+    
     // MARK: - Properties
     var animalToSave: Animal?
     let addAnimalView = AddAnimalView()
@@ -103,16 +104,16 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-
+        
         let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         addAnimalView.contentInset = contentInsets
         addAnimalView.scrollIndicatorInsets = contentInsets
-
+        
         // Si nécessaire, ajustez la position de la vue ou de ses sous-vues ici
         // Par exemple, déplacez le formulaire vers le haut pour exposer les champs cachés
         // en fonction de la taille du clavier
@@ -125,7 +126,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     func nextButtonTapped(with animalInfo: [String : Any]) {
         print("next")
     }
@@ -135,7 +136,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     }
     
     
-
+    
     
     //    func nextButtonTapped(with animalInfo: [String: Any]) {
     //        print("Received animal information: \(animalInfo)")
@@ -197,6 +198,6 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     }
     
     deinit {
-           removeKeyboardNotifications()
-       }
+        removeKeyboardNotifications()
+    }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 class VeterinarianEditView: UIScrollView {
-
+    
     var veterinarianForm: VeterinarianForm?
     
     init(veterinarian: Veterinarian?) {
@@ -16,18 +16,18 @@ class VeterinarianEditView: UIScrollView {
         veterinarianForm = VeterinarianForm(veterinarian: veterinarian)
         setupUI()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
         guard let veterinarianForm = veterinarianForm else { return }
         addSubview(veterinarianForm)
         
         // Venter the form in the scroll view
         veterinarianForm.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
+        
         // Set up constraints for VeterinarianForm
         NSLayoutConstraint.activate([
             veterinarianForm.topAnchor.constraint(equalTo: topAnchor),
@@ -38,5 +38,5 @@ class VeterinarianEditView: UIScrollView {
         
         veterinarianForm.translatesAutoresizingMaskIntoConstraints = false
     }
-
+    
 }

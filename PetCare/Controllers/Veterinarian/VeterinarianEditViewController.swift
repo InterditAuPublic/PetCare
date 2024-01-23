@@ -30,22 +30,22 @@ class VeterinarianEditViewController: UIViewController {
         
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        
         veterinarianEditView = VeterinarianEditView(veterinarian: veterinarian)
         guard let veterinarianEditView = veterinarianEditView else { return }
-
+        
         view.addSubview(veterinarianEditView)
         veterinarianEditView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             veterinarianEditView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             veterinarianEditView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             veterinarianEditView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             veterinarianEditView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-
+        
         veterinarianEditView.veterinarianForm?.delegate = self
-
+        
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem = saveButton
     }
@@ -54,7 +54,7 @@ class VeterinarianEditViewController: UIViewController {
     @objc private func saveButtonTapped() {
         
         guard let veterinarianForm = veterinarianEditView?.veterinarianForm else { return }
-    
+        
         let formFields = veterinarianForm.getFormFields()
         
         
@@ -100,7 +100,7 @@ class VeterinarianEditViewController: UIViewController {
         }
         
         var veterinarianToSave = Veterinarian()
-
+        
         veterinarianToSave.name = name
         veterinarianToSave.address = address
         veterinarianToSave.zipcode = zipcode
@@ -108,13 +108,13 @@ class VeterinarianEditViewController: UIViewController {
         // veterinarianToSave.country = country
         veterinarianToSave.phone = phone
         veterinarianToSave.email = email
-//        
+        //        
         if let veterinarian = veterinarian {
             veterinarianToSave.identifier = veterinarian.identifier
         }
-
+        
         CoreDataManager.shared.updateVeterinarian(veterinarian: veterinarianToSave)
-
+        
         // go back to the previous view controller
         navigationController?.popViewController(animated: true)
     }

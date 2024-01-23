@@ -12,16 +12,16 @@ struct Animal: Codable {
     var identifier: String? // I-CAD number
     var name: String?
     var sexe: Bool?
-//    var sexe: Sexe?
+    //    var sexe: Sexe?
     var species: Species?
     var breed: String?
     var birthdate: Date?
     var weight: String?
-//    var height: Double?
+    //    var height: Double?
     var color: String?
-//    var veterinarianID: Int?
-//    var lastVisit: Date?
-//    var alergies: String?
+    //    var veterinarianID: Int?
+    //    var lastVisit: Date?
+    //    var alergies: String?
     var comments: String?
     var image: String?
 }

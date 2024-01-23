@@ -51,7 +51,7 @@ class VeterinarianForm: FormView, FormDelegate {
     }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-       
+        
         switch field {
         case let name as TextFormField:
             print("name: \(name.value)")
@@ -62,7 +62,7 @@ class VeterinarianForm: FormView, FormDelegate {
         case let city as TextFormField:
             print("city: \(city.value)")
         case let country as PickerFormField:
-
+            
             print("country: \(country.value)")
         case let phone as TextFormField:
             print("phone: \(phone.value)")
@@ -73,7 +73,7 @@ class VeterinarianForm: FormView, FormDelegate {
         default:
             print("default")
         }
-
+        
     }
 }
 

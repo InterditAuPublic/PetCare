@@ -8,7 +8,7 @@
 import UIKit
 
 class AddVetViewController: UIViewController, UIGestureRecognizerDelegate, FormDelegate {
-
+    
     let addVetView = AddVeterinarianView()
     
     override func viewDidLoad() {

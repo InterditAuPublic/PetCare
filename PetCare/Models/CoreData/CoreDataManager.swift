@@ -162,7 +162,7 @@ class CoreDataManager {
         vetObject.setValue(veterinarian.email, forKey: "email")
         vetObject.setValue(veterinarian.phone, forKey: "phone")
         vetObject.setValue(veterinarian.note, forKey: "note")
-
+        
         // Save the record to the local storage
         saveContext()
     }
@@ -241,7 +241,7 @@ class CoreDataManager {
     func checkIfIdentifierExists(identifier: String?, entityName: String) -> Bool {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)
         request.predicate = NSPredicate(format: "identifier == %@", identifier ?? "")
-
+        
         do {
             let fetchedEntities = try persistentContainer.viewContext.fetch(request)
             return fetchedEntities.count > 0
