@@ -25,10 +25,9 @@ class AddVeterinarianView: UIScrollView, UITextFieldDelegate {
     }
 
     private func setupUI() {
-//        guard let VetForm = VetForm else { return }
         addSubview(VetForm)
         
-        // Venter the form in the scroll view
+        // Center the form in the scroll view
         VetForm.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
         // Set up constraints for AnimalForm
@@ -47,13 +46,3 @@ class AddVeterinarianView: UIScrollView, UITextFieldDelegate {
         return true
     }
 }
-//
-//extension AddVeterinarianView: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
-//}
-//
-
-

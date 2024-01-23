@@ -23,7 +23,8 @@ init(veterinarian: Veterinarian) {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemIndigo
+        view.backgroundColor = .white
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = veterinarian?.name
         navigationItem.largeTitleDisplayMode = .never

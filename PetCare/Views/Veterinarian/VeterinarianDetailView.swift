@@ -30,7 +30,7 @@ class VeterinarianDetailView: UIView {
        let nameLabel = UILabel()
          nameLabel.text = veterinarian.name
             nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
-            nameLabel.textColor = .white
+            nameLabel.textColor = .black
             nameLabel.textAlignment = .center
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(nameLabel)
@@ -68,15 +68,5 @@ class VeterinarianDetailView: UIView {
                 phoneNumberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
                 phoneNumberLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
             ])
-
-
-
-        
-
-
     }
-
-
-
-
 }

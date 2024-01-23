@@ -9,7 +9,6 @@ import UIKit
 
 class VeterinarianEditView: UIScrollView {
 
-    
     var veterinarianForm: VeterinarianForm?
     
     init(veterinarian: Veterinarian?) {

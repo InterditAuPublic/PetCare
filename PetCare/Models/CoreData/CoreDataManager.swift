@@ -191,7 +191,7 @@ class CoreDataManager {
         }
     }
     
-    func updateVeterinarians(veterinarian: Veterinarian) {
+    func updateVeterinarian(veterinarian: Veterinarian) {
         print("In update Vets CoreData")
         
         print(veterinarian)
