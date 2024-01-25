@@ -1,5 +1,5 @@
 //
-//  VetAppointmentViewController.swift
+//  VeterinariansViewController.swift
 //  PetCare
 //
 //  Created by Melvin Poutrel on 08/01/2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VetAppointmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class VeterinariansViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var veterinarians: [Veterinarian] = []
     
@@ -106,7 +106,7 @@ class VetAppointmentViewController: UIViewController, UITableViewDelegate, UITab
 }
 
 
-extension VetAppointmentViewController {
+extension VeterinariansViewController {
     @objc func didTapAddVetButton() {
         self.navigationController?.pushViewController(AddVetViewController(), animated: true)
     }

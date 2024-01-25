@@ -20,26 +20,31 @@ class TabBarController: UITabBarController {
         
         let HomeViewController = HomeViewController()
         let AnimalsViewController = AnimalsViewController()
-        let VetAppointementViewController = VetAppointmentViewController()
+        let VeterinariansViewController = VeterinariansViewController()
+        let AppointementViewController = AppointementViewController()
         let SettingsViewController = SettingsViewController()
         
         HomeViewController.tabBarItem.image = UIImage(systemName: "house")
         AnimalsViewController.tabBarItem.image = UIImage(systemName: "pawprint")
-        VetAppointementViewController.tabBarItem.image = UIImage(systemName: "syringe")
+        VeterinariansViewController.tabBarItem.image = UIImage(systemName: "syringe")
+        AppointementViewController.tabBarItem.image =  UIImage(systemName: "calendar")
         SettingsViewController.tabBarItem.image = UIImage(systemName: "gearshape")
         
         HomeViewController.tabBarItem.title = "Home"
         HomeViewController.title = "PetCare"
+        
         AnimalsViewController.title = "Animals"
-        VetAppointementViewController.title = "Vet Appointement"
+        VeterinariansViewController.title = "Vet Appointement"
+        
         SettingsViewController.title = "Settings"
         
         let HomeNavigation = UINavigationController(rootViewController: HomeViewController)
         let AnimalsNavigation = UINavigationController(rootViewController: AnimalsViewController)
-        let VetAppointementNavigation = UINavigationController(rootViewController: VetAppointementViewController)
+        let VeterinariansNavigation = UINavigationController(rootViewController: VeterinariansViewController)
+        let AppointementsNavigation = UINavigationController(rootViewController: AppointementViewController)
         let SettingsNavigation = UINavigationController(rootViewController: SettingsViewController)
         
-        setViewControllers([HomeNavigation, AnimalsNavigation, VetAppointementNavigation, SettingsNavigation], animated: true)
+        setViewControllers([HomeNavigation, AnimalsNavigation, VeterinariansNavigation, AppointementsNavigation, SettingsNavigation], animated: true)
     }
     
     private func configureUI(){

@@ -11,6 +11,15 @@
         <attribute name="sexe" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="species" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="String"/>
+        <relationship name="appointements" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AppointementSaved" inverseName="animals" inverseEntity="AppointementSaved"/>
+    </entity>
+    <entity name="AppointementSaved" representedClassName="AppointementSaved" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descriptionRdv" optional="YES" attributeType="String"/>
+        <attribute name="hours" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="animals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalSaved" inverseName="appointements" inverseEntity="AnimalSaved"/>
+        <relationship name="veterinarian" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VeterinarianSaved" inverseName="appointements" inverseEntity="VeterinarianSaved"/>
     </entity>
     <entity name="VeterinarianSaved" representedClassName="VeterinarianSaved" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
@@ -22,5 +31,6 @@
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="zipcode" optional="YES" attributeType="String"/>
+        <relationship name="appointements" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="AppointementSaved" inverseName="veterinarian" inverseEntity="AppointementSaved"/>
     </entity>
 </model>

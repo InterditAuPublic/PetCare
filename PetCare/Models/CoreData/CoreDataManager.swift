@@ -49,7 +49,9 @@ class CoreDataManager {
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)!
         
-        let animalObject = NSManagedObject(entity: entity, insertInto: context)
+        let animalObject = NSManagedObject(entity: entity, insertInto: context) as! AnimalSaved
+        
+        animalObject.id = UUID().uuidString
         
         // Set properties of the Core Data entity using the values from the Animal object
         animalObject.setValue(UUID().uuidString, forKey: "id")
@@ -108,6 +110,7 @@ class CoreDataManager {
             let existingAnimals = try persistentContainer.viewContext.fetch(request)
             
             if let existingAnimal = existingAnimals.first {
+                existingAnimal.identifier = animal.identifier
                 existingAnimal.name = animal.name
                 existingAnimal.species = animal.species?.rawValue
                 existingAnimal.breed = animal.breed
@@ -237,6 +240,178 @@ class CoreDataManager {
             print("Error deleting animal: \(error)")
         }
     }
+    
+    // MARK: Appointement Management
+
+    func saveAppointement(appointement: Appointement) {
+        print("Save")
+        
+        let context = persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "AppointementSaved", in: context)!
+        print("after entity")
+        let appointementObject = NSManagedObject(entity: entity, insertInto: context)
+        
+        print("Before Set Values")
+        // Set properties of the Core Data entity using the values from the Appointement object
+        appointementObject.setValue(appointement.id, forKey: "id")
+        appointementObject.setValue(appointement.date, forKey: "date")
+        appointementObject.setValue(appointement.descriptionRdv, forKey: "descriptionRdv")
+        print("After basic Values")
+        
+        // Assuming that veterinarian and animals are relationships, handle them separately
+        if let veterinarian = appointement.veterinarian {
+
+            // Fetch the existing veterinarian from Core Data based on its identifier
+            let fetchRequest: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "identifier == %@", veterinarian.identifier ?? "")
+            
+            do {
+                let results = try context.fetch(fetchRequest)
+                if let existingVeterinarian = results.first {
+                    appointementObject.setValue(existingVeterinarian, forKey: "veterinarian")
+                }
+            } catch {
+                print("Error fetching veterinarian: \(error)")
+            }
+
+        }
+        print("After Vet Values")
+        
+        if let animals = appointement.animals {
+            // Assuming "animals" is a to-many relationship
+            let animalSet = Set(animals.map { animal in
+                let fetchRequest: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
+                
+                do {
+                    let results = try context.fetch(fetchRequest)
+                    if let existingAnimal = results.first {
+                        return existingAnimal
+                    }
+                } catch {
+                    print("Error fetching animal: \(error)")
+                }
+                
+                // If the animal doesn't exist, create a new one (adjust this part based on your actual implementation)
+                let newAnimal = AnimalSaved(context: context)
+                newAnimal.id = animal.id
+                // Set other properties as needed
+                return newAnimal
+            })
+            
+            appointementObject.setValue(animalSet, forKey: "animals")
+        }
+        print("After Animals Values")
+        
+        // Save the record to the local storage
+        saveContext()
+    }
+
+    func fetchAppointements() -> [Appointement]? {
+        let request: NSFetchRequest<AppointementSaved> = AppointementSaved.fetchRequest()
+        do {
+            let appointementsData = try persistentContainer.viewContext.fetch(request)
+            print(appointementsData)
+            
+            let appointements = appointementsData.map { appointementData in
+                var veterinarian: Veterinarian?
+                if let veterinarianData = appointementData.veterinarian {
+                    veterinarian = Veterinarian(
+                        identifier: veterinarianData.identifier,
+                        name: veterinarianData.name,
+                        address: veterinarianData.address,
+                        zipcode: veterinarianData.zipcode,
+                        city: veterinarianData.city,
+                        country: veterinarianData.country,
+                        phone: veterinarianData.phone,
+                        email: veterinarianData.email,
+                        note: veterinarianData.note
+                    )
+                }
+
+                var animals: [Animal]?
+                if let animalDataSet = appointementData.animals,
+                   let animalArray = Array(animalDataSet) as? [AnimalSaved] {
+                    
+                    animals = animalArray.map { animalData in
+                        return Animal(
+                            id: animalData.id ?? "",
+                            identifier: animalData.identifier,
+                            name: animalData.name,
+                            sexe: animalData.sexe,
+                            species: Species(rawValue: animalData.species ?? ""),
+                            breed: animalData.breed,
+                            birthdate: animalData.birthdate,
+                            weight: animalData.weight,
+                            color: animalData.color,
+                            comments: animalData.comments
+                        )
+                    }
+                }
+                
+                return Appointement(
+                    id: appointementData.id,
+                    date: appointementData.date,
+                    descriptionRdv: appointementData.descriptionRdv,
+                    animals: animals,
+                    veterinarian: veterinarian
+                )
+            }
+            
+            print("return Appoitenemtn \(appointements)")
+            return appointements
+        } catch {
+            print("Error fetching Appointements : \(error)")
+            return nil
+        }
+    }
+
+
+
+    func updateAppointement(appointement: Appointement) {
+        print("In update Appointement CoreData")
+        
+        print(appointement)
+        
+        // Fetch the existing animal from Core Data based on its identifier
+        let request: NSFetchRequest<AppointementSaved> = AppointementSaved.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", appointement.id ?? "")
+        
+        do {
+            let existingAppointements = try persistentContainer.viewContext.fetch(request)
+            
+            if let existingAppointement = existingAppointements.first {
+                existingAppointement.date = appointement.date
+                existingAppointement.descriptionRdv = appointement.descriptionRdv
+                
+                // Save the context
+                saveContext()
+            }
+        } catch {
+            print("Error updating Appointement: \(error)")
+        }
+    }
+
+    func deleteAppointement(appointement: Appointement) {
+        let request: NSFetchRequest<AppointementSaved> = AppointementSaved.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", appointement.id ?? "")
+        
+        do {
+            let fetchedAppointements = try persistentContainer.viewContext.fetch(request)
+            
+            for fetchedAppointement in fetchedAppointements {
+                persistentContainer.viewContext.delete(fetchedAppointement)
+            }
+            
+            saveContext()
+        } catch {
+            print("Error deleting Appointement: \(error)")
+        }
+    }
+
+
+
+
     
     func checkIfIdentifierExists(identifier: String?, entityName: String) -> Bool {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)

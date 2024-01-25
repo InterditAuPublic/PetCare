@@ -17,5 +17,7 @@ struct Veterinarian: Codable {
     var phone: String?
     var email: String?
     var note: String?
+    
+    var Appointements: [Appointement]?
 }
 

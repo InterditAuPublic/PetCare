@@ -127,6 +127,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         
         let label = UILabel()
         label.text = formField.labelText
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         
         let inputView = createInputView(for: formField)
