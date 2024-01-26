@@ -37,7 +37,7 @@ class AnimalsViewController: UIViewController, NoAnimalsDelegate{
     private func fetchAnimals() {
         if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
             animals = fetchedAnimals
-            print(animals)
+            print("animals in AMilmals : \(animals)")
         }
     }
     

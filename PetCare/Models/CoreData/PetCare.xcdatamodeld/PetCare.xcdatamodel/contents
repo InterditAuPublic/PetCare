@@ -18,15 +18,15 @@
         <attribute name="descriptionRdv" optional="YES" attributeType="String"/>
         <attribute name="hours" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="animals" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AnimalSaved" inverseName="appointements" inverseEntity="AnimalSaved"/>
-        <relationship name="veterinarian" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VeterinarianSaved" inverseName="appointements" inverseEntity="VeterinarianSaved"/>
+        <relationship name="animals" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="AnimalSaved" inverseName="appointements" inverseEntity="AnimalSaved"/>
+        <relationship name="veterinarian" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="VeterinarianSaved" inverseName="appointements" inverseEntity="VeterinarianSaved"/>
     </entity>
     <entity name="VeterinarianSaved" representedClassName="VeterinarianSaved" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>

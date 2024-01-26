@@ -110,7 +110,7 @@ class VeterinarianEditViewController: UIViewController {
         veterinarianToSave.email = email
         //        
         if let veterinarian = veterinarian {
-            veterinarianToSave.identifier = veterinarian.identifier
+            veterinarianToSave.id = veterinarian.id
         }
         
         CoreDataManager.shared.updateVeterinarian(veterinarian: veterinarianToSave)

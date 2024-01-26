@@ -25,6 +25,7 @@ class AnimalDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        print(selectedAnimal)
         
         animalDetailView = AnimalDetailView(animal: selectedAnimal)
         guard let animalDetailView = animalDetailView else { return }
@@ -62,6 +63,7 @@ class AnimalDetailViewController: UIViewController {
         }
         
         var animal = Animal()
+        animal.id = selectedAnimal?.id
         animal.image = formFields[0].value as? String
         animal.identifier = formFields[1].value as? String
         animal.sexe = formFields[4].value as? Bool
@@ -73,7 +75,6 @@ class AnimalDetailViewController: UIViewController {
         animal.name = name
         animal.species = specie
         
-        print("ANIMAL : \(animal)")
         // save the animal to the database
         CoreDataManager.shared.updateAnimal(animal: animal)
     }

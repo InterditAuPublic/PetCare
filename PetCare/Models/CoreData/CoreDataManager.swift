@@ -43,30 +43,23 @@ class CoreDataManager {
     // MARK: - Animal Management
     
     func saveAnimal(animal: Animal) {
-        print("DANS CORE DATA \(animal)")
         
-        guard !checkIfIdentifierExists(identifier: animal.identifier, entityName: "AnimalSaved") else { return }
+        guard !checkIfIdentifierExists(identifier: animal.id, entityName: "AnimalSaved") else { return }
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "AnimalSaved", in: context)!
         
         let animalObject = NSManagedObject(entity: entity, insertInto: context) as! AnimalSaved
         
         animalObject.id = UUID().uuidString
-        
-        // Set properties of the Core Data entity using the values from the Animal object
-        animalObject.setValue(UUID().uuidString, forKey: "id")
-        animalObject.setValue(animal.identifier, forKey: "identifier")
-        animalObject.setValue(animal.name, forKey: "name")
-        animalObject.setValue(animal.sexe, forKey: "sexe")
-        animalObject.setValue(animal.species?.rawValue, forKey: "species")
-        animalObject.setValue(animal.breed, forKey: "breed")
-        animalObject.setValue(animal.birthdate, forKey: "birthdate")
-        animalObject.setValue(animal.color, forKey: "color")
-        animalObject.setValue(animal.weight, forKey: "weight")
-        animalObject.setValue(animal.comments, forKey: "comments")
-        
-        
-        print(animalObject)
+        animalObject.identifier = animal.identifier
+        animalObject.name = animal.name
+        animalObject.sexe = animal.sexe!
+        animalObject.species = animal.species?.rawValue
+        animalObject.breed = animal.breed
+        animalObject.birthdate = animal.birthdate
+        animalObject.color = animal.color
+        animalObject.weight = animal.weight
+        animalObject.comments = animal.comments
         
         saveContext()
     }
@@ -78,7 +71,7 @@ class CoreDataManager {
             print(animalsData)
             let animals = animalsData.map { animalData in
                 return Animal(
-                    id: animalData.id ?? "",
+                    id: animalData.id,
                     identifier: animalData.identifier,
                     name: animalData.name,
                     sexe: animalData.sexe,
@@ -98,16 +91,14 @@ class CoreDataManager {
     }
     
     func updateAnimal(animal: Animal) {
-        print("In update CoreData")
-        
-        print(animal)
-        //
-        //        // Fetch the existing animal from Core Data based on its identifier
+        print("In update \(animal)")
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
-        //
+
         do {
             let existingAnimals = try persistentContainer.viewContext.fetch(request)
+            
+            print("PEtite upadta \(existingAnimals)")
             
             if let existingAnimal = existingAnimals.first {
                 existingAnimal.identifier = animal.identifier
@@ -148,15 +139,14 @@ class CoreDataManager {
     
     func saveVeterinarian(veterinarian: Veterinarian) {
         
-        
-        guard !checkIfIdentifierExists(identifier: veterinarian.identifier, entityName: "VeterinarianSaved") else { return }
+        guard !checkIfIdentifierExists(identifier: veterinarian.id, entityName: "VeterinarianSaved") else { return }
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "VeterinarianSaved", in: context)!
         
         let vetObject = NSManagedObject(entity: entity, insertInto: context)
         
         // Set properties of the Core Data entity using the values from the Animal object
-        vetObject.setValue(UUID().uuidString, forKey: "identifier")
+        vetObject.setValue(UUID().uuidString, forKey: "id")
         vetObject.setValue(veterinarian.name, forKey: "name")
         vetObject.setValue(veterinarian.address, forKey: "address")
         vetObject.setValue(veterinarian.city, forKey: "city")
@@ -177,7 +167,7 @@ class CoreDataManager {
             print(veterinariansData)
             let veterinarians = veterinariansData.map { veterinarianData in
                 return Veterinarian(
-                    identifier: veterinarianData.identifier,
+                    id: veterinarianData.id,
                     name: veterinarianData.name,
                     address: veterinarianData.address,
                     zipcode: veterinarianData.zipcode,
@@ -195,13 +185,10 @@ class CoreDataManager {
     }
     
     func updateVeterinarian(veterinarian: Veterinarian) {
-        print("In update Vets CoreData")
-        
-        print(veterinarian)
         
         // Fetch the existing animal from Core Data based on its identifier
         let request: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
-        request.predicate = NSPredicate(format: "identifier == %@", veterinarian.identifier ?? "")
+        request.predicate = NSPredicate(format: "id == %@", veterinarian.id ?? "")
         
         do {
             let existingVeterinarians = try persistentContainer.viewContext.fetch(request)
@@ -226,7 +213,7 @@ class CoreDataManager {
     
     func deleteVeterinarian(veterinarian: Veterinarian) {
         let request: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
-        request.predicate = NSPredicate(format: "identifier == %@", veterinarian.identifier ?? "")
+        request.predicate = NSPredicate(format: "id == %@", veterinarian.id ?? "")
         
         do {
             let fetchedVeterinarians = try persistentContainer.viewContext.fetch(request)
@@ -263,7 +250,7 @@ class CoreDataManager {
 
             // Fetch the existing veterinarian from Core Data based on its identifier
             let fetchRequest: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "identifier == %@", veterinarian.identifier ?? "")
+            fetchRequest.predicate = NSPredicate(format: "id == %@", veterinarian.id ?? "")
             
             do {
                 let results = try context.fetch(fetchRequest)
@@ -317,7 +304,7 @@ class CoreDataManager {
                 var veterinarian: Veterinarian?
                 if let veterinarianData = appointementData.veterinarian {
                     veterinarian = Veterinarian(
-                        identifier: veterinarianData.identifier,
+                        id: veterinarianData.id,
                         name: veterinarianData.name,
                         address: veterinarianData.address,
                         zipcode: veterinarianData.zipcode,
@@ -408,14 +395,10 @@ class CoreDataManager {
             print("Error deleting Appointement: \(error)")
         }
     }
-
-
-
-
     
     func checkIfIdentifierExists(identifier: String?, entityName: String) -> Bool {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)
-        request.predicate = NSPredicate(format: "identifier == %@", identifier ?? "")
+        request.predicate = NSPredicate(format: "id == %@", identifier ?? "")
         
         do {
             let fetchedEntities = try persistentContainer.viewContext.fetch(request)

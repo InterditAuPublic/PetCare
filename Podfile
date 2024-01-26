@@ -7,6 +7,7 @@ target 'PetCare' do
 
   # Pods for PetCare
   pod 'lottie-ios', '~> 3.1.8'
+  pod 'IQKeyboardManagerSwift'
 
   target 'PetCareTests' do
     inherit! :search_paths

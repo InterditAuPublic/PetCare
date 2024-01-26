@@ -8,7 +8,7 @@
 import Foundation
 
 struct Veterinarian: Codable {
-    var identifier: String?
+    var id: String?
     var name: String?
     var address: String?
     var zipcode: String?
