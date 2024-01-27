@@ -41,8 +41,11 @@
 		B04BDB922B4B211100592B31 /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8F2B4B211100592B31 /* 5.json */; };
 		B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB932B4C11A600592B31 /* LoadingView.swift */; };
 		B08C7EA12B549F1B0090E205 /* AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */; };
+		B097645E2B64E389006C927F /* AnimalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */; };
 		B09BBBF02B55E6930046E0A9 /* VeterinarianForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */; };
 		B09BBBF22B55E6FF0046E0A9 /* Veterinarian.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BBBF12B55E6FF0046E0A9 /* Veterinarian.swift */; };
+		B0A652612B650DA000ED57FC /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A6525F2B650DA000ED57FC /* cat.json */; };
+		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0DADBB32B597ABB002A6BAD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DADBB22B597ABB002A6BAD /* test.swift */; };
 		B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */; };
 		B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */; };
@@ -50,7 +53,6 @@
 		B0EB68D42B4C4F670078D29D /* VeterinariansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D32B4C4F670078D29D /* VeterinariansViewController.swift */; };
 		B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */; };
 		B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DB2B4C7DE80078D29D /* Animal.swift */; };
-		B0EB68DE2B4C831D0078D29D /* OLD_AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */; };
 		B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */; };
 		B0F3A4FA2B5E8E060084A6E6 /* AddVetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */; };
 		B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */; };
@@ -116,8 +118,11 @@
 		B04BDB8F2B4B211100592B31 /* 5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.json; sourceTree = "<group>"; };
 		B04BDB932B4C11A600592B31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalView.swift; sourceTree = "<group>"; };
+		B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalCollectionViewCell.swift; sourceTree = "<group>"; };
 		B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianForm.swift; sourceTree = "<group>"; };
 		B09BBBF12B55E6FF0046E0A9 /* Veterinarian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Veterinarian.swift; sourceTree = "<group>"; };
+		B0A6525F2B650DA000ED57FC /* cat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cat.json; sourceTree = "<group>"; };
+		B0A652602B650DA000ED57FC /* dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dog.json; sourceTree = "<group>"; };
 		B0DADBB22B597ABB002A6BAD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +130,6 @@
 		B0EB68D32B4C4F670078D29D /* VeterinariansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinariansViewController.swift; sourceTree = "<group>"; };
 		B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAnimalView.swift; sourceTree = "<group>"; };
 		B0EB68DB2B4C7DE80078D29D /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
-		B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OLD_AddAnimalView.swift; sourceTree = "<group>"; };
 		B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalViewController.swift; sourceTree = "<group>"; };
 		B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVetViewController.swift; sourceTree = "<group>"; };
 		B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVeterinarianView.swift; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 		B04BDB962B4C1AAB00592B31 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
+				B0A6525F2B650DA000ED57FC /* cat.json */,
+				B0A652602B650DA000ED57FC /* dog.json */,
 				B04BDB8E2B4B211100592B31 /* 4.json */,
 				B04BDB8F2B4B211100592B31 /* 5.json */,
 				B04BDB8D2B4B211100592B31 /* loadingCat.json */,
@@ -395,7 +401,7 @@
 				B00640842B4F815E002A4139 /* AnimalDetailView.swift */,
 				B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */,
 				B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */,
-				B0EB68DD2B4C831D0078D29D /* OLD_AddAnimalView.swift */,
+				B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */,
 			);
 			path = Animal;
 			sourceTree = "<group>";
@@ -541,11 +547,13 @@
 			files = (
 				B04BDB922B4B211100592B31 /* 5.json in Resources */,
 				B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */,
+				B0A652612B650DA000ED57FC /* cat.json in Resources */,
 				B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */,
 				B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */,
 				B04BDB8C2B4B1BFF00592B31 /* 3.json in Resources */,
 				B04BDB8A2B4B1BFF00592B31 /* 1.json in Resources */,
 				B04BDB912B4B211100592B31 /* 4.json in Resources */,
+				B0A652622B650DA000ED57FC /* dog.json in Resources */,
 				B04BDB902B4B211100592B31 /* loadingCat.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,7 +711,7 @@
 				B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */,
 				B0DADBB32B597ABB002A6BAD /* test.swift in Sources */,
 				B04459252B5F3531002CD33B /* VeterinarianEditView.swift in Sources */,
-				B0EB68DE2B4C831D0078D29D /* OLD_AddAnimalView.swift in Sources */,
+				B097645E2B64E389006C927F /* AnimalCollectionViewCell.swift in Sources */,
 				B08C7EA12B549F1B0090E205 /* AddAnimalView.swift in Sources */,
 				B04459302B5FDB79002CD33B /* AppointementViewController.swift in Sources */,
 				B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */,

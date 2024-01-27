@@ -14,7 +14,6 @@ class NoAnimalView: UIView {
         button.setTitle("Add a new animal", for: .normal)
         button.setTitleColor(.orange, for: .normal)
         button.tintColor = .orange
-        button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.orange.cgColor

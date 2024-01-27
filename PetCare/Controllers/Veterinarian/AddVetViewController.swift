@@ -13,7 +13,7 @@ class AddVetViewController: UIViewController, UIGestureRecognizerDelegate, FormD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         configureNavigationBar()
         setupTapGesture()
         setupUI()

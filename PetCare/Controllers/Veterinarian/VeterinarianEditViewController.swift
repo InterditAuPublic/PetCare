@@ -23,13 +23,13 @@ class VeterinarianEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = veterinarian?.name
         navigationItem.largeTitleDisplayMode = .never
         
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         veterinarianEditView = VeterinarianEditView(veterinarian: veterinarian)
         guard let veterinarianEditView = veterinarianEditView else { return }

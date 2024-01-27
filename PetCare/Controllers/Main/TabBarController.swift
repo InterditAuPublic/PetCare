@@ -50,7 +50,7 @@ class TabBarController: UITabBarController {
     private func configureUI(){
         self.tabBar.isTranslucent = false
         self.tabBar.tintColor = .orange
-        self.tabBar.backgroundColor = .white
+//        self.tabBar.backgroundColor = .white
         self.tabBar.unselectedItemTintColor = .gray
     }
 }

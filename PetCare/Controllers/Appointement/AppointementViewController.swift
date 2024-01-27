@@ -33,10 +33,15 @@ class AppointementViewController: UIViewController {
     let veterinarianPickerView = UIPickerView()
     let animalsTableView = UITableView()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchVeterinarians()
+        fetchAnimals()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         animalsTableView.register(AnimalTableViewCell.self, forCellReuseIdentifier: "animalCell")
-
         setupUI()
         fetchVeterinarians()
         fetchAnimals()
@@ -82,9 +87,7 @@ class AppointementViewController: UIViewController {
                 createAppointmentButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
                 createAppointmentButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             ])
-        
-        view.backgroundColor = .lightGray
-        
+
         veterinarianPickerView.delegate = self
         veterinarianPickerView.dataSource = self
         
@@ -130,15 +133,6 @@ class AppointementViewController: UIViewController {
         
         print("save new appointement")
         CoreDataManager.shared.saveAppointement(appointement: newAppointment)
-
-        
-//        // Save the context
-//        do {
-//            try context.save()
-//            // Optionally, notify the user that the appointment has been created successfully
-//        } catch {
-//            print("Error saving appointment: \(error)")
-//        }
     }
 }
 
