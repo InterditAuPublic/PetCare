@@ -47,12 +47,12 @@ class HomeViewController: UIViewController {
             animalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             animalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             animalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            animalCollectionView.heightAnchor.constraint(equalToConstant: 500)
+            animalCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
 
         // Create a collection view layout for appointments
         let appointmentLayout = UICollectionViewFlowLayout()
-        appointmentLayout.scrollDirection = .horizontal
+        appointmentLayout.scrollDirection = .vertical
 
         // Create the appointment collection view
         appointmentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: appointmentLayout)
