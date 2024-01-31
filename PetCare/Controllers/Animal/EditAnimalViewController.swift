@@ -9,7 +9,7 @@ import UIKit
 
 class EditAnimalViewController: UIViewController {
 
-    var editAnimalView: AnimalDetailView?
+    var editAnimalView: EditAnimalView?
     var animal: Animal?
     
     init(animal: Animal) {
@@ -31,7 +31,7 @@ class EditAnimalViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        editAnimalView = AnimalDetailView(animal: animal)
+        editAnimalView = EditAnimalView(animal: animal)
         guard let editAnimalView = editAnimalView else { return }
         
         view.addSubview(editAnimalView)
@@ -52,12 +52,37 @@ class EditAnimalViewController: UIViewController {
     
     
     @objc private func saveButtonTapped() {
-        
         guard let animalForm = editAnimalView?.animalForm else { return }
-        
         let formFields = animalForm.getFormFields()
         
-        // go back to the previous view controller
+        guard let name = formFields[2].value as? String, !name.isEmpty else {
+            //            showAlert(message: "Vous devez entrer un nom pour votre animal")
+            return
+        }
+        
+        // Validate species
+        guard let speciesRawValue = formFields[3].value as? String,
+              let specie = Species(rawValue: speciesRawValue) else { // TODO: If not changed unable to save the changes
+            //            showAlert(message: "Vous devez sélectionner une espèce pour votre animal")
+            return
+        }
+        
+        var animal = Animal()
+        animal.id = self.animal?.id
+        animal.image = formFields[0].value as? String
+        animal.identifier = formFields[1].value as? String
+        animal.sexe = formFields[4].value as? Bool
+        animal.breed = formFields[5].value as? String
+        animal.birthdate = formFields[6].value as? Date
+        animal.weight = formFields[7].value as? String
+        animal.color = formFields[8].value as? String
+        animal.comments = formFields[9].value as? String
+        animal.name = name
+        animal.species = specie
+        
+        // save the animal to the database
+        CoreDataManager.shared.updateAnimal(animal: animal)
+        
         navigationController?.popViewController(animated: true)
     }
 }
