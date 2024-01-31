@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: - Private methods
     
     private func setupUI() {
-//        view.backgroundColor = .white
+        view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Settings"
         navigationItem.largeTitleDisplayMode = .never

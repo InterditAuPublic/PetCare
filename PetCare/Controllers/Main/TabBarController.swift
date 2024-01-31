@@ -34,7 +34,8 @@ class TabBarController: UITabBarController {
         HomeViewController.title = "PetCare"
         
         AnimalsViewController.title = "Animals"
-        VeterinariansViewController.title = "Vet Appointement"
+        VeterinariansViewController.title = "Veterinarians"
+        AppointementViewController.title = "Appointements"
         
         SettingsViewController.title = "Settings"
         
@@ -50,7 +51,7 @@ class TabBarController: UITabBarController {
     private func configureUI(){
         self.tabBar.isTranslucent = false
         self.tabBar.tintColor = .orange
-//        self.tabBar.backgroundColor = .white
+        self.tabBar.backgroundColor = .white
         self.tabBar.unselectedItemTintColor = .gray
     }
 }

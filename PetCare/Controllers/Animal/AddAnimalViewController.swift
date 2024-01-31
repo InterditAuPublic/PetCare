@@ -19,7 +19,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
+        view.backgroundColor = .white
         configureNavigationBar()
         setupUI()
     }

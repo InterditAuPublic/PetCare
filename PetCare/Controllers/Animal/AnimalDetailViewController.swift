@@ -24,8 +24,7 @@ class AnimalDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
-        print(selectedAnimal)
+        view.backgroundColor = .white
         
         animalDetailView = AnimalDetailView(animal: selectedAnimal)
         guard let animalDetailView = animalDetailView else { return }
@@ -42,8 +41,17 @@ class AnimalDetailViewController: UIViewController {
         
         animalDetailView.animalForm?.delegate = self
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
-        navigationItem.rightBarButtonItem = saveButton
+        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        navigationItem.rightBarButtonItem = editButton
+    }
+    
+    
+    @objc private func editButtonTapped() {
+        // navigate to the edit view controller
+        guard let selectedAnimal = selectedAnimal else { return }
+        let editAnimalViewController = EditAnimalViewController(animal: selectedAnimal)
+        navigationController?.pushViewController(editAnimalViewController, animated: true)
+
     }
     
     @objc private func saveButtonTapped() {

@@ -24,9 +24,6 @@ class VeterinarianDetailView: UIView {
     func setupUI() {
         guard let veterinarian = veterinarian else { return }
         
-        
-        // Create a great looking detail view for the veterinarian
-        
         let nameLabel = UILabel()
         nameLabel.text = veterinarian.name
         nameLabel.font = UIFont.boldSystemFont(ofSize: 20)

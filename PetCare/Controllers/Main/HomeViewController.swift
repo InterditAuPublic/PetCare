@@ -131,4 +131,21 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     // Add more UICollectionViewDelegateFlowLayout methods as needed
+    
+  
+}
+
+
+extension HomeViewController: AnimalCellDelegate {
+    func didTap() {
+        // Handle the tap event here
+        print("In didTap delegate in Home VC")
+        if let indexPath = animalCollectionView.indexPathsForSelectedItems?.first {
+            let selectedAnimal = animals[indexPath.item]
+            print("The animal selected is : \(selectedAnimal)")
+            // Perform the navigation or any other action based on the selected animal
+            let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
+            navigationController?.pushViewController(animalDetailVC, animated: true)
+        }
+    }
 }

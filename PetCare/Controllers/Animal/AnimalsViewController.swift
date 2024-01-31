@@ -13,7 +13,7 @@ class AnimalsViewController: UIViewController, NoAnimalsDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
+        view.backgroundColor = .white
         
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))

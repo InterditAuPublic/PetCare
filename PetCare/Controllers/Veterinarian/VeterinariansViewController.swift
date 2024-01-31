@@ -21,7 +21,7 @@ class VeterinariansViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .systemIndigo
+        view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddVetButton))

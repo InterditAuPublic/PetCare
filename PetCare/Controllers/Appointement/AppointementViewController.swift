@@ -42,6 +42,7 @@ class AppointementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         animalsTableView.register(AnimalTableViewCell.self, forCellReuseIdentifier: "animalCell")
+        view.backgroundColor = .white
         setupUI()
         fetchVeterinarians()
         fetchAnimals()

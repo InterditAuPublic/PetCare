@@ -4,11 +4,18 @@
 //
 //  Created by Melvin Poutrel on 27/01/2024.
 //
-
 import UIKit
 
-class AnimalCollectionViewCell: UICollectionViewCell {
+// Step 1: Define the AnimalCellDelegate protocol
+protocol AnimalCellDelegate: AnyObject {
+    func didTap()
+}
 
+class AnimalCollectionViewCell: UICollectionViewCell {
+    
+    // Step 2: Add a weak delegate property
+    weak var delegate: AnimalCellDelegate?
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -26,6 +33,10 @@ class AnimalCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        
+        // Add tap gesture recognizer to the cell
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+        addGestureRecognizer(tapGesture)
     }
 
     required init?(coder: NSCoder) {
@@ -33,7 +44,6 @@ class AnimalCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupViews() {
-        // Add and configure image view
         addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
@@ -42,7 +52,6 @@ class AnimalCollectionViewCell: UICollectionViewCell {
             imageView.heightAnchor.constraint(equalToConstant: 80)
         ])
 
-        // Add and configure name label
         addSubview(nameLabel)
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
@@ -52,13 +61,18 @@ class AnimalCollectionViewCell: UICollectionViewCell {
         ])
     }
 
+    // Step 4: Call delegate method on cell tap
+    @objc private func cellTapped() {
+        print("cell tapped")
+        delegate?.didTap()
+    }
+
     func configure(with animal: Animal) {
-        // Configure default image based on the genre of the animal
         let defaultImage: UIImage
         if animal.species?.rawValue == "Dog" {
-            defaultImage = UIImage(named: "default_dog_image") ?? UIImage()
+            defaultImage = UIImage(named: "dog_default_image") ?? UIImage()
         } else {
-            defaultImage = UIImage(named: "default_cat_image") ?? UIImage()
+            defaultImage = UIImage(named: "cat_default_image") ?? UIImage()
         }
 
         imageView.image = defaultImage
