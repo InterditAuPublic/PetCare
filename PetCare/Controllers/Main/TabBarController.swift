@@ -34,8 +34,10 @@ class TabBarController: UITabBarController {
         HomeViewController.title = "PetCare"
         
         AnimalsViewController.title = "Animals"
+        
         VeterinariansViewController.title = "Veterinarians"
-        AppointementViewController.title = "Appointements"
+        
+        AppointementViewController.title = "Book"
         
         SettingsViewController.title = "Settings"
         

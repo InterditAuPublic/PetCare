@@ -7,41 +7,43 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
-    
+class HomeViewController: UIViewController, AnimalCellDelegate {
+
     private var appointmentCollectionView: UICollectionView!
     private var animalCollectionView: UICollectionView!
-    private var collectionView: UICollectionView!
     private var appointments: [Appointement] = []
     private var animals: [Animal] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchAppointments()
         fetchAnimals()
     }
-    
+
     private func setupCollectionView() {
-        // Create a collection view layout for animals
+        setupAnimalCollectionView()
+        setupAppointmentCollectionView()
+    }
+
+    private func setupAnimalCollectionView() {
         let animalLayout = UICollectionViewFlowLayout()
         animalLayout.scrollDirection = .horizontal
 
-        // Create the animal collection view
         animalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: animalLayout)
         animalCollectionView.backgroundColor = .white
         animalCollectionView.dataSource = self
         animalCollectionView.delegate = self
         animalCollectionView.register(AnimalCollectionViewCell.self, forCellWithReuseIdentifier: "AnimalCell")
+        animalCollectionView.allowsSelection = true
+        animalCollectionView.allowsMultipleSelection = false
 
-        // Add the animal collection view to the view
         view.addSubview(animalCollectionView)
 
-        // Add constraints to the animal collection view
         animalCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             animalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -49,22 +51,20 @@ class HomeViewController: UIViewController {
             animalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             animalCollectionView.heightAnchor.constraint(equalToConstant: 200)
         ])
+    }
 
-        // Create a collection view layout for appointments
+    private func setupAppointmentCollectionView() {
         let appointmentLayout = UICollectionViewFlowLayout()
         appointmentLayout.scrollDirection = .vertical
 
-        // Create the appointment collection view
         appointmentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: appointmentLayout)
         appointmentCollectionView.backgroundColor = .red
         appointmentCollectionView.dataSource = self
         appointmentCollectionView.delegate = self
         appointmentCollectionView.register(AppointmentCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCell")
 
-        // Add the appointment collection view to the view
         view.addSubview(appointmentCollectionView)
 
-        // Add constraints to the appointment collection view
         appointmentCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             appointmentCollectionView.topAnchor.constraint(equalTo: animalCollectionView.bottomAnchor),
@@ -74,14 +74,13 @@ class HomeViewController: UIViewController {
         ])
     }
 
-    
     private func fetchAppointments() {
         if let fetchedAppointments = CoreDataManager.shared.fetchAppointements() {
             appointments = fetchedAppointments
             appointmentCollectionView.reloadData()
         }
     }
-    
+
     private func fetchAnimals() {
         if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
             animals = fetchedAnimals
@@ -91,61 +90,41 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == appointmentCollectionView {
-            return appointments.count
-        } else if collectionView == animalCollectionView {
-            return animals.count
-        }
-        return 0
+        return collectionView == appointmentCollectionView ? appointments.count : animals.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == appointmentCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCell", for: indexPath) as? AppointmentCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCollectionViewCell
             let appointment = appointments[indexPath.item]
             cell.configure(with: appointment)
-            
             return cell
         } else if collectionView == animalCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnimalCell", for: indexPath) as? AnimalCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnimalCell", for: indexPath) as! AnimalCollectionViewCell
             let animal = animals[indexPath.item]
+            cell.delegate = self
             cell.configure(with: animal)
-            cell.backgroundColor = .blue
-            
+            cell.backgroundColor = .orange
             return cell
         }
-        
+
         return UICollectionViewCell()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Adjust the size based on your requirements
         return CGSize(width: collectionView.bounds.width - 20, height: 120)
     }
-    
-    // Add more UICollectionViewDelegateFlowLayout methods as needed
-    
-  
-}
 
-
-extension HomeViewController: AnimalCellDelegate {
-    func didTap() {
-        // Handle the tap event here
-        print("In didTap delegate in Home VC")
-        if let indexPath = animalCollectionView.indexPathsForSelectedItems?.first {
+    func didTap(on cell: AnimalCollectionViewCell) {
+        if let indexPath = animalCollectionView.indexPath(for: cell) {
             let selectedAnimal = animals[indexPath.item]
-            print("The animal selected is : \(selectedAnimal)")
-            // Perform the navigation or any other action based on the selected animal
+            print("Selected Animal at Index: \(indexPath.item), Name: \(selectedAnimal.name)")
             let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
             navigationController?.pushViewController(animalDetailVC, animated: true)
+        } else {
+            print("No index!")
         }
     }
 }

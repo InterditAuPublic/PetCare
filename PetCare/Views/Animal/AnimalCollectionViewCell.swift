@@ -4,16 +4,15 @@
 //
 //  Created by Melvin Poutrel on 27/01/2024.
 //
+
 import UIKit
 
-// Step 1: Define the AnimalCellDelegate protocol
 protocol AnimalCellDelegate: AnyObject {
-    func didTap()
+    func didTap(on cell: AnimalCollectionViewCell)
 }
 
 class AnimalCollectionViewCell: UICollectionViewCell {
     
-    // Step 2: Add a weak delegate property
     weak var delegate: AnimalCellDelegate?
     
     private let imageView: UIImageView = {
@@ -34,7 +33,6 @@ class AnimalCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         
-        // Add tap gesture recognizer to the cell
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
         addGestureRecognizer(tapGesture)
     }
@@ -61,10 +59,12 @@ class AnimalCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    // Step 4: Call delegate method on cell tap
     @objc private func cellTapped() {
-        print("cell tapped")
-        delegate?.didTap()
+        if let delegate = delegate {
+            delegate.didTap(on: self)
+        } else {
+            print("delegate is nil")
+        }
     }
 
     func configure(with animal: Animal) {
