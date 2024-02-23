@@ -18,7 +18,7 @@ class TabBarController: UITabBarController {
     
     private func configureTabBarItems() {
         
-        let HomeViewController = HomeViewController()
+        let HomeViewController = HomeView2Controller()
         let AnimalsViewController = AnimalsViewController()
         let VeterinariansViewController = VeterinariansViewController()
         let AppointementViewController = AppointementViewController()

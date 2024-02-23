@@ -338,20 +338,46 @@ class CoreDataManager {
                 
                 return Appointement(
                     id: appointementData.id,
-                    date: appointementData.date,
+                    date: appointementData.date!,
                     descriptionRdv: appointementData.descriptionRdv,
                     animals: animals,
                     veterinarian: veterinarian
                 )
             }
-            
-            print("return Appoitenemtn \(appointements)")
             return appointements
         } catch {
-            print("Error fetching Appointements : \(error)")
             return nil
         }
     }
+    
+    func fetchAppointementsSortedByDate() -> [Appointement]? {
+        // Fetch appointments
+        guard let appointements = fetchAppointements() else {
+            return nil
+        }
+        
+        // Sort appointments by date
+        let sortedAppointements = appointements.sorted { $0.date! < $1.date! }
+        
+        return sortedAppointements
+    }
+    
+    func fetchUpcomingAppointementsSortedByDate() -> [Appointement]? {
+        // Fetch appointments
+        guard let appointements = fetchAppointements() else {
+            return nil
+        }
+        
+        // Filter future appointments
+        let now = Date()
+        let upcomingAppointements = appointements.filter { $0.date ?? Date() >= now }
+        
+        // Sort appointments by date
+        let sortedAppointements = upcomingAppointements.sorted { $0.date ?? Date() < $1.date ?? Date() }
+        
+        return sortedAppointements
+    }
+
 
 
 

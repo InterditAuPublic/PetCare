@@ -99,14 +99,14 @@ class AppointementViewController: UIViewController {
     private func fetchVeterinarians() {
         if let fetchedVeterinarians = CoreDataManager.shared.fetchVeterinarians() {
             veterinarians = fetchedVeterinarians
-            print(veterinarians)
+//            print(veterinarians)
         }
     }
     
     private func fetchAnimals() {
         if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
             animals = fetchedAnimals
-            print(animals)
+//            print(animals)
         }
     }
     
