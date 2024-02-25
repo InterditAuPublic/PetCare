@@ -12,7 +12,6 @@ struct Appointement: Codable {
     var date: Date?
     var hours: String?
     var descriptionRdv: String?
-    
     var animals: [Animal]?
     var veterinarian: Veterinarian?
 }

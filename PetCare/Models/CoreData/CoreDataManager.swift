@@ -231,23 +231,17 @@ class CoreDataManager {
     // MARK: Appointement Management
 
     func saveAppointement(appointement: Appointement) {
-        print("Save")
-        
         let context = persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "AppointementSaved", in: context)!
-        print("after entity")
         let appointementObject = NSManagedObject(entity: entity, insertInto: context)
         
-        print("Before Set Values")
         // Set properties of the Core Data entity using the values from the Appointement object
-        appointementObject.setValue(appointement.id, forKey: "id")
+        appointementObject.setValue(UUID().uuidString, forKey: "id")
         appointementObject.setValue(appointement.date, forKey: "date")
         appointementObject.setValue(appointement.descriptionRdv, forKey: "descriptionRdv")
-        print("After basic Values")
         
         // Assuming that veterinarian and animals are relationships, handle them separately
         if let veterinarian = appointement.veterinarian {
-
             // Fetch the existing veterinarian from Core Data based on its identifier
             let fetchRequest: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "id == %@", veterinarian.id ?? "")
@@ -260,16 +254,13 @@ class CoreDataManager {
             } catch {
                 print("Error fetching veterinarian: \(error)")
             }
-
         }
-        print("After Vet Values")
         
         if let animals = appointement.animals {
-            // Assuming "animals" is a to-many relationship
             let animalSet = Set(animals.map { animal in
                 let fetchRequest: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
-                
+
                 do {
                     let results = try context.fetch(fetchRequest)
                     if let existingAnimal = results.first {
@@ -288,9 +279,7 @@ class CoreDataManager {
             
             appointementObject.setValue(animalSet, forKey: "animals")
         }
-        print("After Animals Values")
         
-        // Save the record to the local storage
         saveContext()
     }
 
