@@ -1,3 +1,10 @@
+//
+//  AnimalHomeCollectionViewCell.swift
+//  PetCare
+//
+//  Created by Melvin Poutrel on 22/02/2024.
+//
+
 import UIKit
 
 class AnimalHomeCollectionViewCell: UICollectionViewCell {
@@ -7,11 +14,9 @@ class AnimalHomeCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 36 // Adjust the corner radius to make it smaller
-        
-        // Add an additional border
+        imageView.layer.cornerRadius = 32 // Adjust the corner radius to make it smaller
         imageView.layer.borderWidth = 4 // Add border width
-        imageView.layer.borderColor = UIColor.white.cgColor // Border color
+        imageView.layer.borderColor = UIColor.clear.cgColor // Border color
         
         return imageView
     }()
@@ -23,6 +28,9 @@ class AnimalHomeCollectionViewCell: UICollectionViewCell {
         borderView.layer.cornerRadius = 40 // Larger corner radius to accommodate the first border
         borderView.layer.borderWidth = 4 // Border width
         borderView.layer.borderColor = UIColor.orange.cgColor // Border color
+        borderView.layer.shadowColor = UIColor.red.cgColor
+        borderView.layer.opacity = 1
+        borderView.layer.shadowOffset = CGSize(width: 3, height: 3)
         return borderView
     }()
     
@@ -68,7 +76,13 @@ class AnimalHomeCollectionViewCell: UICollectionViewCell {
 
     // Configure the cell with the provided item
     func setup(_ item: Animal) {
-        cellImageView.image = UIImage(named: item.image ?? "dog_default_image")
+        var defaultImage: String
+        if item.species?.rawValue == "Dog" {
+            defaultImage = "dog_default_image"
+        } else {
+            defaultImage = "cat_default_image"
+        }
+        cellImageView.image = UIImage(named: item.image ?? defaultImage)
         titleLabel.text = item.name
     }
 }

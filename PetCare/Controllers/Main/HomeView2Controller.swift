@@ -21,16 +21,15 @@ class HomeView2Controller: UIViewController {
     }
     
     private func fetchAppointmentsAndAnimals() {
-        
         guard let fetchedAppointments = CoreDataManager.shared.fetchUpcomingAppointementsSortedByDate() else {
             print("Failed to fetch appointments")
             return
         }
-        
         guard let fetchedAnimals = CoreDataManager.shared.fetchAnimals() else {
             print("Failed to fetch animals")
             return
         }
+        
         
         // Organize appointments and animals into sections
         let animalsSection = Section.animal(title: "My Animals", items: fetchedAnimals)
@@ -53,7 +52,6 @@ class HomeView2Controller: UIViewController {
         collectionView.register(AnimalHomeCollectionViewCell.self, forCellWithReuseIdentifier: "AnimalHomeCollectionViewCell")
         collectionView.register(AppointementCollectionViewCell.self, forCellWithReuseIdentifier: "AppointementCollectionViewCell")
         collectionView.register(AppointmentCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCollectionViewCell")
-        
         
         // Register supplementary view
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderCollectionReusableView")
@@ -87,7 +85,7 @@ class HomeView2Controller: UIViewController {
     
     private func createAppoitementLayout() -> NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.6)), subitems: [item])
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.3)), subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPagingCentered
         section.interGroupSpacing = 20
@@ -97,24 +95,14 @@ class HomeView2Controller: UIViewController {
     }
     
     private func createComingSoonLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                              , heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1)
-                                               , heightDimension: .absolute(180))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize
-                                                     , subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0
-                                                      , bottom: 8, trailing: 0)
-        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(180))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15
-                                                        , bottom: 10, trailing: 15)
-        
-        
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
         section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
-        
         return section
     }
     
@@ -154,24 +142,30 @@ extension HomeView2Controller: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            guard kind == UICollectionView.elementKindSectionHeader else {
-                return UICollectionReusableView()
-            }
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderCollectionReusableView", for: indexPath) as! HeaderCollectionReusableView
-            headerView.setup(sections[indexPath.section].title)
-            return headerView
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
         }
-        
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            switch sections[indexPath.section] {
-            case .animal(_, let items):
-                let selectedAnimal = items[indexPath.row]
-                let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
-                navigationController?.pushViewController(animalDetailVC, animated: true)
-            default:
-                break
-            }
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderCollectionReusableView", for: indexPath) as! HeaderCollectionReusableView
+        headerView.setup(sections[indexPath.section].title)
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .animal(_, let items):
+            let selectedAnimal = items[indexPath.row]
+            let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
+            navigationController?.pushViewController(animalDetailVC, animated: true)
+        case .appointement(_, let items):
+            let selectedAppoitement = items[indexPath.row]
+            print(selectedAppoitement)
+            // TODO: Create AppointementDetailViewController
+            //                let appointementDetailVC = AppointementDetailViewController(selectedAppoitement: selectedAppoitement)
+            //                navigationController?.pushViewController(appointementDetailVC, animated: true)
+        default:
+            break
         }
+    }
 }
 
 enum Section {
