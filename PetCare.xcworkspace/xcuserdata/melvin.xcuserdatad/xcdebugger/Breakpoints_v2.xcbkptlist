@@ -62,38 +62,6 @@
             endingLineNumber = "31"
             landmarkName = "init?(coder:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C3D4BFFC-AAF8-40BC-9BAD-49A7E275C5F3 - c3680ed29f9cde8c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PetCare.AnimalDetailCollectionViewCell&gt;"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "C3D4BFFC-AAF8-40BC-9BAD-49A7E275C5F3 - 77ebb6fc0a43f9bf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PetCare.AnimalDetailCollectionViewCell&gt;"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -110,38 +78,6 @@
             endingLineNumber = "26"
             landmarkName = "init(frame:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6D5D68A7-5866-4976-AD2A-6E76B4696623 - be673e5230a347d0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.__allocating_init(frame: __C.CGRect) -&gt; PetCare.AnimalDetailCollectionViewCell"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  uuid = "6D5D68A7-5866-4976-AD2A-6E76B4696623 - 795327bb8a3f09c6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(frame: __C.CGRect) -&gt; PetCare.AnimalDetailCollectionViewCell"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "92">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -158,53 +94,6 @@
             endingLineNumber = "19"
             landmarkName = "valueLabel"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "B8DCE058-6EAF-489E-894B-B9E6E9C9F9B7 - 3d21d81428fca1fb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; __C.UILabel in variable initialization expression of PetCare.AnimalDetailCollectionViewCell.valueLabel : __C.UILabel"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "B8DCE058-6EAF-489E-894B-B9E6E9C9F9B7 - 795327bb8a3f0ebf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(frame: __C.CGRect) -&gt; PetCare.AnimalDetailCollectionViewCell"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "B8DCE058-6EAF-489E-894B-B9E6E9C9F9B7 - 77ebb6fc0a43fec6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PetCare.AnimalDetailCollectionViewCell&gt;"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "128">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -221,53 +110,6 @@
             endingLineNumber = "12"
             landmarkName = "titleLabel"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "5DD8CDFC-B100-40CE-AFFD-635D1F4EEBB5 - 5fa8eb75df2dedef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; __C.UILabel in variable initialization expression of PetCare.AnimalDetailCollectionViewCell.titleLabel : __C.UILabel"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  uuid = "5DD8CDFC-B100-40CE-AFFD-635D1F4EEBB5 - 795327bb8a3f09c6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(frame: __C.CGRect) -&gt; PetCare.AnimalDetailCollectionViewCell"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  uuid = "5DD8CDFC-B100-40CE-AFFD-635D1F4EEBB5 - 77ebb6fc0a43f9bf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PetCare.AnimalDetailCollectionViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PetCare.AnimalDetailCollectionViewCell&gt;"
-                  moduleName = "PetCare"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/melvin/Workspace/ios/PetCare/PetCare/Views/Animal/AnimalDetailCollectionViewCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

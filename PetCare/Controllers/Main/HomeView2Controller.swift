@@ -14,10 +14,12 @@ class HomeView2Controller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        setupCrashButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchAppointmentsAndAnimals()
+
     }
     
     private func fetchAppointmentsAndAnimals() {
@@ -39,6 +41,24 @@ class HomeView2Controller: UIViewController {
         sections = [animalsSection,appointmentsSection, otherSection]
         collectionView.reloadData()
     }
+    
+    private func setupCrashButton() {
+        let crashButton = UIButton(type: .system)
+        crashButton.setTitle("Crash App", for: .normal)
+        crashButton.addTarget(self, action: #selector(crashApp), for: .touchUpInside)
+        crashButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(crashButton)
+
+        NSLayoutConstraint.activate([
+            crashButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            crashButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
+    }
+
+    @objc private func crashApp() {
+        fatalError()
+    }
+
     
     private func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())

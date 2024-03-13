@@ -367,9 +367,6 @@ class CoreDataManager {
         return sortedAppointements
     }
 
-
-
-
     func updateAppointement(appointement: Appointement) {
         print("In update Appointement CoreData")
         
@@ -410,6 +407,8 @@ class CoreDataManager {
             print("Error deleting Appointement: \(error)")
         }
     }
+
+    // MARK: - Helper methods
     
     func checkIfIdentifierExists(identifier: String?, entityName: String) -> Bool {
         let request: NSFetchRequest<NSManagedObject> = NSFetchRequest(entityName: entityName)

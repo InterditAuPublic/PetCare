@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2D8A745CB6AA866D7C379AFD /* Pods_PetCare_PetCareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */; };
 		4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */; };
+		B005C3DE2BA1B72200D1C3BE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */; };
+		B005C3E02BA1B72200D1C3BE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */; };
+		B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */; };
 		B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */; };
 		B00640812B4F73E4002A4139 /* AnimalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */; };
 		B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */; };
@@ -50,6 +53,8 @@
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
 		B0A652662B6A453A00ED57FC /* EditAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652652B6A453A00ED57FC /* EditAnimalView.swift */; };
 		B0DADBB32B597ABB002A6BAD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DADBB22B597ABB002A6BAD /* test.swift */; };
+		B0E0371E2B9886A300209256 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E0371D2B9886A300209256 /* en.strings */; };
+		B0E037202B9886B800209256 /* fr.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E0371F2B9886B800209256 /* fr.strings */; };
 		B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */; };
 		B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */; };
 		B0EB68D22B4C4EA90078D29D /* AnimalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */; };
@@ -90,6 +95,7 @@
 		59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetCare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601CD90CBB86942FE805F358 /* Pods-PetCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.debug.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.debug.xcconfig"; sourceTree = "<group>"; };
 		65D73E0EB6A0019121299614 /* Pods-PetCareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCareTests.debug.xcconfig"; path = "Target Support Files/Pods-PetCareTests/Pods-PetCareTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTableViewCell.swift; sourceTree = "<group>"; };
 		B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +141,8 @@
 		B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalViewController.swift; sourceTree = "<group>"; };
 		B0A652652B6A453A00ED57FC /* EditAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalView.swift; sourceTree = "<group>"; };
 		B0DADBB22B597ABB002A6BAD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		B0E0371D2B9886A300209256 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
+		B0E0371F2B9886B800209256 /* fr.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = fr.strings; sourceTree = "<group>"; };
 		B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +170,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B005C3E02BA1B72200D1C3BE /* FirebaseCrashlytics in Frameworks */,
+				B005C3DE2BA1B72200D1C3BE /* FirebaseAnalytics in Frameworks */,
 				4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,8 +222,8 @@
 			children = (
 				B00640872B4F8A3A002A4139 /* AnimalForm.swift */,
 				B00640892B4F8CE2002A4139 /* FormView.swift */,
-				B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */,
 				B0DADBB22B597ABB002A6BAD /* test.swift */,
+				B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -267,6 +277,8 @@
 		B04BDB412B486FC200592B31 /* PetCare */ = {
 			isa = PBXGroup;
 			children = (
+				B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */,
+				B04BDB532B486FC300592B31 /* Info.plist */,
 				B04BDB952B4C1AA300592B31 /* Assets */,
 				B04BDB7A2B4B0A7200592B31 /* Controllers */,
 				B04BDB792B4B0A6C00592B31 /* Views */,
@@ -312,9 +324,9 @@
 		B04BDB772B4B0A4F00592B31 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0C21F6F2B90B98E00B58AA5 /* Localizable */,
 				B04BDB422B486FC200592B31 /* AppDelegate.swift */,
 				B04BDB442B486FC200592B31 /* SceneDelegate.swift */,
-				B04BDB532B486FC300592B31 /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -333,13 +345,13 @@
 		B04BDB792B4B0A6C00592B31 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B0FB10002B8796D900466FB1 /* TableViewCells */,
-				B0FB0FFB2B8786B500466FB1 /* CollectionViewCells */,
-				B044592D2B5FDB4B002CD33B /* Appointement */,
-				B0F3A5022B5E98F40084A6E6 /* Veterinarian */,
-				B0F3A5012B5E98C40084A6E6 /* Other */,
 				B0F3A5002B5E98A60084A6E6 /* Animal */,
+				B044592D2B5FDB4B002CD33B /* Appointement */,
+				B0FB0FFB2B8786B500466FB1 /* CollectionViewCells */,
 				B00640862B4F8A10002A4139 /* Forms */,
+				B0F3A5012B5E98C40084A6E6 /* Other */,
+				B0FB10002B8796D900466FB1 /* TableViewCells */,
+				B0F3A5022B5E98F40084A6E6 /* Veterinarian */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,12 +392,21 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		B0C21F6F2B90B98E00B58AA5 /* Localizable */ = {
+			isa = PBXGroup;
+			children = (
+				B0E0371D2B9886A300209256 /* en.strings */,
+				B0E0371F2B9886B800209256 /* fr.strings */,
+			);
+			path = Localizable;
+			sourceTree = "<group>";
+		};
 		B0F3A4FD2B5E98660084A6E6 /* Animal */ = {
 			isa = PBXGroup;
 			children = (
-				B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */,
-				B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */,
 				B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */,
+				B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */,
+				B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */,
 				B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */,
 			);
 			path = Animal;
@@ -394,10 +415,10 @@
 		B0F3A4FE2B5E98760084A6E6 /* Veterinarian */ = {
 			isa = PBXGroup;
 			children = (
-				B0EB68D32B4C4F670078D29D /* VeterinariansViewController.swift */,
 				B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */,
 				B044591F2B5F3021002CD33B /* VeterinarianDetailViewController.swift */,
 				B04459222B5F3452002CD33B /* VeterinarianEditViewController.swift */,
+				B0EB68D32B4C4F670078D29D /* VeterinariansViewController.swift */,
 			);
 			path = Veterinarian;
 			sourceTree = "<group>";
@@ -405,10 +426,10 @@
 		B0F3A4FF2B5E98950084A6E6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */,
-				B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */,
-				B04BDB462B486FC200592B31 /* MainViewController.swift */,
 				B0FB10012B87978F00466FB1 /* HomeView2Controller.swift */,
+				B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */,
+				B04BDB462B486FC200592B31 /* MainViewController.swift */,
+				B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -417,9 +438,9 @@
 			isa = PBXGroup;
 			children = (
 				B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */,
-				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
 				B00640842B4F815E002A4139 /* AnimalDetailView.swift */,
 				B0A652652B6A453A00ED57FC /* EditAnimalView.swift */,
+				B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */,
 			);
 			path = Animal;
 			sourceTree = "<group>";
@@ -427,8 +448,8 @@
 		B0F3A5012B5E98C40084A6E6 /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
 				B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */,
+				B04BDB932B4C11A600592B31 /* LoadingView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -437,8 +458,8 @@
 			isa = PBXGroup;
 			children = (
 				B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */,
-				B04459242B5F3531002CD33B /* VeterinarianEditView.swift */,
 				B04459262B5F360B002CD33B /* VeterinarianDetailView.swift */,
+				B04459242B5F3531002CD33B /* VeterinarianEditView.swift */,
 			);
 			path = Veterinarian;
 			sourceTree = "<group>";
@@ -448,10 +469,10 @@
 			children = (
 				B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */,
 				B019FBA92B6FD238007535C2 /* AnimalDetailCollectionViewCell.swift */,
-				B032A7FA2B6293C30023B8B5 /* AppointmentCollectionViewCell.swift */,
 				B0FB0FFC2B8786E100466FB1 /* AnimalHomeCollectionViewCell.swift */,
-				B0FB0FFE2B878C9300466FB1 /* HeaderCollectionReusableView.swift */,
 				B0FB10032B87998F00466FB1 /* AppointementCollectionViewCell.swift */,
+				B032A7FA2B6293C30023B8B5 /* AppointmentCollectionViewCell.swift */,
+				B0FB0FFE2B878C9300466FB1 /* HeaderCollectionReusableView.swift */,
 				B0FB10052B87B4D800466FB1 /* OtherCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
@@ -488,12 +509,17 @@
 				B04BDB3C2B486FC200592B31 /* Frameworks */,
 				B04BDB3D2B486FC200592B31 /* Resources */,
 				52FD53EE422710EF62F4EBEB /* [CP] Embed Pods Frameworks */,
+				B005C3E42BA1BFB900D1C3BE /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PetCare;
+			packageProductDependencies = (
+				B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */,
+				B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */,
+			);
 			productName = PetCare;
 			productReference = B04BDB3F2B486FC200592B31 /* PetCare.app */;
 			productType = "com.apple.product-type.application";
@@ -567,8 +593,12 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = B04BDB362B486FC200592B31;
+			packageReferences = (
+				B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B04BDB402B486FC200592B31 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -585,8 +615,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */,
 				B04BDB922B4B211100592B31 /* 5.json in Resources */,
 				B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */,
+				B0E037202B9886B800209256 /* fr.strings in Resources */,
+				B0E0371E2B9886A300209256 /* en.strings in Resources */,
 				B0A652612B650DA000ED57FC /* cat.json in Resources */,
 				B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */,
 				B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */,
@@ -692,6 +725,28 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B005C3E42BA1BFB900D1C3BE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		C8228CC3DB0BEEE4807F0B98 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -939,9 +994,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 6T4FKUCAHQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "PetCare/Supporting Files/Info.plist";
+				INFOPLIST_FILE = PetCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -952,6 +1008,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"swiftCoreGraphics\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"Lottie\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melvinpoutrel.PetCare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -970,7 +1043,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T4FKUCAHQ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "PetCare/Supporting Files/Info.plist";
+				INFOPLIST_FILE = PetCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -981,6 +1054,23 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"swiftCoreGraphics\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"IQKeyboardManagerSwift\"",
+					"-framework",
+					"\"Lottie\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"UIKit\"",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.melvinpoutrel.PetCare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1109,6 +1199,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.22.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */ = {

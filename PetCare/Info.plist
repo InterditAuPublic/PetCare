@@ -6,6 +6,8 @@
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
+		<key>NSApplicationCrashOnExceptions</key>
+		<true/>
 		<key>UISceneConfigurations</key>
 		<dict>
 			<key>UIWindowSceneSessionRoleApplication</key>
@@ -16,6 +18,10 @@
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 				</dict>
+			</array>
+			<key>LSApplicationQueriesSchemes</key>
+			<array>
+				<string>comgooglemaps</string>
 			</array>
 		</dict>
 	</dict>

@@ -10,179 +10,112 @@ import CoreData
 
 class AppointementViewController: UIViewController {
     
-    // Core Data context
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    // Data arrays for veterinarians and animals (for testing purposes)
-    var veterinarians: [Veterinarian] = []
-    var animals: [Animal] = []
-    
-    // Selected veterinarian and animals for the appointment
-    var selectedVeterinarian: Veterinarian?
-    var selectedAnimals: [Animal] = []
-    
-    // Date picker
-    lazy var datePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .dateAndTime
-        picker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
-        return picker
-    }()
-    
-    // UI components
-    let veterinarianPickerView = UIPickerView()
-    let animalsTableView = UITableView()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchVeterinarians()
-        fetchAnimals()
-    }
+    var collectionView: UICollectionView!
+    var noAppointementView: UIView!
+    var appointements: [Appointement] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        animalsTableView.register(AnimalTableViewCell.self, forCellReuseIdentifier: "animalCell")
-        view.backgroundColor = .white
-        setupUI()
-        fetchVeterinarians()
-        fetchAnimals()
-    }
-    
-    func setupUI() {
-        // Add veterinarianPickerView
-            view.addSubview(veterinarianPickerView)
-            veterinarianPickerView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                veterinarianPickerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-                veterinarianPickerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                veterinarianPickerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                veterinarianPickerView.heightAnchor.constraint(equalToConstant: 150)
-            ])
-            
-            // Add animalsTableView
-            view.addSubview(animalsTableView)
-            animalsTableView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                animalsTableView.topAnchor.constraint(equalTo: veterinarianPickerView.bottomAnchor, constant: 20),
-                animalsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                animalsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                animalsTableView.heightAnchor.constraint(equalToConstant: 200)
-            ])
-            
-            // Add date picker if needed
-            view.addSubview(datePicker)
-            datePicker.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                datePicker.topAnchor.constraint(equalTo: animalsTableView.bottomAnchor, constant: 20),
-                datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            ])
-            
-            // Add a button to create an appointment
-            let createAppointmentButton = UIButton(type: .system)
-            createAppointmentButton.setTitle("Create Appointment", for: .normal)
-            createAppointmentButton.addTarget(self, action: #selector(createAppointment), for: .touchUpInside)
-            view.addSubview(createAppointmentButton)
-            createAppointmentButton.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                createAppointmentButton.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
-                createAppointmentButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
 
-        veterinarianPickerView.delegate = self
-        veterinarianPickerView.dataSource = self
+        // Add button to navigation bar
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
+        addButton.tintColor = .orange
+        navigationItem.rightBarButtonItem = addButton
         
-        animalsTableView.delegate = self
-        animalsTableView.dataSource = self
-    }
-    
-    private func fetchVeterinarians() {
-        if let fetchedVeterinarians = CoreDataManager.shared.fetchVeterinarians() {
-            veterinarians = fetchedVeterinarians
-//            print(veterinarians)
-        }
-    }
-    
-    private func fetchAnimals() {
-        if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
-            animals = fetchedAnimals
-//            print(animals)
-        }
-    }
-    
-    @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        // Handle date picker value changed event
-        let selectedDate = sender.date
-        // Use the selected date as needed
-    }
-    
-    @objc func createAppointment() {
+        // Initialize collection view layout
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         
-        print("create")
-        // Create a new appointment using the selected veterinarian, animals, date, and other details
-        guard let veterinarian = selectedVeterinarian, !selectedAnimals.isEmpty else {
-            
-            print("guard failed")// Display an alert indicating that a veterinarian and at least one animal must be selected
+        // Create collection view
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(AppointementCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCollectionViewCell")
+        collectionView.backgroundColor = .white
+        view.addSubview(collectionView)
+        
+        // Constraints for collection view
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // Create no appointment view
+        noAppointementView = UIView()
+        noAppointementView.translatesAutoresizingMaskIntoConstraints = false
+        noAppointementView.backgroundColor = .white
+        let label = UILabel()
+        label.text = "No appointments available."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        noAppointementView.addSubview(label)
+        view.addSubview(noAppointementView)
+        
+        // Constraints for no appointment view
+        NSLayoutConstraint.activate([
+            noAppointementView.topAnchor.constraint(equalTo: view.topAnchor),
+            noAppointementView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            noAppointementView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            noAppointementView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // Fetch appointments from Core Data
+        fetchAppointments()
+        
+        // Update UI
+        updateUI()
+    }
+    
+    func fetchAppointments() {
+        guard let fetchedAppointments = CoreDataManager.shared.fetchAppointementsSortedByDate() else {
+            print("Failed to fetch appointments")
             return
         }
-        print("create new appointement")
-        var newAppointment = Appointement()
-        newAppointment.date = datePicker.date
-        // Set other details for the appointment
-        newAppointment.animals = selectedAnimals
-        newAppointment.veterinarian = veterinarian
+        appointements = fetchedAppointments
+        print(appointements)
+    }
+    
+    func updateUI() {
+        collectionView.reloadData()
+        if appointements.isEmpty {
+            collectionView.isHidden = true
+            noAppointementView.isHidden = false
+        } else {
+            collectionView.isHidden = false
+            noAppointementView.isHidden = true
+        }
+    }
+
+    @objc func didTapAddButton() {
+        // Navigate to the view controller where user can add appointments
+        let addAppointmentVC = AppointementViewController()
+        navigationController?.pushViewController(addAppointmentVC, animated: true)
+    }
+}
+
+extension AppointementViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return appointements.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCollectionViewCell", for: indexPath) as? AppointementCollectionViewCell else {
+            fatalError("Unable to dequeue AppointementCollectionViewCell")
+        }
         
-        print("save new appointement")
-        CoreDataManager.shared.saveAppointement(appointement: newAppointment)
-    }
-}
-
-extension AppointementViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return veterinarians.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return veterinarians[row].name
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedVeterinarian = veterinarians[row]
-    }
-}
-
-extension AppointementViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return animals.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "animalCell", for: indexPath) as! AnimalTableViewCell
-        let animal = animals[indexPath.row]
-        // Configure the cell with the animal details
-        cell.configure(with: animal)
-        // Add any other details as needed
+        let appointement = appointements[indexPath.item]
+        // Configure the cell with appointement details
+        
+        cell.setup(appointement)
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedAnimal = animals[indexPath.row]
-        
-        // Check if the selected animal is already in the list
-        if selectedAnimals.contains(where: { $0.id == selectedAnimal.id }) {
-            // If yes, remove it
-            selectedAnimals.removeAll { $0.id == selectedAnimal.id }
-        } else {
-            // If not, add it
-            selectedAnimals.append(selectedAnimal)
-        }
-        
-        // Reload the selected row to update the UI
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // Adjust the size of the cell according to your requirement
+        return CGSize(width: collectionView.bounds.width - 20, height: 100)
     }
 }
-

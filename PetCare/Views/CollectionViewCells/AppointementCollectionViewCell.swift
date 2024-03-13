@@ -68,7 +68,7 @@ class AppointementCollectionViewCell: UICollectionViewCell {
         containerView.layer.borderColor = UIColor.orange.cgColor
         containerView.layer.borderWidth = 1
         
-        let topSectionView = createSectionView(with: .lightGray)
+        let topSectionView = createSectionView(with: .orange)
         middleSectionView = createSectionView(with: .white) // Updated
         bottomSectionView = createSectionView(with: .white) // Updated
         
@@ -138,8 +138,10 @@ class AppointementCollectionViewCell: UICollectionViewCell {
         timeLabel = UILabel()
         dateLabel.font = UIFont.systemFont(ofSize: 14)
         timeLabel.font = UIFont.systemFont(ofSize: 14)
-        clockIconImageView.tintColor = .orange
-        calendarIconImageView.tintColor = .orange
+        dateLabel.textColor = .white
+        timeLabel.textColor = .white
+        clockIconImageView.tintColor = .white
+        calendarIconImageView.tintColor = .white
         
         // Create two nested horizontal stack views for each block
         let calendarStackView = UIStackView(arrangedSubviews: [calendarIconImageView, dateLabel])
