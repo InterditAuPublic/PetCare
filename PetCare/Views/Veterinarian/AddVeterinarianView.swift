@@ -12,7 +12,7 @@ class AddVeterinarianView: UIScrollView, UITextFieldDelegate {
     var VetForm = VeterinarianForm(veterinarian: Veterinarian())
     
     // MARK: - Properties
-    let speciesOptions: [Species] = Species.allSpecies
+//    let speciesOptions: [Species] = Species.allSpecies
     
     init() {
         super.init(frame: .zero)

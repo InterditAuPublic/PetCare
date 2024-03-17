@@ -12,6 +12,8 @@
 		B005C3DE2BA1B72200D1C3BE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */; };
 		B005C3E02BA1B72200D1C3BE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */; };
 		B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */; };
+		B005C3E82BA1E02E00D1C3BE /* NoAppointementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005C3E72BA1E02E00D1C3BE /* NoAppointementView.swift */; };
+		B005C3EA2BA23A4B00D1C3BE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B005C3E92BA23A4B00D1C3BE /* Localizable.xcstrings */; };
 		B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */; };
 		B00640812B4F73E4002A4139 /* AnimalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */; };
 		B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */; };
@@ -52,9 +54,9 @@
 		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
 		B0A652662B6A453A00ED57FC /* EditAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652652B6A453A00ED57FC /* EditAnimalView.swift */; };
+		B0CD9A772BA76A7F004621B5 /* AddAppointementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */; };
+		B0CD9A792BA76BC7004621B5 /* AppointmentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */; };
 		B0DADBB32B597ABB002A6BAD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DADBB22B597ABB002A6BAD /* test.swift */; };
-		B0E0371E2B9886A300209256 /* en.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E0371D2B9886A300209256 /* en.strings */; };
-		B0E037202B9886B800209256 /* fr.strings in Resources */ = {isa = PBXBuildFile; fileRef = B0E0371F2B9886B800209256 /* fr.strings */; };
 		B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */; };
 		B0EB68D02B4C4DFF0078D29D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */; };
 		B0EB68D22B4C4EA90078D29D /* AnimalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */; };
@@ -96,6 +98,8 @@
 		601CD90CBB86942FE805F358 /* Pods-PetCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCare.debug.xcconfig"; path = "Target Support Files/Pods-PetCare/Pods-PetCare.debug.xcconfig"; sourceTree = "<group>"; };
 		65D73E0EB6A0019121299614 /* Pods-PetCareTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetCareTests.debug.xcconfig"; path = "Target Support Files/Pods-PetCareTests/Pods-PetCareTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B005C3E72BA1E02E00D1C3BE /* NoAppointementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAppointementView.swift; sourceTree = "<group>"; };
+		B005C3E92BA23A4B00D1C3BE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B006407C2B4DBEA2002A4139 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B00640802B4F73E4002A4139 /* AnimalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalTableViewCell.swift; sourceTree = "<group>"; };
 		B00640822B4F77D1002A4139 /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
@@ -140,9 +144,9 @@
 		B0A652602B650DA000ED57FC /* dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dog.json; sourceTree = "<group>"; };
 		B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalViewController.swift; sourceTree = "<group>"; };
 		B0A652652B6A453A00ED57FC /* EditAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalView.swift; sourceTree = "<group>"; };
+		B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppointementViewController.swift; sourceTree = "<group>"; };
+		B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentForm.swift; sourceTree = "<group>"; };
 		B0DADBB22B597ABB002A6BAD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
-		B0E0371D2B9886A300209256 /* en.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = en.strings; sourceTree = "<group>"; };
-		B0E0371F2B9886B800209256 /* fr.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = fr.strings; sourceTree = "<group>"; };
 		B0EB68CD2B4C4D9A0078D29D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B0EB68CF2B4C4DFF0078D29D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B0EB68D12B4C4EA90078D29D /* AnimalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +244,8 @@
 			isa = PBXGroup;
 			children = (
 				B04459332B5FDC2A002CD33B /* AppointementView.swift */,
+				B005C3E72BA1E02E00D1C3BE /* NoAppointementView.swift */,
+				B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */,
 			);
 			path = Appointement;
 			sourceTree = "<group>";
@@ -248,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				B044592F2B5FDB79002CD33B /* AppointementViewController.swift */,
+				B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */,
 			);
 			path = Appointement;
 			sourceTree = "<group>";
@@ -324,7 +331,7 @@
 		B04BDB772B4B0A4F00592B31 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B0C21F6F2B90B98E00B58AA5 /* Localizable */,
+				B005C3E92BA23A4B00D1C3BE /* Localizable.xcstrings */,
 				B04BDB422B486FC200592B31 /* AppDelegate.swift */,
 				B04BDB442B486FC200592B31 /* SceneDelegate.swift */,
 			);
@@ -390,15 +397,6 @@
 				B04BDB892B4B1BFF00592B31 /* 3.json */,
 			);
 			path = Animations;
-			sourceTree = "<group>";
-		};
-		B0C21F6F2B90B98E00B58AA5 /* Localizable */ = {
-			isa = PBXGroup;
-			children = (
-				B0E0371D2B9886A300209256 /* en.strings */,
-				B0E0371F2B9886B800209256 /* fr.strings */,
-			);
-			path = Localizable;
 			sourceTree = "<group>";
 		};
 		B0F3A4FD2B5E98660084A6E6 /* Animal */ = {
@@ -618,8 +616,6 @@
 				B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */,
 				B04BDB922B4B211100592B31 /* 5.json in Resources */,
 				B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */,
-				B0E037202B9886B800209256 /* fr.strings in Resources */,
-				B0E0371E2B9886A300209256 /* en.strings in Resources */,
 				B0A652612B650DA000ED57FC /* cat.json in Resources */,
 				B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */,
 				B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */,
@@ -627,6 +623,7 @@
 				B04BDB8A2B4B1BFF00592B31 /* 1.json in Resources */,
 				B04BDB912B4B211100592B31 /* 4.json in Resources */,
 				B0A652622B650DA000ED57FC /* dog.json in Resources */,
+				B005C3EA2BA23A4B00D1C3BE /* Localizable.xcstrings in Resources */,
 				B04BDB902B4B211100592B31 /* loadingCat.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -780,6 +777,7 @@
 				B04459342B5FDC2A002CD33B /* AppointementView.swift in Sources */,
 				B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */,
 				B0F3A4FA2B5E8E060084A6E6 /* AddVetViewController.swift in Sources */,
+				B0CD9A792BA76BC7004621B5 /* AppointmentForm.swift in Sources */,
 				B09BBBF02B55E6930046E0A9 /* VeterinarianForm.swift in Sources */,
 				B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */,
 				B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */,
@@ -797,6 +795,7 @@
 				B006408A2B4F8CE2002A4139 /* FormView.swift in Sources */,
 				B0A652662B6A453A00ED57FC /* EditAnimalView.swift in Sources */,
 				B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */,
+				B0CD9A772BA76A7F004621B5 /* AddAppointementViewController.swift in Sources */,
 				B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */,
 				B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */,
 				B04459272B5F360B002CD33B /* VeterinarianDetailView.swift in Sources */,
@@ -808,6 +807,7 @@
 				B04BDB432B486FC200592B31 /* AppDelegate.swift in Sources */,
 				B04459322B5FDBAD002CD33B /* Appointement.swift in Sources */,
 				B0EB68CE2B4C4D9A0078D29D /* TabBarController.swift in Sources */,
+				B005C3E82BA1E02E00D1C3BE /* NoAppointementView.swift in Sources */,
 				B0DADBB32B597ABB002A6BAD /* test.swift in Sources */,
 				B04459252B5F3531002CD33B /* VeterinarianEditView.swift in Sources */,
 				B097645E2B64E389006C927F /* AnimalCollectionViewCell.swift in Sources */,

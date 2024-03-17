@@ -68,7 +68,7 @@ class AppointementCollectionViewCell: UICollectionViewCell {
         containerView.layer.borderColor = UIColor.orange.cgColor
         containerView.layer.borderWidth = 1
         
-        let topSectionView = createSectionView(with: .orange)
+        let topSectionView = createSectionView(with: .orange) 
         middleSectionView = createSectionView(with: .white) // Updated
         bottomSectionView = createSectionView(with: .white) // Updated
         

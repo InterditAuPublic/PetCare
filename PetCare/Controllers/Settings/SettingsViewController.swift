@@ -27,7 +27,6 @@ class SettingsViewController: UIViewController, UITableViewDataSource, UITableVi
     private func setupUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Settings"
         navigationItem.largeTitleDisplayMode = .never
     }
     

@@ -110,7 +110,7 @@ class AnimalDetailView: UIScrollView {
         animalLayout.scrollDirection = .horizontal
 
         animalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: animalLayout)
-        animalCollectionView.backgroundColor = .orange
+//        animalCollectionView.backgroundColor = .orange
         animalCollectionView.dataSource = self
         animalCollectionView.delegate = self
         animalCollectionView.register(AnimalDetailCollectionViewCell.self, forCellWithReuseIdentifier: "AnimalCell")

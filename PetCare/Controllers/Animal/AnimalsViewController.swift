@@ -15,9 +15,8 @@ class AnimalsViewController: UIViewController, NoAnimalsDelegate{
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-        addButton.tintColor = .orange
+//        addButton.tintColor = .orange
         navigationItem.rightBarButtonItem = addButton
     }
     
@@ -31,7 +30,6 @@ class AnimalsViewController: UIViewController, NoAnimalsDelegate{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func fetchAnimals() {

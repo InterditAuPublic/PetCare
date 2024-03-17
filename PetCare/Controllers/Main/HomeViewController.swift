@@ -106,7 +106,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let animal = animals[indexPath.item]
             cell.delegate = self
             cell.configure(with: animal)
-            cell.backgroundColor = .orange
+//            cell.backgroundColor = .orange
             return cell
         }
 

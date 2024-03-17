@@ -25,15 +25,15 @@ class AnimalForm: FormView, FormDelegate {
     private func setupForm() {
         // Create form fields for the AnimalForm
         let imageField = ImageFormField(value: "animal_default_image", picker: true)
-        let identifierField = TextFormField(labelText: "Identifier", placeholder: "Enter identifier", value: animal?.identifier)
-        let nameField = TextFormField(labelText: "Name", placeholder: "Enter name", value: animal?.name)
-        let species = PickerFormField(values: Species.allSpecies, labelText: "Species", value:animal?.species?.rawValue ?? Species.cat.rawValue) // TODO: HERE SET THE DEFAULT VALUE
-        let genderField = SegmentFormField(labelText: "Gender", value: true, values: ["Male", "Female"])
-        let breedField = TextFormField(labelText: "Breed", placeholder: "Enter breed", value: animal?.breed)
-        let birthDateField = DateFormField(labelText: "Birth Date", placeholder: "Select birth date", value: animal?.birthdate)
-        let weightField = TextFormField(labelText: "Weight", placeholder: "Enter weight", value: animal?.weight)
-        let colorField = TextFormField(labelText: "Color", placeholder: "Enter color", value: animal?.color)
-        let commentsFields = TextFormField(labelText: "Comments", placeholder: "Comments", value: animal?.comments)
+        let identifierField = TextFormField(labelText: NSLocalizedString("identifier", comment: ""), placeholder: NSLocalizedString("identifier_placeholder", comment: ""), value: animal?.identifier)
+        let nameField = TextFormField(labelText: NSLocalizedString("name", comment: ""), placeholder: NSLocalizedString("name_placeholder", comment: ""), value: animal?.name)
+        let species = PickerFormField(values: Species.allSpecies, labelText: NSLocalizedString("species", comment: ""), value:animal?.species?.rawValue ?? Species.cat.rawValue) // TODO: HERE SET THE DEFAULT VALUE
+        let genderField = SegmentFormField(labelText: NSLocalizedString("sex", comment: ""), value: true, values: ["Male", "Female"])
+        let breedField = TextFormField(labelText: NSLocalizedString("breed", comment: ""), placeholder: NSLocalizedString("breed_placeholder", comment: ""), value: animal?.breed)
+        let birthDateField = DateFormField(labelText: NSLocalizedString("birthdate", comment: ""), placeholder: NSLocalizedString("birthdate_placeholder", comment: ""), value: animal?.birthdate)
+        let weightField = TextFormField(labelText: NSLocalizedString("weight", comment: ""), placeholder: NSLocalizedString("weight_placeholder", comment: ""), value: animal?.weight)
+        let colorField = TextFormField(labelText: NSLocalizedString("color", comment: ""), placeholder: NSLocalizedString("color_placeholder", comment: ""), value: animal?.color)
+        let commentsFields = TextFormField(labelText: NSLocalizedString("comments", comment: ""), placeholder: NSLocalizedString("comments_placeholder", comment: ""), value: animal?.comments)
         
 //        var test = Species(rawValue: "Cat")
 //        print(" WOWOWOWO \(test) ")
@@ -58,24 +58,32 @@ class AnimalForm: FormView, FormDelegate {
     }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        
-        switch field.labelText {
-        case "Identifier":
-            animal?.identifier = value as? String
-        case "Name":
-            animal?.name = value as? String
-        case "Species":
-            animal?.species = value as? Species
-        case "Breed":
-            animal?.breed = value as? String
-        case "Birth Date":
-            animal?.birthdate = value as? Date
-        case "Weight":
-            animal?.weight = value as? String
-        case "Color":
-            animal?.color = value as? String
-        case "Comments":
-            animal?.comments = value as? String
+        switch field {
+        case let textField as TextFormField:
+            switch textField.labelText {
+            case NSLocalizedString("identifier", comment: ""):
+                animal?.identifier = value as? String
+            case NSLocalizedString("name", comment: ""):
+                animal?.name = value as? String
+            case NSLocalizedString("breed", comment: ""):
+                animal?.breed = value as? String
+            case NSLocalizedString("weight", comment: ""):
+                animal?.weight = value as? String
+            case NSLocalizedString("color", comment: ""):
+                animal?.color = value as? String
+            case NSLocalizedString("comments", comment: ""):
+                animal?.comments = value as? String
+            default:
+                break
+            }
+        case let pickerField as PickerFormField:
+            if pickerField.labelText == NSLocalizedString("species", comment: "") {
+                animal?.species = value as? Species
+            }
+        case let dateField as DateFormField:
+            if dateField.labelText == NSLocalizedString("birthdate", comment: "") {
+                animal?.birthdate = value as? Date
+            }
         default:
             break
         }

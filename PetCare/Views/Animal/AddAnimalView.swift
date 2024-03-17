@@ -13,7 +13,7 @@ class AddAnimalView: UIScrollView {
     var animalDelegate: AddAnimalDelegate?
     
     // MARK: - Properties
-    let speciesOptions: [Species] = Species.allSpecies
+//    let speciesOptions: [Species] = Species.allSpecies
     
     init() {
         super.init(frame: .zero)

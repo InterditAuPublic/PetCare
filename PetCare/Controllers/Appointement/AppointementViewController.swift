@@ -4,118 +4,116 @@
 //
 //  Created by Melvin Poutrel on 23/01/2024.
 //
-
 import UIKit
-import CoreData
 
 class AppointementViewController: UIViewController {
     
     var collectionView: UICollectionView!
-    var noAppointementView: UIView!
     var appointements: [Appointement] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Add button to navigation bar
+        view.backgroundColor = .white
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
-        addButton.tintColor = .orange
+//        addButton.tintColor = .orange
         navigationItem.rightBarButtonItem = addButton
         
-        // Initialize collection view layout
+        // Initial setup
+        setupViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        fetchAppointements()
+        updateUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    private func setupViews() {
+        // Initialize UICollectionView with flow layout
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        
-        // Create collection view
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(AppointementCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCollectionViewCell")
+        collectionView.register(AppointmentCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCell")
         collectionView.backgroundColor = .white
-        view.addSubview(collectionView)
         
-        // Constraints for collection view
+        // Add as subview and setup constraints
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        // Create no appointment view
-        noAppointementView = UIView()
-        noAppointementView.translatesAutoresizingMaskIntoConstraints = false
-        noAppointementView.backgroundColor = .white
-        let label = UILabel()
-        label.text = "No appointments available."
-        label.translatesAutoresizingMaskIntoConstraints = false
-        noAppointementView.addSubview(label)
-        view.addSubview(noAppointementView)
-        
-        // Constraints for no appointment view
-        NSLayoutConstraint.activate([
-            noAppointementView.topAnchor.constraint(equalTo: view.topAnchor),
-            noAppointementView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            noAppointementView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noAppointementView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        // Fetch appointments from Core Data
-        fetchAppointments()
-        
-        // Update UI
-        updateUI()
     }
     
-    func fetchAppointments() {
-        guard let fetchedAppointments = CoreDataManager.shared.fetchAppointementsSortedByDate() else {
-            print("Failed to fetch appointments")
-            return
+    private func fetchAppointements() {
+        if let fetchedAppointements = CoreDataManager.shared.fetchAppointementsSortedByDate() {
+            appointements = fetchedAppointements
+            print("appointements in appointements : \(appointements)")
         }
-        appointements = fetchedAppointments
-        print(appointements)
     }
     
-    func updateUI() {
-        collectionView.reloadData()
-        if appointements.isEmpty {
-            collectionView.isHidden = true
-            noAppointementView.isHidden = false
-        } else {
-            collectionView.isHidden = false
-            noAppointementView.isHidden = true
+    private func updateUI() {
+        DispatchQueue.main.async {
+            if self.appointements.isEmpty {
+                // Display the NoAppointmentView
+                let noAppointmentView = NoAppointmentView()
+                
+                
+                // Remove any existing UICollectionView
+                self.collectionView.removeFromSuperview()
+                
+                // Add the NoAppointmentView
+                self.view.addSubview(noAppointmentView)
+                noAppointmentView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    noAppointmentView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                    noAppointmentView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+                ])
+            } else {
+                // Reload UICollectionView data if needed
+                self.collectionView.reloadData()
+            }
         }
-    }
-
-    @objc func didTapAddButton() {
-        // Navigate to the view controller where user can add appointments
-        let addAppointmentVC = AppointementViewController()
-        navigationController?.pushViewController(addAppointmentVC, animated: true)
     }
 }
 
-extension AppointementViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+// MARK: UICollectionViewDataSource
+extension AppointementViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appointements.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCollectionViewCell", for: indexPath) as? AppointementCollectionViewCell else {
-            fatalError("Unable to dequeue AppointementCollectionViewCell")
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCollectionViewCell
         let appointement = appointements[indexPath.item]
-        // Configure the cell with appointement details
-        
-        cell.setup(appointement)
-        
+        cell.configure(with: appointement)
         return cell
     }
-    
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+extension AppointementViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // Adjust the size of the cell according to your requirement
-        return CGSize(width: collectionView.bounds.width - 20, height: 100)
+        let width = collectionView.bounds.width - 20
+        return CGSize(width: width, height: 100)
+    }
+}
+
+// MARK: Actions
+extension AppointementViewController {
+    @objc func didTapAddButton() {
+        self.navigationController?.pushViewController(AddAppointmentViewController(), animated: true)
     }
 }

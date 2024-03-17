@@ -12,6 +12,7 @@ class NoAnimalView: UIView {
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setTitle("Add a new animal", for: .normal)
+        button.setTitle(NSLocalizedString("add_animal", comment: ""), for: .normal)
         button.setTitleColor(.orange, for: .normal)
         button.tintColor = .orange
         button.layer.cornerRadius = 10

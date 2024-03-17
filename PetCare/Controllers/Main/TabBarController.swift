@@ -30,16 +30,12 @@ class TabBarController: UITabBarController {
         AppointementViewController.tabBarItem.image =  UIImage(systemName: "calendar")
         SettingsViewController.tabBarItem.image = UIImage(systemName: "gearshape")
         
-        HomeViewController.tabBarItem.title = "Home"
-        HomeViewController.title = "PetCare"
-        
-        AnimalsViewController.title = "Animals"
-        
-        VeterinariansViewController.title = "Veterinarians"
-        
-        AppointementViewController.title = "Book"
-        
-        SettingsViewController.title = "Settings"
+        HomeViewController.title = NSLocalizedString("petcare", comment: "")
+        AnimalsViewController.title = NSLocalizedString("animals", comment: "")
+        VeterinariansViewController.title = NSLocalizedString("vet", comment: "")
+        AppointementViewController.title = NSLocalizedString("my_appointments", comment: "")
+        AppointementViewController.tabBarItem.title = NSLocalizedString("appointments", comment: "")
+        SettingsViewController.title = NSLocalizedString("settings", comment: "")
         
         let HomeNavigation = UINavigationController(rootViewController: HomeViewController)
         let AnimalsNavigation = UINavigationController(rootViewController: AnimalsViewController)
@@ -52,7 +48,7 @@ class TabBarController: UITabBarController {
     
     private func configureUI(){
         self.tabBar.isTranslucent = false
-        self.tabBar.tintColor = .orange
+//        self.tabBar.tintColor = .orange
         self.tabBar.backgroundColor = .white
         self.tabBar.unselectedItemTintColor = .gray
     }

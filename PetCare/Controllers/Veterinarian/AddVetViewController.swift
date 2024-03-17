@@ -21,7 +21,7 @@ class AddVetViewController: UIViewController, UIGestureRecognizerDelegate, FormD
     
     private func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.tintColor = .orange
+//        navigationController?.navigationBar.tintColor = .orange
     }
     
     private func setupUI() {

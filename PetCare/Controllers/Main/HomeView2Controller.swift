@@ -34,9 +34,9 @@ class HomeView2Controller: UIViewController {
         
         
         // Organize appointments and animals into sections
-        let animalsSection = Section.animal(title: "My Animals", items: fetchedAnimals)
-        let appointmentsSection = Section.appointement(title: "Incoming appointements", items: fetchedAppointments)
-        let otherSection = Section.other(title: "Other", items: fetchedAppointments)
+        let animalsSection = Section.animal(title: NSLocalizedString("my_animals", comment: ""), items: fetchedAnimals)
+        let appointmentsSection = Section.appointement(title:NSLocalizedString("next_appointments", comment: ""), items: fetchedAppointments)
+        let otherSection = Section.other(title: NSLocalizedString("prev_appointments", comment: ""), items: fetchedAppointments)
         
         sections = [animalsSection,appointmentsSection, otherSection]
         collectionView.reloadData()
@@ -109,7 +109,7 @@ class HomeView2Controller: UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPagingCentered
         section.interGroupSpacing = 20
-        section.contentInsets = .init(top: 10, leading: 10, bottom: 30, trailing: 10)
+        section.contentInsets = .init(top: 10, leading: 15, bottom: 30, trailing: 10)
         section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
         return section
     }

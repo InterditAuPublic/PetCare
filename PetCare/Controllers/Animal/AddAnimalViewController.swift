@@ -13,7 +13,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     // MARK: - Properties
     var animalToSave: Animal?
     let addAnimalView = AddAnimalView()
-    let speciesOptions: [Species] = Species.allSpecies
+//    let speciesOptions: [Species] = Species.allSpecies
     
     // MARK: - View Lifecycle
     
@@ -26,8 +26,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     
     // MARK: - UI Setup
     private func configureNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.navigationBar.tintColor = .orange
+//        navigationController?.navigationBar.tintColor = .orange
     }
     
     private func setupUI() {
