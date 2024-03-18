@@ -50,14 +50,17 @@ class AddAppointmentViewController: UIViewController {
         // Add the appointment form to the view
         view.addSubview(appointmentForm)
 
-        // Set the constraints for the appointment form
+        // Set up constraints for the appointment form
         appointmentForm.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             appointmentForm.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             appointmentForm.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             appointmentForm.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            appointmentForm.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            appointmentForm.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+
+        // Set the delegate of the text field to the view controller
+        appointmentForm.delegate = self
 
     }
     
