@@ -52,6 +52,9 @@
         }
       }
     },
+    "animal_validation_message" : {
+
+    },
     "animals" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -68,6 +71,9 @@
           }
         }
       }
+    },
+    "animals_placeholder" : {
+
     },
     "appointments" : {
       "extractionState" : "manual",
@@ -275,10 +281,16 @@
     "date_placeholder" : {
 
     },
+    "date_validation_message" : {
+
+    },
     "description" : {
 
     },
     "description_placeholder" : {
+
+    },
+    "description_validation_message" : {
 
     },
     "dog" : {
@@ -348,12 +360,6 @@
           }
         }
       }
-    },
-    "hours" : {
-
-    },
-    "hours_placeholder" : {
-
     },
     "identifier" : {
       "extractionState" : "manual",
@@ -657,6 +663,15 @@
           }
         }
       }
+    },
+    "veterinarian" : {
+
+    },
+    "veterinarian_placeholder" : {
+
+    },
+    "veterinarian_validation_message" : {
+
     },
     "weight" : {
       "extractionState" : "manual",

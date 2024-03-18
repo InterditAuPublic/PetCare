@@ -40,11 +40,11 @@ struct TextFormField: FormField {
 // Implement a date form field conforming to FormField
 struct DateFormField: FormField {
     var selected: Any?
-    
     var labelText: String?
     var placeholder: String?
     var value: Any?
     var values: Any?
+    var datePickerMode: UIDatePicker.Mode
     var inputViewType: InputViewType = .date
 }
 
@@ -164,13 +164,18 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func createDatePicker(for formField: FormField) -> UIDatePicker {
+        guard let dateFormField = formField as? DateFormField else {
+            fatalError("Invalid form field type for date")
+        }
+        
         let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
+        datePicker.datePickerMode = dateFormField.datePickerMode // Use datePickerMode from the form field
         datePicker.maximumDate = Date()
-        datePicker.date = formField.value as? Date ?? Date()
+        datePicker.date = dateFormField.value as? Date ?? Date()
         datePicker.preferredDatePickerStyle = .inline
         datePicker.tintColor = .orange
         datePicker.addTarget(self, action: #selector(datePickerDidChange(_:)), for: .valueChanged)
+        
         return datePicker
     }
     

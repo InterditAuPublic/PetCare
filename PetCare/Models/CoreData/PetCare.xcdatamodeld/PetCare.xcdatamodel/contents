@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23B92" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AnimalSaved" representedClassName="AnimalSaved" syncable="YES" codeGenerationType="class">
         <attribute name="birthdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="breed" optional="YES" attributeType="String"/>
@@ -16,7 +16,6 @@
     <entity name="AppointementSaved" representedClassName="AppointementSaved" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="descriptionRdv" optional="YES" attributeType="String"/>
-        <attribute name="hours" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="animals" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="AnimalSaved" inverseName="appointements" inverseEntity="AnimalSaved"/>
         <relationship name="veterinarian" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="VeterinarianSaved" inverseName="appointements" inverseEntity="VeterinarianSaved"/>

@@ -4,33 +4,41 @@
 //
 //  Created by Melvin Poutrel on 17/03/2024.
 //
-
 import UIKit
 
 class AppointmentForm: FormView, FormDelegate {
     
     var appointment: Appointement?
+    var veterinarians: [Veterinarian]
+    var animals: [Animal]
     
-    init(appointment: Appointement?) {
-        super.init(formFields: [])
+    var animalForm: AnimalForm!
+    
+    init(appointment: Appointement?, veterinarians: [Veterinarian], animals: [Animal]) {
         self.appointment = appointment
+        self.veterinarians = veterinarians
+        self.animals = animals
+        super.init(formFields: [])
         setupForm()
     }
     
     required init(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupForm() {
         // Create form fields for the AppointmentForm
-        let dateField = DateFormField(labelText: NSLocalizedString("date", comment: ""), placeholder: NSLocalizedString("date_placeholder", comment: ""), value: appointment?.date)
-        let hoursField = TextFormField(labelText: NSLocalizedString("hours", comment: ""), placeholder: NSLocalizedString("hours_placeholder", comment: ""), value: appointment?.hours)
+        let dateField = DateFormField(labelText: NSLocalizedString("date", comment: ""), placeholder: NSLocalizedString("date_placeholder", comment: ""), value: appointment?.date, datePickerMode: .dateAndTime)
+        let veterinarianField = PickerFormField(values: veterinarians.map { $0.name }, labelText: NSLocalizedString("veterinarian", comment: ""), placeholder: NSLocalizedString("veterinarian_placeholder", comment: ""), value: nil, inputViewType: .picker)
+        let animalsField = PickerFormField(values: animals.map { $0.name }, labelText: NSLocalizedString("animals", comment: ""), placeholder: NSLocalizedString("animals_placeholder", comment: ""), value: nil, inputViewType: .picker)
         let descriptionField = TextFormField(labelText: NSLocalizedString("description", comment: ""), placeholder: NSLocalizedString("description_placeholder", comment: ""), value: appointment?.descriptionRdv)
+        
         // Add additional fields as needed
         
         // Add the form fields to the AppointmentForm
         addFormField(dateField)
-        addFormField(hoursField)
+        addFormField(veterinarianField)
+        addFormField(animalsField)
         addFormField(descriptionField)
         
         delegate = self
@@ -46,9 +54,13 @@ class AppointmentForm: FormView, FormDelegate {
             if dateField.labelText == NSLocalizedString("date", comment: "") {
                 appointment?.date = value as? Date
             }
-        case let hoursField as TextFormField:
-            if hoursField.labelText == NSLocalizedString("hours", comment: "") {
-                appointment?.hours = value as? String
+        case let veterinarianField as PickerFormField:
+            if veterinarianField.labelText == NSLocalizedString("veterinarian", comment: "") {
+                // Handle selected veterinarian
+            }
+        case let animalsField as PickerFormField:
+            if animalsField.labelText == NSLocalizedString("animals", comment: "") {
+                // Handle selected animal
             }
         case let descriptionField as TextFormField:
             if descriptionField.labelText == NSLocalizedString("description", comment: "") {
