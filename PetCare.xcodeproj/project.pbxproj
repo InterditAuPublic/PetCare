@@ -46,6 +46,7 @@
 		B04BDB912B4B211100592B31 /* 4.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8E2B4B211100592B31 /* 4.json */; };
 		B04BDB922B4B211100592B31 /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8F2B4B211100592B31 /* 5.json */; };
 		B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB932B4C11A600592B31 /* LoadingView.swift */; };
+		B07A05632BADAA1700D25E0D /* AddAppointmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A05622BADAA1700D25E0D /* AddAppointmentView.swift */; };
 		B08C7EA12B549F1B0090E205 /* AddAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */; };
 		B097645E2B64E389006C927F /* AnimalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */; };
 		B09BBBF02B55E6930046E0A9 /* VeterinarianForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */; };
@@ -136,6 +137,7 @@
 		B04BDB8E2B4B211100592B31 /* 4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.json; sourceTree = "<group>"; };
 		B04BDB8F2B4B211100592B31 /* 5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.json; sourceTree = "<group>"; };
 		B04BDB932B4C11A600592B31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B07A05622BADAA1700D25E0D /* AddAppointmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppointmentView.swift; sourceTree = "<group>"; };
 		B08C7EA02B549F1B0090E205 /* AddAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalView.swift; sourceTree = "<group>"; };
 		B097645D2B64E389006C927F /* AnimalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalCollectionViewCell.swift; sourceTree = "<group>"; };
 		B09BBBEF2B55E6930046E0A9 /* VeterinarianForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianForm.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		B00640862B4F8A10002A4139 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
+				B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */,
 				B00640872B4F8A3A002A4139 /* AnimalForm.swift */,
 				B00640892B4F8CE2002A4139 /* FormView.swift */,
 				B0DADBB22B597ABB002A6BAD /* test.swift */,
@@ -245,7 +248,6 @@
 			children = (
 				B04459332B5FDC2A002CD33B /* AppointementView.swift */,
 				B005C3E72BA1E02E00D1C3BE /* NoAppointementView.swift */,
-				B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */,
 			);
 			path = Appointement;
 			sourceTree = "<group>";
@@ -255,6 +257,7 @@
 			children = (
 				B044592F2B5FDB79002CD33B /* AppointementViewController.swift */,
 				B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */,
+				B07A05622BADAA1700D25E0D /* AddAppointmentView.swift */,
 			);
 			path = Appointement;
 			sourceTree = "<group>";
@@ -795,6 +798,7 @@
 				B006408A2B4F8CE2002A4139 /* FormView.swift in Sources */,
 				B0A652662B6A453A00ED57FC /* EditAnimalView.swift in Sources */,
 				B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */,
+				B07A05632BADAA1700D25E0D /* AddAppointmentView.swift in Sources */,
 				B0CD9A772BA76A7F004621B5 /* AddAppointementViewController.swift in Sources */,
 				B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */,
 				B00640832B4F77D1002A4139 /* AnimalDetailViewController.swift in Sources */,

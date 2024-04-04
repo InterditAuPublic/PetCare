@@ -8,21 +8,23 @@
 import UIKit
 import CoreData
 
-class AddAppointmentViewController: UIViewController {
+class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     
-    private var appointmentForm: AppointmentForm!
+    private var appointmentForm: AddAppointementView?
     var veterinarians: [Veterinarian]?
     var animals: [Animal]?
-    
+    var appointement: Appointement?
     // Inject CoreData context
     var context: NSManagedObjectContext!
+ 
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupNavigationBar()
         setupAppointmentForm()
     }
@@ -45,22 +47,22 @@ class AddAppointmentViewController: UIViewController {
         fetchAnimals()
         
         // Initialize the appointment form with fetched data
-        appointmentForm = AppointmentForm(appointment: nil, veterinarians: veterinarians ?? [], animals: animals ?? [])
+        appointmentForm = AddAppointementView(appointment: appointement, veterinarians: veterinarians!, animals: animals ?? [])
 
         // Add the appointment form to the view
-        view.addSubview(appointmentForm)
+        view.addSubview(appointmentForm!)
 
         // Set up constraints for the appointment form
-        appointmentForm.translatesAutoresizingMaskIntoConstraints = false
+        appointmentForm!.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            appointmentForm.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            appointmentForm.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            appointmentForm.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            appointmentForm.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            appointmentForm!.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            appointmentForm!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            appointmentForm!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            appointmentForm!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
 
         // Set the delegate of the text field to the view controller
-        appointmentForm.delegate = self
+        appointmentForm!.delegate = self
 
     }
     
@@ -82,8 +84,12 @@ class AddAppointmentViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func saveAppointment() {
+//        let formFields = appointmentForm!.AppointementForm.getFormFields()
+        
+//        print(formFields)
+        
         guard let appointmentForm = appointmentForm,
-              let formFields = appointmentForm.getFormFields() as? [FormField],
+              let formFields = appointmentForm.AppointementForm.getFormFields() as? [FormField],
               formFields.count >= 4 else {
             showAlert(title: "Error", message: "Appointment form data is incomplete.")
             return
@@ -130,7 +136,7 @@ class AddAppointmentViewController: UIViewController {
         
         let appointment = Appointement(id: "0", date: date, descriptionRdv: description, animals: selectedAnimals, veterinarian: veterinarian)
         
-        // Save the appointment to the database
+        // Save the appointment to CoreData
         CoreDataManager.shared.saveAppointement(appointement: appointment)
         
         // Dismiss the view controller after saving the appointment

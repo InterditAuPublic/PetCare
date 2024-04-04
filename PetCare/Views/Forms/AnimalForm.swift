@@ -10,7 +10,7 @@ import UIKit
 class AnimalForm: FormView, FormDelegate {
     
     var animal: Animal?
-    let speciesOptions: [Species] = Species.allSpecies
+    let speciesOptions: [Species] = Species.allCases
     
     init(animal: Animal?) {
         super.init(formFields: [])
@@ -23,11 +23,24 @@ class AnimalForm: FormView, FormDelegate {
     }
     
     private func setupForm() {
+        
+        let test = Species.allCases.map({ Specie in
+            return Specie.text
+        })
+        
+        print(test)
+        
         // Create form fields for the AnimalForm
         let imageField = ImageFormField(value: "animal_default_image", picker: true)
         let identifierField = TextFormField(labelText: NSLocalizedString("identifier", comment: ""), placeholder: NSLocalizedString("identifier_placeholder", comment: ""), value: animal?.identifier)
         let nameField = TextFormField(labelText: NSLocalizedString("name", comment: ""), placeholder: NSLocalizedString("name_placeholder", comment: ""), value: animal?.name)
-        let species = PickerFormField(values: Species.allSpecies, labelText: NSLocalizedString("species", comment: ""), value:animal?.species?.rawValue ?? Species.cat.rawValue) // TODO: HERE SET THE DEFAULT VALUE
+        
+        
+        
+        let species = PickerFormField(values: ["chien", "chat"], labelText: NSLocalizedString("species", comment: ""), value: "chat")
+        
+        
+        
         let genderField = SegmentFormField(labelText: NSLocalizedString("sex", comment: ""), value: true, values: ["Male", "Female"])
         let breedField = TextFormField(labelText: NSLocalizedString("breed", comment: ""), placeholder: NSLocalizedString("breed_placeholder", comment: ""), value: animal?.breed)
         let birthDateField = DateFormField(labelText: NSLocalizedString("birthdate", comment: ""), placeholder: NSLocalizedString("birthdate_placeholder", comment: ""), value: animal?.birthdate, datePickerMode: .date)

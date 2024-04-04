@@ -26,9 +26,13 @@ struct Animal: Codable {
 enum Species: String, CaseIterable, Codable {
     case dog = "Dog"
     case cat = "Cat"
-
-    // Propriété calculée pour obtenir une liste de toutes les espèces
-    static var allSpecies: [Species] {
-        return self.allCases
+    
+    var text: String {
+        switch self {
+        case .dog:
+            return NSLocalizedString("dog", comment: "")
+        case .cat:
+            return NSLocalizedString("cat", comment: "")
+        }
     }
 }

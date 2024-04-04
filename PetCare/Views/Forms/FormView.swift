@@ -44,6 +44,8 @@ struct DateFormField: FormField {
     var placeholder: String?
     var value: Any?
     var values: Any?
+    var maxDate: Date?
+    var minDate: Date?
     var datePickerMode: UIDatePicker.Mode
     var inputViewType: InputViewType = .date
 }
@@ -170,7 +172,8 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = dateFormField.datePickerMode // Use datePickerMode from the form field
-        datePicker.maximumDate = Date()
+        datePicker.maximumDate = dateFormField.maxDate
+        datePicker.minimumDate = dateFormField.minDate
         datePicker.date = dateFormField.value as? Date ?? Date()
         datePicker.preferredDatePickerStyle = .inline
         datePicker.tintColor = .orange
@@ -222,33 +225,29 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setupPickerViewDefault(for formField: FormField) {
+        
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
               var pickerFormField = formFields[index] as? PickerFormField,
-              let values = pickerFormField.values as? [Species] else {
+              let values = pickerFormField.values as? [String] else {
             return
         }
         
-        pickerFormField.value = values.first?.rawValue
+        pickerFormField.value = values.first
         formFields[index] = pickerFormField
     }
     
     private func setupPickerViewSelectedRow(for formField: FormField) {
-        print("setupPickerViewSelectedRow")
+        
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
               var pickerFormField = formFields[index] as? PickerFormField,
-              
-                let values = pickerFormField.values as? [Species] else {
-            print("return")
+                let values = pickerFormField.values as? [String] else {
             return
         }
         
-        print("values : \(values)")
+        
         if let value = pickerFormField.value as? String,
-           let selectedRow = values.firstIndex(where: { $0.rawValue == value }) {
-            print("selectedRow : \(selectedRow)")
-            print("pickerFormField : \(pickerFormField)")
-            print("pickerFormField.value : \(pickerFormField.value)")
-            
+           let selectedRow = values.firstIndex(where: { $0 == value }) {
+           
             pickerFormField.value = selectedRow
             formFields[index] = pickerFormField
         }
@@ -342,7 +341,7 @@ extension FormView: UIPickerViewDataSource {
         }
         
         if let pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [Species] {
+           let values = pickerFormField.values as? [String] {
             return values.count
         }
         return 0
@@ -355,8 +354,8 @@ extension FormView: UIPickerViewDataSource {
         }
         
         if let pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [Species] {
-            return "\(values[row].rawValue)"
+           let values = pickerFormField.values as? [String] {
+            return "\(values[row])"
         }
         return nil
     }
@@ -368,8 +367,8 @@ extension FormView: UIPickerViewDataSource {
         }
         
         if var pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [Species] {
-            pickerFormField.value = values.first?.rawValue
+           let values = pickerFormField.values as? [String] {
+            pickerFormField.value = values.first
             formFields[index] = pickerFormField
         }
     }
@@ -381,15 +380,17 @@ extension FormView: UIPickerViewDataSource {
         }
         
         if var pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [Species] {
-            if let value = pickerFormField.value as? String,
-               let selectedRow = values.firstIndex(where: { $0.rawValue == value }) {
-                pickerFormField.selected = selectedRow
+           let values = pickerFormField.values as? [String],
+           let value = pickerFormField.value as? String,
+           
+              let selectedRow = values.firstIndex(where: { $0 == value }) {
+                pickerFormField.value = selectedRow
+                print("\(pickerFormField.value)")
                 formFields[index] = pickerFormField
-            }
+              }
         }
     }
-}
+
 
 
 // MARK: - UIPickerViewDelegate
@@ -403,12 +404,12 @@ extension FormView: UIPickerViewDelegate {
         }
         
         if var pickerFormField = formFields[index] as? PickerFormField {
-            if let values = pickerFormField.values as? [Species] {
-                pickerFormField.value = values[row].rawValue
+            if let values = pickerFormField.values as? [String] {
+                pickerFormField.value = values[row]
+                
             }
-            
+
             formFields[index] = pickerFormField
-            
             delegate?.formDidUpdateValue(row, forField: pickerFormField)
         }
     }

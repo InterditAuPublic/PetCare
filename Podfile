@@ -6,8 +6,8 @@ target 'PetCare' do
   use_frameworks!
 
   # Pods for PetCare
-  pod 'lottie-ios', '~> 3.1.8'
-  pod 'IQKeyboardManagerSwift'
+  pod 'lottie-ios', '~> 3.1.8', :inhibit_warnings => true
+  pod 'IQKeyboardManagerSwift', :inhibit_warnings => true
 
   target 'PetCareTests' do
     inherit! :search_paths
