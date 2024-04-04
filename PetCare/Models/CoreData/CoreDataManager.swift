@@ -68,7 +68,6 @@ class CoreDataManager {
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
         do {
             let animalsData = try persistentContainer.viewContext.fetch(request)
-            print(animalsData)
             let animals = animalsData.map { animalData in
                 return Animal(
                     id: animalData.id,
@@ -91,14 +90,11 @@ class CoreDataManager {
     }
     
     func updateAnimal(animal: Animal) {
-        print("In update \(animal)")
         let request: NSFetchRequest<AnimalSaved> = AnimalSaved.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", animal.id ?? "")
 
         do {
             let existingAnimals = try persistentContainer.viewContext.fetch(request)
-            
-            print("PEtite upadta \(existingAnimals)")
             
             if let existingAnimal = existingAnimals.first {
                 existingAnimal.identifier = animal.identifier
@@ -164,7 +160,6 @@ class CoreDataManager {
         let request: NSFetchRequest<VeterinarianSaved> = VeterinarianSaved.fetchRequest()
         do {
             let veterinariansData = try persistentContainer.viewContext.fetch(request)
-            print(veterinariansData)
             let veterinarians = veterinariansData.map { veterinarianData in
                 return Veterinarian(
                     id: veterinarianData.id,
@@ -287,8 +282,7 @@ class CoreDataManager {
         let request: NSFetchRequest<AppointementSaved> = AppointementSaved.fetchRequest()
         do {
             let appointementsData = try persistentContainer.viewContext.fetch(request)
-            print(appointementsData)
-            
+
             let appointements = appointementsData.map { appointementData in
                 var veterinarian: Veterinarian?
                 if let veterinarianData = appointementData.veterinarian {
@@ -367,11 +361,7 @@ class CoreDataManager {
         return sortedAppointements
     }
 
-    func updateAppointement(appointement: Appointement) {
-        print("In update Appointement CoreData")
-        
-        print(appointement)
-        
+    func updateAppointement(appointement: Appointement) {        
         // Fetch the existing animal from Core Data based on its identifier
         let request: NSFetchRequest<AppointementSaved> = AppointementSaved.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", appointement.id ?? "")

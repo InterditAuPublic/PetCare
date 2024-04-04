@@ -35,15 +35,11 @@ class AnimalForm: FormView, FormDelegate {
         let identifierField = TextFormField(labelText: NSLocalizedString("identifier", comment: ""), placeholder: NSLocalizedString("identifier_placeholder", comment: ""), value: animal?.identifier)
         let nameField = TextFormField(labelText: NSLocalizedString("name", comment: ""), placeholder: NSLocalizedString("name_placeholder", comment: ""), value: animal?.name)
         
-        
-        
         let species = PickerFormField(values: ["chien", "chat"], labelText: NSLocalizedString("species", comment: ""), value: "chat")
-        
-        
         
         let genderField = SegmentFormField(labelText: NSLocalizedString("sex", comment: ""), value: true, values: ["Male", "Female"])
         let breedField = TextFormField(labelText: NSLocalizedString("breed", comment: ""), placeholder: NSLocalizedString("breed_placeholder", comment: ""), value: animal?.breed)
-        let birthDateField = DateFormField(labelText: NSLocalizedString("birthdate", comment: ""), placeholder: NSLocalizedString("birthdate_placeholder", comment: ""), value: animal?.birthdate, datePickerMode: .date)
+        let birthDateField = DateFormField(labelText: NSLocalizedString("birthdate", comment: ""), placeholder: NSLocalizedString("birthdate_placeholder", comment: ""), value: animal?.birthdate, maxDate: Date(), datePickerMode: .date)
         let weightField = TextFormField(labelText: NSLocalizedString("weight", comment: ""), placeholder: NSLocalizedString("weight_placeholder", comment: ""), value: animal?.weight)
         let colorField = TextFormField(labelText: NSLocalizedString("color", comment: ""), placeholder: NSLocalizedString("color_placeholder", comment: ""), value: animal?.color)
         let commentsFields = TextFormField(labelText: NSLocalizedString("comments", comment: ""), placeholder: NSLocalizedString("comments_placeholder", comment: ""), value: animal?.comments)

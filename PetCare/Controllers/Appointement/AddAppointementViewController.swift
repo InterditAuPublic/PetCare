@@ -84,9 +84,7 @@ class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Actions
     
     @objc private func saveAppointment() {
-//        let formFields = appointmentForm!.AppointementForm.getFormFields()
-        
-//        print(formFields)
+        let formFields = appointmentForm!.AppointementForm.getFormFields()
         
         guard let appointmentForm = appointmentForm,
               let formFields = appointmentForm.AppointementForm.getFormFields() as? [FormField],

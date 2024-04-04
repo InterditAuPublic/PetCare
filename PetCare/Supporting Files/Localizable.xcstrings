@@ -54,6 +54,12 @@
     },
     "animal_validation_message" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "animal_validation_message"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -91,6 +97,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Animal"
+          }
+        }
+      }
+    },
+    "appointement_date_placeholder" : {
+      "comment" : "tes",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
           }
         }
       }
@@ -311,16 +328,6 @@
         }
       }
     },
-    "date_placeholder" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        }
-      }
-    },
     "date_validation_message" : {
       "localizations" : {
         "fr" : {
@@ -333,20 +340,32 @@
     },
     "description" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "Note"
           }
         }
       }
     },
     "description_placeholder" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optionnal"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ""
+            "value" : "Optionnel"
           }
         }
       }
@@ -451,13 +470,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter identifier (I-CAD)"
+            "value" : "Enter animal's identifier number (I-CAD)"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Identifiant (I-CAD)"
+            "value" : "Identifiant de l'animal (I-CAD)"
           }
         }
       }
@@ -748,6 +767,214 @@
         }
       }
     },
+    "veterinarian_adresse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse"
+          }
+        }
+      }
+    },
+    "veterinarian_adresse_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter veterinarian's address"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez l'adresse du vétérinaire"
+          }
+        }
+      }
+    },
+    "veterinarian_city" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ville"
+          }
+        }
+      }
+    },
+    "veterinarian_city_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter city"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez la ville"
+          }
+        }
+      }
+    },
+    "veterinarian_country" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Country"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pays"
+          }
+        }
+      }
+    },
+    "veterinarian_email" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "veterinarian_email_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter veterinarian's email address"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez l'adresse e-mail du vétérinaire"
+          }
+        }
+      }
+    },
+    "veterinarian_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom"
+          }
+        }
+      }
+    },
+    "veterinarian_name_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter veterinarian's name"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le nom du vétérinaire"
+          }
+        }
+      }
+    },
+    "veterinarian_note" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        }
+      }
+    },
+    "veterinarian_note_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter note"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optionnel: Ecrire une note"
+          }
+        }
+      }
+    },
+    "veterinarian_phone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phone"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numéro de téléphone"
+          }
+        }
+      }
+    },
+    "veterinarian_phone_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter veterinarian's phone number"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le numéro de téléphone du vétérinaire"
+          }
+        }
+      }
+    },
     "veterinarian_placeholder" : {
       "localizations" : {
         "en" : {
@@ -759,7 +986,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Selectionner un veto"
+            "value" : "Sélectionnez un vétérinaire"
           }
         }
       }
@@ -776,6 +1003,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vous devez sélectionner un vétérinaire"
+          }
+        }
+      }
+    },
+    "veterinarian_zipcode_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter zip code"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le code postal"
           }
         }
       }

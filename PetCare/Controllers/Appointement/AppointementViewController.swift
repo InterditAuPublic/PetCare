@@ -60,7 +60,6 @@ class AppointementViewController: UIViewController {
     private func fetchAppointements() {
         if let fetchedAppointements = CoreDataManager.shared.fetchAppointementsSortedByDate() {
             appointements = fetchedAppointements
-            print("appointements in appointements : \(appointements)")
         }
     }
     

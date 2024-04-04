@@ -120,7 +120,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func didTap(on cell: AnimalCollectionViewCell) {
         if let indexPath = animalCollectionView.indexPath(for: cell) {
             let selectedAnimal = animals[indexPath.item]
-            print("Selected Animal at Index: \(indexPath.item), Name: \(selectedAnimal.name)")
             let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
             navigationController?.pushViewController(animalDetailVC, animated: true)
         } else {

@@ -23,14 +23,14 @@ class VeterinarianForm: FormView, FormDelegate {
     
     private func setupForm() {
         let image = ImageFormField(value: "veterinary")
-        let name = TextFormField(labelText: "Name", placeholder: "Name of the vet cab", value: veterinarian?.name)
-        let address = TextFormField(labelText: "Adresse", placeholder: "Adresse of the cab" , value: veterinarian?.address)
-        let zipcode = TextFormField(labelText: "Zip", placeholder: "zipcode of the vet cab", value: veterinarian?.zipcode)
-        let city = TextFormField(labelText: "City", placeholder: "City of the vet cab", value: veterinarian?.city)
-        let countryPicker = PickerFormField(values: ["Fr","En","De","Pl","Be","It","Es","Pt","Nl","Sw"], labelText: "Country")
-        let phone = TextFormField(labelText: "Phone", placeholder: "Phone of the vet cab", value: veterinarian?.phone)
-        let email = TextFormField(labelText: "Email", placeholder: "Email of the vet cab", value: veterinarian?.email)
-        let note = TextFormField(labelText: "Note", placeholder: "Special note", value: veterinarian?.note)
+        let name = TextFormField(labelText: NSLocalizedString("veterinarian_name", comment: ""), placeholder: NSLocalizedString("veterinarian_name_placeholder", comment: ""), value: veterinarian?.name)
+        let address = TextFormField(labelText: NSLocalizedString("veterinarian_adresse", comment: ""), placeholder: NSLocalizedString("veterinarian_adresse_placeholder", comment: "") , value: veterinarian?.address)
+        let zipcode = TextFormField(labelText: NSLocalizedString("zipcode", comment: ""), placeholder: NSLocalizedString("veterinarian_zipcode_placeholder", comment: ""), value: veterinarian?.zipcode)
+        let city = TextFormField(labelText: NSLocalizedString("veterinarian_city", comment: ""), placeholder: NSLocalizedString("veterinarian_city_placeholder", comment: ""), value: veterinarian?.city)
+        let countryPicker = PickerFormField(values: ["Fr","En","De","Pl","Be","It","Es","Pt","Nl","Sw"], labelText: NSLocalizedString("veterinarian_country", comment: ""))
+        let phone = TextFormField(labelText: NSLocalizedString("veterinarian_phone", comment: ""), placeholder:NSLocalizedString("veterinarian_phone_placeholder", comment: ""), value: veterinarian?.phone)
+        let email = TextFormField(labelText: NSLocalizedString("veterinarian_email", comment: ""), placeholder: NSLocalizedString("veterinarian_email_placeholder", comment: ""), value: veterinarian?.email)
+        let note = TextFormField(labelText: NSLocalizedString("veterinarian_note", comment: ""), placeholder: NSLocalizedString("veterinarian_note_placeholder", comment: ""), value: veterinarian?.note)
         
         addFormField(image)
         addFormField(name)

@@ -31,14 +31,13 @@ class VeterinariansViewController: UIViewController, UITableViewDelegate, UITabl
     private func fetchVeterinarians() {
         if let fetchedVeterinarians = CoreDataManager.shared.fetchVeterinarians() {
             veterinarians = fetchedVeterinarians
-            print(veterinarians)
         }
     }
     
     private func updateUI() {
         DispatchQueue.main.async {
             if self.veterinarians.isEmpty {
-                // Display the NoVeterinarianView
+                // TODO: Display the NoVeterinarianView
                 //                let noVeterinarianView = NoVeterinarianView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
                 //                noVeterinarianView.center = self.view.center
                 //           
