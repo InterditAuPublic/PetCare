@@ -65,35 +65,39 @@ class AnimalForm: FormView, FormDelegate {
     }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        switch field {
-        case let textField as TextFormField:
-            switch textField.labelText {
-            case NSLocalizedString("identifier", comment: ""):
-                animal?.identifier = value as? String
-            case NSLocalizedString("name", comment: ""):
-                animal?.name = value as? String
-            case NSLocalizedString("breed", comment: ""):
-                animal?.breed = value as? String
-            case NSLocalizedString("weight", comment: ""):
-                animal?.weight = value as? String
-            case NSLocalizedString("color", comment: ""):
-                animal?.color = value as? String
-            case NSLocalizedString("comments", comment: ""):
-                animal?.comments = value as? String
-            default:
-                break
-            }
-        case let pickerField as PickerFormField:
-            if pickerField.labelText == NSLocalizedString("species", comment: "") {
-                animal?.species = value as? Species
-            }
-        case let dateField as DateFormField:
-            if dateField.labelText == NSLocalizedString("birthdate", comment: "") {
-                animal?.birthdate = value as? Date
-            }
-        default:
-            break
-        }
+        // Moved to AddAnimalViewController because this one was never called
+        
+//        switch field {
+//        case let textField as TextFormField:
+//            switch textField.labelText {
+//            case NSLocalizedString("identifier", comment: ""):
+//                animal?.identifier = value as? String
+//            case NSLocalizedString("name", comment: ""):
+//                animal?.name = value as? String
+//            case NSLocalizedString("breed", comment: ""):
+//                animal?.breed = value as? String
+//                print(value)
+//                print("bla")
+//            case NSLocalizedString("weight", comment: ""):
+//                animal?.weight = value as? String
+//            case NSLocalizedString("color", comment: ""):
+//                animal?.color = value as? String
+//            case NSLocalizedString("comments", comment: ""):
+//                animal?.comments = value as? String
+//            default:
+//                break
+//            }
+//        case let pickerField as PickerFormField:
+//            if pickerField.labelText == NSLocalizedString("species", comment: "") {
+//                animal?.species = value as? Species
+//            }
+//        case let dateField as DateFormField:
+//            if dateField.labelText == NSLocalizedString("birthdate", comment: "") {
+//                animal?.birthdate = value as? Date
+//            }
+//        default:
+//            break
+//        }
     }
 }
 

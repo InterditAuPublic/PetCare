@@ -275,7 +275,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     @objc private func segmentedControlDidChange(_ sender: UISegmentedControl) {
-        guard let index = formFields.firstIndex(where: { ($0 as? SegmentFormField)?.placeholder == nil }) else {
+        guard let index = formFields.firstIndex(where: { $0 is SegmentFormField }) else {
             return
         }
         formFields[index].value = sender.titleForSegment(at: sender.selectedSegmentIndex)
