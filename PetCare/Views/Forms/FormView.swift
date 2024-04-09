@@ -14,7 +14,7 @@ protocol FormField {
     var value: Any? { get set }
     var values: Any? { get set }
     var selected: Any? { get set}
-    var inputViewType: InputViewType { get }
+    var inputViewType: InputViewType { get } // Useless? You already create different struct depending of the type
 }
 
 // Define an enum for input view types
@@ -66,7 +66,7 @@ struct ImageFormField: FormField {
     var labelText: String?
     var placeholder: String?
     var value: Any?
-    var values: Any?
+    var values: Any? // TODO: Use an array?
     var picker: Bool?
     var inputViewType: InputViewType = .image
 }
@@ -225,7 +225,9 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     private func setupPickerViewDefault(for formField: FormField) {
-        
+        // Le paramètre formField de la méthode n'est même pas utilisé.
+        // Les valeurs affichées seront toujours celles du premier picker à cause du code ci-dessous. (firstIndex)
+        // Ce code est utilisé aussi dans le pickerView delegate et datasource un peu partout. Il faut refacto car si tu changes à un endroit tu dois le faire partout.
         guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
               var pickerFormField = formFields[index] as? PickerFormField,
               let values = pickerFormField.values as? [String] else {
