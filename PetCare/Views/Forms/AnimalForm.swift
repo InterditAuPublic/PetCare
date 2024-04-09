@@ -35,8 +35,8 @@ class AnimalForm: FormView, FormDelegate {
         let identifierField = TextFormField(labelText: NSLocalizedString("identifier", comment: ""), placeholder: NSLocalizedString("identifier_placeholder", comment: ""), value: animal?.identifier)
         let nameField = TextFormField(labelText: NSLocalizedString("name", comment: ""), placeholder: NSLocalizedString("name_placeholder", comment: ""), value: animal?.name)
         
-        let species = PickerFormField(values: ["chien", "chat"], labelText: NSLocalizedString("species", comment: ""), value: "chat")
-        
+        let species = PickerFormField(values: [NSLocalizedString("dog", comment: ""), NSLocalizedString("cat", comment: "")], labelText: NSLocalizedString("species", comment: ""), value: NSLocalizedString("cat", comment: ""))
+
         let genderField = SegmentFormField(labelText: NSLocalizedString("sex", comment: ""), value: true, values: ["Male", "Female"])
         let breedField = TextFormField(labelText: NSLocalizedString("breed", comment: ""), placeholder: NSLocalizedString("breed_placeholder", comment: ""), value: animal?.breed)
         let birthDateField = DateFormField(labelText: NSLocalizedString("birthdate", comment: ""), placeholder: NSLocalizedString("birthdate_placeholder", comment: ""), value: animal?.birthdate, maxDate: Date(), datePickerMode: .date)
