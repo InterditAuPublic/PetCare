@@ -53,7 +53,7 @@ class CoreDataManager {
         animalObject.id = UUID().uuidString
         animalObject.identifier = animal.identifier
         animalObject.name = animal.name
-        animalObject.sexe = animal.sexe!
+        animalObject.sexe = animal.sexe ?? true
         animalObject.species = animal.species?.rawValue
         animalObject.breed = animal.breed
         animalObject.birthdate = animal.birthdate

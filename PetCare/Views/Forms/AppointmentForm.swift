@@ -57,7 +57,7 @@ class AppointmentForm: FormView, FormDelegate {
                 appointment?.date = value as? Date
             }
         case let veterinarianField as PickerFormField:
-            if veterinarianField.labelText == NSLocalizedString("description", comment: "") {
+            if veterinarianField.labelText == NSLocalizedString("veterinarian", comment: "") {
                 // Handle selected veterinarian
             }
         case let animalsField as PickerFormField:

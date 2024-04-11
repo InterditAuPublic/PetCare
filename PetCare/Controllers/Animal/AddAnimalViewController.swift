@@ -11,7 +11,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     
     
     // MARK: - Properties
-    var animalToSave: Animal?
+    var animalToSave = Animal()
     let addAnimalView = AddAnimalView()
 //    let speciesOptions: [Species] = Species.allSpecies
     
@@ -52,35 +52,13 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     
     @objc private func saveButtonTapped() {
         guard let animalForm = addAnimalView.animalForm else { return }
-        
+
         let formFields = animalForm.getFormFields()
-        
-        guard let name = formFields[2].value as? String, !name.isEmpty else {
-            showAlert(message: "Vous devez entrer un nom pour votre animal")
-            return
-        }
-        
-        // Validate species
-        guard let speciesRawValue = formFields[3].value as? String,
-              let species = Species(rawValue: speciesRawValue) else {
-            showAlert(message: "Vous devez sélectionner une espèce pour votre animal")
-            return
-        }
-        
-        var animal = Animal()
-        animal.image = formFields[0].value as? String
-        animal.identifier = formFields[1].value as? String
-        animal.sexe = formFields[4].value as? Bool
-        animal.breed = formFields[5].value as? String
-        animal.birthdate = formFields[6].value as? Date
-        animal.weight = formFields[7].value as? String
-        animal.color = formFields[8].value as? String
-        animal.comments = formFields[9].value as? String
-        animal.name = name
-        animal.species = species
-        
+
+        self.animalToSave.image = formFields[0].value as? String
+
         // save the animal to the database
-        CoreDataManager.shared.saveAnimal(animal: animal)
+        CoreDataManager.shared.saveAnimal(animal: self.animalToSave)
     }
     
     func selectedSpecies(name: String, species: Species) {
@@ -90,9 +68,41 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
     func nextButtonTapped(with animalInfo: [String : Any]) {
         print("next")
     }
-    
+
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        
+        switch field {
+        case let textField as TextFormField:
+            switch textField.labelText {
+            case NSLocalizedString("identifier", comment: ""):
+                self.animalToSave.identifier = value as? String
+            case NSLocalizedString("name", comment: ""):
+                self.animalToSave.name = value as? String
+            case NSLocalizedString("breed", comment: ""):
+                self.animalToSave.breed = value as? String
+            case NSLocalizedString("weight", comment: ""):
+                self.animalToSave.weight = value as? String
+            case NSLocalizedString("color", comment: ""):
+                self.animalToSave.color = value as? String
+            case NSLocalizedString("comments", comment: ""):
+                self.animalToSave.comments = value as? String
+            default:
+                break
+            }
+        case let pickerField as PickerFormField:
+            if pickerField.labelText == NSLocalizedString("species", comment: "") {
+                self.animalToSave.species = value as? Species
+            }
+        case let dateField as DateFormField:
+            if dateField.labelText == NSLocalizedString("birthdate", comment: "") {
+                self.animalToSave.birthdate = value as? Date
+            }
+        case let segmentField as SegmentFormField:
+            if segmentField.labelText == NSLocalizedString("sex", comment: "") {
+                self.animalToSave.sexe = (value as! String) == "Female" ? false : true
+            }
+        default:
+            break
+        }
     }
     
     // MARK: - Helper Methods
