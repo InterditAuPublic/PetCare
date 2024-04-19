@@ -235,6 +235,9 @@ class CoreDataManager {
         appointementObject.setValue(appointement.date, forKey: "date")
         appointementObject.setValue(appointement.descriptionRdv, forKey: "descriptionRdv")
         
+        print("Appointement animals: \(appointement.animals)")
+        print("Appointement veterinarian: \(appointement.veterinarian)")
+
         // Assuming that veterinarian and animals are relationships, handle them separately
         if let veterinarian = appointement.veterinarian {
             // Fetch the existing veterinarian from Core Data based on its identifier

@@ -53,6 +53,7 @@
       }
     },
     "animal_validation_message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -329,6 +330,7 @@
       }
     },
     "date_validation_message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -371,6 +373,7 @@
       }
     },
     "description_validation_message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -431,6 +434,9 @@
         }
       }
     },
+    "error" : {
+
+    },
     "female" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -447,6 +453,9 @@
           }
         }
       }
+    },
+    "fill_all_fields" : {
+
     },
     "identifier" : {
       "extractionState" : "manual",
@@ -992,6 +1001,7 @@
       }
     },
     "veterinarian_validation_message" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

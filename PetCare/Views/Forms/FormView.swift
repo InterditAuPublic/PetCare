@@ -14,7 +14,7 @@ protocol FormField {
     var value: Any? { get set }
     var values: Any? { get set }
     var selected: Any? { get set}
-    var inputViewType: InputViewType { get } // Useless? You already create different struct depending of the type
+    var inputViewType: InputViewType { get }
 }
 
 // Define an enum for input view types
@@ -66,29 +66,29 @@ struct ImageFormField: FormField {
     var labelText: String?
     var placeholder: String?
     var value: Any?
-    var values: Any? // TODO: Use an array?
+    var values: Any?
     var picker: Bool?
     var inputViewType: InputViewType = .image
 }
 
-
 struct PickerFormField: FormField {
-    var selected: Any?
+    var value: Any?
     var values: Any?
+    var selected: Any?
     var labelText: String?
     var placeholder: String?
-    var value: Any?
     var inputViewType: InputViewType = .picker
 }
 
 // Implement the main Form class
-class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     weak var delegate: FormDelegate?
     
+    private var pickerViewFieldMap = [UIPickerView: PickerFormField]()
+    
     public var formFields = [FormField]()
     
-    // Initialize the form with an array of form fields
     init(formFields: [FormField]) {
         super.init(frame: .zero)
         self.formFields = formFields
@@ -118,13 +118,10 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         let formFieldView = UIStackView()
         formFieldView.axis = .vertical
         formFieldView.distribution = .fillProportionally
-        
         formFieldView.spacing = 5
         
         let bottomSpacing = UIView()
         bottomSpacing.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        
-        
         formFieldView.addArrangedSubview(bottomSpacing)
         
         let label = UILabel()
@@ -171,7 +168,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         }
         
         let datePicker = UIDatePicker()
-        datePicker.datePickerMode = dateFormField.datePickerMode // Use datePickerMode from the form field
+        datePicker.datePickerMode = dateFormField.datePickerMode
         datePicker.maximumDate = dateFormField.maxDate
         datePicker.minimumDate = dateFormField.minDate
         datePicker.date = dateFormField.value as? Date ?? Date()
@@ -213,49 +210,67 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         return imageView
     }
     
+    // MARK: PICKER VIEW
     
     private func createPickerView(for formField: FormField) -> UIPickerView {
         let pickerView = UIPickerView()
         pickerView.tintColor = .orange
         pickerView.dataSource = self
         pickerView.delegate = self
-        setupPickerViewDefault(for: formField)
+        
+        // Store the pickerFormField in the map
+        if let pickerFormField = formField as? PickerFormField {
+            pickerViewFieldMap[pickerView] = pickerFormField
+        }
+        
+        // Set the selected row if defined in the form field
+        if let pickerFormField = formField as? PickerFormField,
+           let selectedValue = pickerFormField.value as? String,
+           let values = pickerFormField.values as? [String],
+           let selectedIndex = values.firstIndex(of: selectedValue) {
+            pickerView.selectRow(selectedIndex, inComponent: 0, animated: false)
+        }
         
         return pickerView
     }
     
-    private func setupPickerViewDefault(for formField: FormField) {
-        // Le paramètre formField de la méthode n'est même pas utilisé.
-        // Les valeurs affichées seront toujours celles du premier picker à cause du code ci-dessous. (firstIndex)
-        // Ce code est utilisé aussi dans le pickerView delegate et datasource un peu partout. Il faut refacto car si tu changes à un endroit tu dois le faire partout.
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
-              var pickerFormField = formFields[index] as? PickerFormField,
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard let pickerFormField = pickerViewFieldMap[pickerView],
               let values = pickerFormField.values as? [String] else {
+            return 0
+        }
+        return values.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard let pickerFormField = pickerViewFieldMap[pickerView],
+              let values = pickerFormField.values as? [String] else {
+            return nil
+        }
+        if let selectedValue = pickerFormField.selected as? String {
+            return selectedValue
+        } else {
+            return values[row]
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard var pickerFormField = pickerViewFieldMap[pickerView] else {
             return
         }
-        
-        pickerFormField.value = values.first
-        formFields[index] = pickerFormField
+
+        if let values = pickerFormField.values as? [String] {
+            pickerFormField.value = values[row]
+            pickerViewFieldMap[pickerView] = pickerFormField // Update the value in the map
+            delegate?.formDidUpdateValue(values[row], forField: pickerFormField)
+        }
     }
     
-    private func setupPickerViewSelectedRow(for formField: FormField) {
-        
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }),
-              var pickerFormField = formFields[index] as? PickerFormField,
-                let values = pickerFormField.values as? [String] else {
-            return
-        }
-        
-        
-        if let value = pickerFormField.value as? String,
-           let selectedRow = values.firstIndex(where: { $0 == value }) {
-           
-            pickerFormField.value = selectedRow
-            formFields[index] = pickerFormField
-        }
-        
-        
-    }
+    // MARK: END PICKER VIEW
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
         guard let index = formFields.firstIndex(where: { ($0 as? TextFormField)?.placeholder == sender.placeholder }) else {
@@ -327,93 +342,4 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         // Dismiss the image picker
         picker.dismiss(animated: true, completion: nil)
     }
-    
-}
-
-extension FormView: UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // func to set the number of rows in the picker view based on the number of values in the picker form field
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return 0
-        }
-        
-        if let pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [String] {
-            return values.count
-        }
-        return 0
-    }
-    
-    // func to set the title for each row in the picker view based on the values in the picker form field
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return nil
-        }
-        
-        if let pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [String] {
-            return "\(values[row])"
-        }
-        return nil
-    }
-    
-    // func to set the default value for the picker view
-    func setPickerViewDefaultValue(for formField: FormField) {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return
-        }
-        
-        if var pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [String] {
-            pickerFormField.value = values.first
-            formFields[index] = pickerFormField
-        }
-    }
-    
-    // func to set the selected row in the picker view based on the value in the picker form field
-    func setPickerViewSelectedRow(for formField: FormField) {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return
-        }
-        
-        if var pickerFormField = formFields[index] as? PickerFormField,
-           let values = pickerFormField.values as? [String],
-           let value = pickerFormField.value as? String,
-           
-              let selectedRow = values.firstIndex(where: { $0 == value }) {
-                pickerFormField.value = selectedRow
-                print("\(pickerFormField.value)")
-                formFields[index] = pickerFormField
-              }
-        }
-    }
-
-
-
-// MARK: - UIPickerViewDelegate
-
-extension FormView: UIPickerViewDelegate {
-    
-    // func to update the value of the picker form field when the user selects a row in the picker view
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let index = formFields.firstIndex(where: { $0 is PickerFormField }) else {
-            return
-        }
-        
-        if var pickerFormField = formFields[index] as? PickerFormField {
-            if let values = pickerFormField.values as? [String] {
-                pickerFormField.value = values[row]
-                
-            }
-
-            formFields[index] = pickerFormField
-            delegate?.formDidUpdateValue(row, forField: pickerFormField)
-        }
-    }
-    
 }

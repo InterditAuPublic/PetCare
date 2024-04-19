@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FirebaseAnalytics
 
 class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
     
@@ -84,63 +85,60 @@ class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Actions
     
     @objc private func saveAppointment() {
-        let formFields = appointmentForm!.AppointementForm.getFormFields()
-        
-        guard let appointmentForm = appointmentForm,
-              let formFields = appointmentForm.AppointementForm.getFormFields() as? [FormField],
-              formFields.count >= 4 else {
-            showAlert(title: "Error", message: "Appointment form data is incomplete.")
+        guard let appointmentForm = appointmentForm else {
             return
         }
+
+        let values = appointmentForm.AppointementForm.getFormValues()
+        print("Form values: \(values)")
+
+
+        let formFields = appointmentForm.AppointementForm.getFormFields()
         
-        // Validate date
-        guard let date = formFields[0].value as? Date else {
-            showAlert(title: "Error", message: NSLocalizedString("date_validation_message", comment: ""))
-            return
+        for field in formFields {
+            print("Field: \(field.labelText) - Value: \(field.value ?? "nil")")
         }
-        
-        // Validate veterinarian
-        guard let veterinarianIndex = formFields[1].value as? Int, veterinarianIndex < (veterinarians?.count ?? 0) else {
-            showAlert(title: "Error", message: NSLocalizedString("veterinarian_validation_message", comment: ""))
-            return
-        }
-        
-        // Validate animals
-        guard let animalIndexes = formFields[2].value as? [Int] else {
-            showAlert(title: "Error", message: NSLocalizedString("animal_validation_message", comment: ""))
-            return
-        }
-        
-        var selectedAnimals: [Animal] = []
-        for index in animalIndexes {
-            if let animals = animals, index < animals.count {
-                selectedAnimals.append(animals[index])
-            } else {
-                showAlert(title: "Error", message: NSLocalizedString("animal_validation_message", comment: ""))
+
+        // Check if all fields are filled
+        for field in formFields {
+            if field.value == nil {
+                showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("fill_all_fields", comment: ""))
                 return
             }
         }
-        
-        // Validate description
-        guard let description = formFields[3].value as? String, !description.isEmpty else {
-            showAlert(title: "Error", message: NSLocalizedString("description_validation_message", comment: ""))
-            return
+
+        // Create an appointment object with the form values
+        var appointment = Appointement()
+        appointment.id = UUID().uuidString
+        appointment.date = formFields[0].value as? Date
+        appointment.descriptionRdv = formFields[3].value as? String
+
+        // Handling the Animal array
+        if let selectedAnimals = formFields[1].value as? [Animal] {
+            
+            print(formFields[1])
+    
+            appointment.animals = selectedAnimals
         }
-        
-        guard let veterinarian = veterinarians?[veterinarianIndex] else {
-            showAlert(title: "Error", message: "Selected veterinarian not found.")
-            return
+
+        // Handling the Veterinarian
+        if let selectedVet = formFields[2].value as? Veterinarian {
+     
+            appointment.veterinarian = selectedVet
         }
-        
-        let appointment = Appointement(id: "0", date: date, descriptionRdv: description, animals: selectedAnimals, veterinarian: veterinarian)
-        
+
+        // Display all the appointment details 
+        print(appointment)
+
         // Save the appointment to CoreData
         CoreDataManager.shared.saveAppointement(appointement: appointment)
-        
+
+        // Recording the event of adding an appointment
+        Analytics.logEvent("appointment_added", parameters: nil)
+
         // Dismiss the view controller after saving the appointment
         navigationController?.popViewController(animated: true)
     }
-
 
         private func showAlert(title: String, message: String) {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

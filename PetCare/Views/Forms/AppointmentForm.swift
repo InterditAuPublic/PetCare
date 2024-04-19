@@ -19,8 +19,6 @@ class AppointmentForm: FormView, FormDelegate {
         self.animals = animals
         super.init(formFields: [])
         setupForm()
-        print(veterinarians)
-        print(animals)
     }
     
     required init(coder: NSCoder) {
@@ -31,10 +29,12 @@ class AppointmentForm: FormView, FormDelegate {
         // Create form fields for the AppointmentForm
         let dateField = DateFormField(labelText: NSLocalizedString("date", comment: ""), placeholder: NSLocalizedString("appointement_date_placeholder", comment: "tes"), value: appointment?.date, minDate: Date(), datePickerMode: .dateAndTime)
         
-        let animalsField = PickerFormField(values: animals.map { $0.name }, labelText: NSLocalizedString("animals_placeholder", comment: ""), placeholder: NSLocalizedString("animals", comment: ""), value: [animals], inputViewType: .picker)
+        // Pass the array of animals directly, don't map it to names
+        let animalsField = PickerFormField(value: appointment?.animals, values: animals, labelText: NSLocalizedString("animals_placeholder", comment: ""), placeholder: NSLocalizedString("animals", comment: ""), inputViewType: .picker)
         
-        let veterinarianField = PickerFormField(values: veterinarians.map { $0.name }, labelText: NSLocalizedString("veterinarian_placeholder", comment: ""), placeholder: NSLocalizedString("veterinarian", comment: ""), value: [veterinarians], inputViewType: .picker)
-        
+        // Pass the array of veterinarians directly, don't map it to names
+        let veterinarianField = PickerFormField(value: appointment?.veterinarian, values: veterinarians, labelText: NSLocalizedString("veterinarian", comment: ""), placeholder: NSLocalizedString("veterinarian_placeholder", comment: ""), inputViewType: .picker)
+
         let descriptionField = TextFormField(labelText: NSLocalizedString("description", comment: ""), placeholder: NSLocalizedString("description_placeholder", comment: ""), value: appointment?.descriptionRdv)
         
         // Add the form fields to the AppointmentForm
@@ -49,28 +49,36 @@ class AppointmentForm: FormView, FormDelegate {
     func getFormFields() -> [FormField] {
         return formFields
     }
+
+    func getFormValues() -> [String: Any] {
+        var formValues = [String: Any]()
+        for field in formFields {
+            formValues[field.labelText!] = field.value
+        }
+        return formValues
+    }
     
     func formDidUpdateValue(_ value: Any?, forField field: FormField) {
         switch field {
         case let dateField as DateFormField:
-            if dateField.labelText == NSLocalizedString("date", comment: "") {
-                appointment?.date = value as? Date
-            }
+            appointment?.date = value as? Date
         case let veterinarianField as PickerFormField:
-            if veterinarianField.labelText == NSLocalizedString("veterinarian", comment: "") {
-                // Handle selected veterinarian
+            if let selectedVetName = value as? String {
+                appointment?.veterinarian = veterinarians.first { $0.name == selectedVetName }
+                // log the selected veterinarian name 
+                print("selected veterinarian name: \(selectedVetName)")
             }
         case let animalsField as PickerFormField:
-            if animalsField.labelText == NSLocalizedString("animals", comment: "") {
-                // Handle selected animal
+            if let selectedAnimalNames = value as? [String] {
+                appointment?.animals = animals.filter { selectedAnimalNames.contains($0.name!) }
+                // log the selected animals names
+                print("selected animals names: \(selectedAnimalNames)")
             }
         case let descriptionField as TextFormField:
-            if descriptionField.labelText == NSLocalizedString("description", comment: "") {
-                appointment?.descriptionRdv = value as? String
-            }
-        // Add additional cases for other form fields
+            appointment?.descriptionRdv = value as? String
         default:
             break
         }
     }
+
 }
