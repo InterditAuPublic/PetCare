@@ -104,6 +104,7 @@
     },
     "appointement_date_placeholder" : {
       "comment" : "tes",
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -112,6 +113,9 @@
           }
         }
       }
+    },
+    "appointment_date_placeholder" : {
+
     },
     "appointments" : {
       "extractionState" : "manual",

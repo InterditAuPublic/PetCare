@@ -211,7 +211,6 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
     }
     
     // MARK: PICKER VIEW
-    
     private func createPickerView(for formField: FormField) -> UIPickerView {
         let pickerView = UIPickerView()
         pickerView.tintColor = .orange
@@ -221,18 +220,19 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         // Store the pickerFormField in the map
         if let pickerFormField = formField as? PickerFormField {
             pickerViewFieldMap[pickerView] = pickerFormField
+            print("Picker Field Map: \(pickerViewFieldMap)")
         }
         
-        // Set the selected row if defined in the form field
-        if let pickerFormField = formField as? PickerFormField,
-           let selectedValue = pickerFormField.value as? String,
-           let values = pickerFormField.values as? [String],
-           let selectedIndex = values.firstIndex(of: selectedValue) {
+        if let selectedObject = formField.value as? Any,
+           let values = formField.values as? [Any],
+           let selectedIndex = values.firstIndex(where: { $0 as AnyObject === selectedObject as AnyObject }) {
             pickerView.selectRow(selectedIndex, inComponent: 0, animated: false)
         }
         
         return pickerView
     }
+
+
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -240,7 +240,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         guard let pickerFormField = pickerViewFieldMap[pickerView],
-              let values = pickerFormField.values as? [String] else {
+              let values = pickerFormField.values as? [Any] else {
             return 0
         }
         return values.count
@@ -248,26 +248,50 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         guard let pickerFormField = pickerViewFieldMap[pickerView],
-              let values = pickerFormField.values as? [String] else {
+              let values = pickerFormField.values as? [Any] else {
             return nil
         }
-        if let selectedValue = pickerFormField.selected as? String {
-            return selectedValue
+        
+        // Assurez-vous que l'objet est de type Animal ou Veterinarian avant de le retourner
+        if let animal = values[row] as? Animal {
+            return animal.name
+        } else if let veterinarian = values[row] as? Veterinarian {
+            return veterinarian.name
         } else {
-            return values[row]
+            return nil
         }
     }
 
+    // Fonction pour mettre à jour les données lors de la sélection d'une nouvelle valeur dans le pickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard var pickerFormField = pickerViewFieldMap[pickerView] else {
             return
         }
 
-        if let values = pickerFormField.values as? [String] {
-            pickerFormField.value = values[row]
-            pickerViewFieldMap[pickerView] = pickerFormField // Update the value in the map
-            delegate?.formDidUpdateValue(values[row], forField: pickerFormField)
+        if let values = pickerFormField.values as? [Any] {
+            let selectedValue = values[row]
+            pickerFormField.value = selectedValue
+            
+            // Vérifiez le type de l'objet sélectionné et traitez-le en conséquence
+            if let animal = selectedValue as? Animal {
+                delegate?.formDidUpdateValue(animal, forField: pickerFormField)
+            } else if let veterinarian = selectedValue as? Veterinarian {
+                delegate?.formDidUpdateValue(veterinarian, forField: pickerFormField)
+            }
+            
+            pickerViewFieldMap[pickerView] = pickerFormField
         }
+    }
+
+    // Fonction pour récupérer les données du formulaire
+    func getFormValues() -> [String: Any] {
+        var formValues = [String: Any]()
+        for field in formFields {
+            if let labelText = field.labelText {
+                formValues[labelText] = field.value
+            }
+        }
+        return formValues
     }
     
     // MARK: END PICKER VIEW

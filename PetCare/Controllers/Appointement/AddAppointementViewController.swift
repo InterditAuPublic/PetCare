@@ -9,7 +9,8 @@ import UIKit
 import CoreData
 import FirebaseAnalytics
 
-class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
+class AddAppointmentViewController: UIViewController, UIScrollViewDelegate, FormDelegate {
+    
     
     // MARK: - Properties
     
@@ -145,4 +146,27 @@ class AddAppointmentViewController: UIViewController, UIScrollViewDelegate {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true)
         }
+    
+    func formDidUpdateValue(_ value: Any?, forField field: any FormField) {
+        switch field {
+        case let dateField as DateFormField:
+            appointement?.date = value as? Date
+        case let veterinarianField as PickerFormField:
+            if let selectedVetName = value as? String {
+                appointement?.veterinarian = veterinarians?.first { $0.name == selectedVetName }
+                // Log the selected veterinarian name
+                print("Selected veterinarian name: \(selectedVetName)")
+            }
+        case let animalsField as PickerFormField:
+            if let selectedAnimalNames = value as? [String] {
+                appointement?.animals = animals?.filter { selectedAnimalNames.contains($0.name ?? "") }
+                // Log the selected animals names
+                print("Selected animals names: \(selectedAnimalNames)")
+            }
+        case let descriptionField as TextFormField:
+            appointement?.descriptionRdv = value as? String
+        default:
+            break
+        }
+    }
 }

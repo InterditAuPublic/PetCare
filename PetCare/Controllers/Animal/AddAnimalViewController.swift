@@ -74,6 +74,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
         case let textField as TextFormField:
             switch textField.labelText {
             case NSLocalizedString("identifier", comment: ""):
+                print("no i'm her")
                 self.animalToSave.identifier = value as? String
             case NSLocalizedString("name", comment: ""):
                 self.animalToSave.name = value as? String
