@@ -133,6 +133,18 @@ class CoreDataManager {
         }
     }
     
+    func deleteAllAnimals() {
+            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "AnimalSaved")
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            
+            do {
+                try persistentContainer.viewContext.execute(batchDeleteRequest)
+                try persistentContainer.viewContext.save()
+            } catch {
+                print("Failed to delete all animals: \(error)")
+            }
+        }
+    
     //MARK: - Veterinarian Management
     
     func saveVeterinarian(veterinarian: Veterinarian) {

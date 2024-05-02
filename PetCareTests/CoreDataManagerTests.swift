@@ -8,9 +8,6 @@
 import XCTest
 @testable import PetCare
 
-import XCTest
-@testable import PetCare
-
 final class CoreDataManagerTests: XCTestCase {
     
     var coreDataManager: CoreDataManager!
@@ -22,7 +19,7 @@ final class CoreDataManagerTests: XCTestCase {
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        coreDataManager = nil
+        coreDataManager.deleteAllAnimals()
     }
     
     // Test saving an animal
@@ -51,21 +48,6 @@ final class CoreDataManagerTests: XCTestCase {
     
     // Test updating an animal
     func testUpdateAnimal() {
-        // Test updating an animal
-        let animal = Animal(id: "1",
-                            identifier: "123456789",
-                            name: "Buddy",
-                            sexe: true,
-                            species: .dog,
-                            breed: "Golden Retriever",
-                            birthdate: Date(),
-                            weight: "20 kg",
-                            color: "Golden",
-                            comments: "Friendly and active",
-                            image: nil,
-                            Appoitements: nil)
-        coreDataManager.saveAnimal(animal: animal)
-        
         // Update the name of the animal
         let fetchedAnimals = coreDataManager.fetchAnimals()
         if var updatedAnimal = fetchedAnimals?.first {
@@ -80,21 +62,6 @@ final class CoreDataManagerTests: XCTestCase {
     
     // Test deleting an animal
     func testDeleteAnimal() {
-        // Test deleting an animal
-        let animal = Animal(id: "1",
-                            identifier: "123456789",
-                            name: "Buddy",
-                            sexe: true,
-                            species: .dog,
-                            breed: "Golden Retriever",
-                            birthdate: Date(),
-                            weight: "20 kg",
-                            color: "Golden",
-                            comments: "Friendly and active",
-                            image: nil,
-                            Appoitements: nil)
-        coreDataManager.saveAnimal(animal: animal)
-        
         // Delete the animal
         if let animalToDelete = coreDataManager.fetchAnimals()?.first {
             coreDataManager.deleteAnimal(animal: animalToDelete)
@@ -104,4 +71,22 @@ final class CoreDataManagerTests: XCTestCase {
             XCTAssertEqual(fetchedAnimalsAfterDeletion?.count, 0)
         }
     }
+    
+    func testDeleteAnimals() {
+        // Fetch all animals
+        guard let animals = coreDataManager.fetchAnimals() else {
+            XCTFail("Failed to fetch animals")
+            return
+        }
+        
+        // Delete each animal
+        for animal in animals {
+            coreDataManager.deleteAnimal(animal: animal)
+        }
+        
+        // Verify if all animals are correctly deleted
+        let fetchedAnimalsAfterDeletion = coreDataManager.fetchAnimals()
+        XCTAssertEqual(fetchedAnimalsAfterDeletion?.count, 0)
+    }
+
 }
