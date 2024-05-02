@@ -7,7 +7,25 @@
 		<key>PetCare.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>7</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B04BDB3E2B486FC200592B31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B04BDB572B486FC300592B31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B04BDB612B486FC300592B31</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
