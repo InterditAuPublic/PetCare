@@ -20,9 +20,6 @@ jobs:
         gem install cocoapods
         pod install
 
-    - name: Install SPM Deps
-      run: swift package resolve
-
     - name: Build and test
       run: |
         xcodebuild -workspace PetCare.xcworkspace -scheme PetCare -destination 'platform=iOS Simulator,OS=14.4,name=iPhone 14' test
