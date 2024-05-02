@@ -24,10 +24,6 @@ jobs:
     - name: xcodebuild -version
       run: xcodebuild -version
 
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install
     - name: Build and test
       run: |
         xcodebuild -workspace 'PetCare.xcworkspace' -scheme 'PetCare' -destination 'platform=iOS Simulator,name=iPhone 13' test
