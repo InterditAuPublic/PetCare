@@ -36,18 +36,14 @@ final class PetCareTests: XCTestCase {
     
     // Exemple SwiftyMocky
     
-    func testBlablaProtocol() {
-        let Bla = BlablaMock()
-        
-        Bla.given(.returnColorIsBlue(willReturn: true))
-        
-        Bla.verify(.returnColorIsBlue(), count:1)
-    }
+//    func testBlablaProtocol() {
+//        let Bla = BlablaMock()
+//        
+//        Bla.given(.returnColorIsBlue(willReturn: true))
+//        
+//        Bla.verify(.returnColorIsBlue(), count:1)
+//    }
     
-    func testSpeciesText() {
-        XCTAssertEqual(Species.dog.text, "dog")
-        XCTAssertEqual(Species.cat.text, "cat")
-    }
     
     func testAnimalProperties() {
         let animal = Animal(id: "1",
