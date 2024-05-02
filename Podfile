@@ -8,6 +8,7 @@ target 'PetCare' do
   # Pods for PetCare
   pod 'lottie-ios', '~> 3.1.8', :inhibit_warnings => true
   pod 'IQKeyboardManagerSwift', :inhibit_warnings => true
+  pod 'Firebase'
 
   target 'PetCareTests' do
     inherit! :search_paths
