@@ -12,6 +12,7 @@ target 'PetCare' do
   target 'PetCareTests' do
     inherit! :search_paths
     # Pods for testing
+    pod "SwiftyMocky"
   end
 
   target 'PetCareUITests' do

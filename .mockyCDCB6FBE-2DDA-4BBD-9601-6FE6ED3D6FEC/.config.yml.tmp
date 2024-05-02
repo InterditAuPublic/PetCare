@@ -1,0 +1,12 @@
+sources:
+  include:
+  - ../PetCare
+templates:
+- /Users/melvin/Workspace/ios/PetCare/.mockyCDCB6FBE-2DDA-4BBD-9601-6FE6ED3D6FEC/.template.swifttemplate
+output: /Users/melvin/Workspace/ios/PetCare/.mockyCDCB6FBE-2DDA-4BBD-9601-6FE6ED3D6FEC/types.yaml
+args:
+  swiftyMocky:
+    import:
+    - Foundation
+    testable:
+    - PetCare

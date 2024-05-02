@@ -8,6 +8,8 @@
 import Foundation
 import CoreData
 
+// create protocol for CoreDataManager
+
 class CoreDataManager {
     static let shared = CoreDataManager()
     
