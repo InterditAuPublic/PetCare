@@ -223,7 +223,7 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
             print("Picker Field Map: \(pickerViewFieldMap)")
         }
         
-        if let selectedObject = formField.value as? Any,
+        if let selectedObject = formField.value,
            let values = formField.values as? [Any],
            let selectedIndex = values.firstIndex(where: { $0 as AnyObject === selectedObject as AnyObject }) {
             pickerView.selectRow(selectedIndex, inComponent: 0, animated: false)
@@ -231,8 +231,6 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
         
         return pickerView
     }
-
-
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -252,15 +250,22 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
             return nil
         }
         
-        // Assurez-vous que l'objet est de type Animal ou Veterinarian avant de le retourner
+        // Assurez-vous que l'objet est de type Animal, Veterinarian, Species ou String avant de le retourner
         if let animal = values[row] as? Animal {
             return animal.name
         } else if let veterinarian = values[row] as? Veterinarian {
             return veterinarian.name
+        } else if let specie = values[row] as? Species {
+            return specie.rawValue.localizedCapitalized
+        } else if let value = values[row] as? String {
+            print("return string")
+            return value
         } else {
+            print("return nil")
             return nil
         }
     }
+
 
     // Fonction pour mettre à jour les données lors de la sélection d'une nouvelle valeur dans le pickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -277,6 +282,13 @@ class FormView: UIStackView, UIImagePickerControllerDelegate, UINavigationContro
                 delegate?.formDidUpdateValue(animal, forField: pickerFormField)
             } else if let veterinarian = selectedValue as? Veterinarian {
                 delegate?.formDidUpdateValue(veterinarian, forField: pickerFormField)
+            } else if let value = selectedValue as? String {
+                print("Selected Value = String")
+                delegate?.formDidUpdateValue(value, forField: pickerFormField)
+            }  else if let specie = selectedValue as? Species {
+                delegate?.formDidUpdateValue(specie, forField: pickerFormField)
+            } else {
+                print("Selected NIL")
             }
             
             pickerViewFieldMap[pickerView] = pickerFormField
