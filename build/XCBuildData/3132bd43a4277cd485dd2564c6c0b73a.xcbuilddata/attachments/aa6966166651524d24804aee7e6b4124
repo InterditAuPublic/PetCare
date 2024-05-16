@@ -1,0 +1,4 @@
+module FirebaseAnalyticsTarget {
+umbrella "/Users/melvin/Library/Developer/Xcode/DerivedData/PetCare-fhdvtryjsbfjaygcngbhknodalmr/SourcePackages/checkouts/firebase-ios-sdk/SwiftPM-PlatformExclude/FirebaseAnalyticsWrap/include"
+export *
+}

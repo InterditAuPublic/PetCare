@@ -1,0 +1,4 @@
+module AppCheckCore {
+umbrella header "/Users/melvin/Library/Developer/Xcode/DerivedData/PetCare-fhdvtryjsbfjaygcngbhknodalmr/SourcePackages/checkouts/app-check/AppCheckCore/Sources/Public/AppCheckCore/AppCheckCore.h"
+export *
+}

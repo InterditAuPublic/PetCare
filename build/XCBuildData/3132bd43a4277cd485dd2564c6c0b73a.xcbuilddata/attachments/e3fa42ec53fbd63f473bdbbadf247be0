@@ -1,0 +1,4 @@
+module GoogleUtilities_Environment {
+umbrella "/Users/melvin/Library/Developer/Xcode/DerivedData/PetCare-fhdvtryjsbfjaygcngbhknodalmr/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public"
+export *
+}
