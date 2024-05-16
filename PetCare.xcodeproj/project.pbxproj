@@ -55,8 +55,6 @@
 		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
 		B0A652662B6A453A00ED57FC /* EditAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652652B6A453A00ED57FC /* EditAnimalView.swift */; };
-		B0C928CC2BDA9B8E00679AA0 /* blabla.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C928CB2BDA9B8E00679AA0 /* blabla.swift */; };
-		B0C928CE2BDA9D1400679AA0 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C928CD2BDA9D1400679AA0 /* Mock.generated.swift */; };
 		B0CD9A772BA76A7F004621B5 /* AddAppointementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */; };
 		B0CD9A792BA76BC7004621B5 /* AppointmentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */; };
 		B0DADBB32B597ABB002A6BAD /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DADBB22B597ABB002A6BAD /* test.swift */; };
@@ -67,8 +65,6 @@
 		B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */; };
 		B0EB68DC2B4C7DE80078D29D /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DB2B4C7DE80078D29D /* Animal.swift */; };
 		B0EB68E02B4C83390078D29D /* AddAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */; };
-		B0F152AF2BE3DD590088430A /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F152AE2BE3DD590088430A /* CoreDataManagerTests.swift */; };
-		B0F152B12BE3E5400088430A /* MockCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F152B02BE3E5400088430A /* MockCoreDataManager.swift */; };
 		B0F3A4FA2B5E8E060084A6E6 /* AddVetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */; };
 		B0F3A4FC2B5E94870084A6E6 /* AddVeterinarianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */; };
 		B0F3A5042B5EB2420084A6E6 /* VeterinarianTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */; };
@@ -150,8 +146,6 @@
 		B0A652602B650DA000ED57FC /* dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dog.json; sourceTree = "<group>"; };
 		B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalViewController.swift; sourceTree = "<group>"; };
 		B0A652652B6A453A00ED57FC /* EditAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalView.swift; sourceTree = "<group>"; };
-		B0C928CB2BDA9B8E00679AA0 /* blabla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = blabla.swift; sourceTree = "<group>"; };
-		B0C928CD2BDA9D1400679AA0 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = SOURCE_ROOT; };
 		B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppointementViewController.swift; sourceTree = "<group>"; };
 		B0CD9A782BA76BC7004621B5 /* AppointmentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentForm.swift; sourceTree = "<group>"; };
 		B0DADBB22B597ABB002A6BAD /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
@@ -162,8 +156,6 @@
 		B0EB68D92B4C5DE70078D29D /* NoAnimalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAnimalView.swift; sourceTree = "<group>"; };
 		B0EB68DB2B4C7DE80078D29D /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		B0EB68DF2B4C83390078D29D /* AddAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalViewController.swift; sourceTree = "<group>"; };
-		B0F152AE2BE3DD590088430A /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
-		B0F152B02BE3E5400088430A /* MockCoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataManager.swift; sourceTree = "<group>"; };
 		B0F3A4F92B5E8E060084A6E6 /* AddVetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVetViewController.swift; sourceTree = "<group>"; };
 		B0F3A4FB2B5E94870084A6E6 /* AddVeterinarianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVeterinarianView.swift; sourceTree = "<group>"; };
 		B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianTableViewCell.swift; sourceTree = "<group>"; };
@@ -311,10 +303,7 @@
 		B04BDB5B2B486FC300592B31 /* PetCareTests */ = {
 			isa = PBXGroup;
 			children = (
-				B0C928CD2BDA9D1400679AA0 /* Mock.generated.swift */,
 				B04BDB5C2B486FC300592B31 /* PetCareTests.swift */,
-				B0F152AE2BE3DD590088430A /* CoreDataManagerTests.swift */,
-				B0F152B02BE3E5400088430A /* MockCoreDataManager.swift */,
 			);
 			path = PetCareTests;
 			sourceTree = "<group>";
@@ -385,7 +374,6 @@
 				B0F3A4FF2B5E98950084A6E6 /* Main */,
 				B0F3A4FE2B5E98760084A6E6 /* Veterinarian */,
 				B0F3A4FD2B5E98660084A6E6 /* Animal */,
-				B0C928CB2BDA9B8E00679AA0 /* blabla.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -545,7 +533,6 @@
 				B04BDB542B486FC300592B31 /* Sources */,
 				B04BDB552B486FC300592B31 /* Frameworks */,
 				B04BDB562B486FC300592B31 /* Resources */,
-				0F7E937E42181AA25C38E5E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -661,23 +648,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0F7E937E42181AA25C38E5E4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetCareTests/Pods-PetCareTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetCareTests/Pods-PetCareTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetCareTests/Pods-PetCareTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		52FD53EE422710EF62F4EBEB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -815,7 +785,6 @@
 				B0EB68DA2B4C5DE70078D29D /* NoAnimalView.swift in Sources */,
 				B006407D2B4DBEA2002A4139 /* CoreDataManager.swift in Sources */,
 				B00640882B4F8A3A002A4139 /* AnimalForm.swift in Sources */,
-				B0C928CC2BDA9B8E00679AA0 /* blabla.swift in Sources */,
 				B044592C2B5F514A002CD33B /* SettingsViewController.swift in Sources */,
 				B0FB0FFF2B878C9300466FB1 /* HeaderCollectionReusableView.swift in Sources */,
 				B0EB68D42B4C4F670078D29D /* VeterinariansViewController.swift in Sources */,
@@ -862,9 +831,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0F152B12BE3E5400088430A /* MockCoreDataManager.swift in Sources */,
-				B0C928CE2BDA9D1400679AA0 /* Mock.generated.swift in Sources */,
-				B0F152AF2BE3DD590088430A /* CoreDataManagerTests.swift in Sources */,
 				B04BDB5D2B486FC300592B31 /* PetCareTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -61,8 +61,6 @@ class AddVetViewController: UIViewController, UIGestureRecognizerDelegate, FormD
         veterinarianToSave.note = formFields[8].value as? String
         
         // save the vet to the database
-        
-        // singleton ??? 
         CoreDataManager.shared.saveVeterinarian(veterinarian: veterinarianToSave)
         
     }
