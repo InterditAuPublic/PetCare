@@ -20,7 +20,7 @@ jobs:
       - name: Build and Test
         run: |
           xcodebuild test-without-building \
-            -scheme PetCare \
+            -scheme PetCareTests \
             -destination 'platform=iOS Simulator,name=iPhone 11,OS=17.1' \
             -only-testing:PetCareTests \
             -enableCodeCoverage YES \
