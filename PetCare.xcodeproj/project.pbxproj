@@ -1196,7 +1196,7 @@
 				B04BDB6B2B486FC300592B31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B04BDB6C2B486FC300592B31 /* Build configuration list for PBXNativeTarget "PetCare" */ = {
 			isa = XCConfigurationList;
@@ -1205,7 +1205,7 @@
 				B04BDB6E2B486FC300592B31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B04BDB6F2B486FC300592B31 /* Build configuration list for PBXNativeTarget "PetCareTests" */ = {
 			isa = XCConfigurationList;
@@ -1214,7 +1214,7 @@
 				B04BDB712B486FC300592B31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B04BDB722B486FC300592B31 /* Build configuration list for PBXNativeTarget "PetCareUITests" */ = {
 			isa = XCConfigurationList;
@@ -1223,7 +1223,7 @@
 				B04BDB742B486FC300592B31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
