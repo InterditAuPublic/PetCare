@@ -116,9 +116,6 @@ class AddAppointmentViewController: UIViewController, UIScrollViewDelegate, Form
 
         // Handling the Animal array
         if let selectedAnimals = formFields[1].value as? [Animal] {
-            
-            print(formFields[1])
-    
             appointment.animals = selectedAnimals
         }
 
