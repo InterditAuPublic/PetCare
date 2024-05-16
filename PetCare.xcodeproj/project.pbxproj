@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2D8A745CB6AA866D7C379AFD /* Pods_PetCare_PetCareUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA838CDE1F0CD3BA46D0F00 /* Pods_PetCare_PetCareUITests.framework */; };
 		4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BE7A081A430100E7AF8851 /* Pods_PetCare.framework */; };
-		B005C3DE2BA1B72200D1C3BE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */; };
-		B005C3E02BA1B72200D1C3BE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */; };
 		B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B005C3E52BA1C28F00D1C3BE /* GoogleService-Info.plist */; };
 		B005C3E82BA1E02E00D1C3BE /* NoAppointementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B005C3E72BA1E02E00D1C3BE /* NoAppointementView.swift */; };
 		B005C3EA2BA23A4B00D1C3BE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B005C3E92BA23A4B00D1C3BE /* Localizable.xcstrings */; };
@@ -176,8 +174,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B005C3E02BA1B72200D1C3BE /* FirebaseCrashlytics in Frameworks */,
-				B005C3DE2BA1B72200D1C3BE /* FirebaseAnalytics in Frameworks */,
 				4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,8 +514,6 @@
 			);
 			name = PetCare;
 			packageProductDependencies = (
-				B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */,
-				B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */,
 			);
 			productName = PetCare;
 			productReference = B04BDB3F2B486FC200592B31 /* PetCare.app */;
@@ -598,7 +592,7 @@
 			);
 			mainGroup = B04BDB362B486FC200592B31;
 			packageReferences = (
-				B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = B04BDB402B486FC200592B31 /* Products */;
 			projectDirPath = "";
@@ -1205,28 +1199,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.22.1;
+				minimumVersion = 10.26.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B005C3DD2BA1B72200D1C3BE /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		B005C3DF2BA1B72200D1C3BE /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B005C3DC2BA1B5C700D1C3BE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B04BDB4B2B486FC200592B31 /* PetCare.xcdatamodeld */ = {
