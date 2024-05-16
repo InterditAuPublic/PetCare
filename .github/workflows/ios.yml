@@ -17,6 +17,8 @@ jobs:
         uses: actions/checkout@v4
       - name: install-cocoapods-action
         uses: NiftyStack/install-cocoapods-action@1.0.1
+      - name: action-xcodeproj-spm-update
+        uses: getsidetrack/action-xcodeproj-spm-update@0.3.0
       - name: Build and Test
         run: |
           xcodebuild -workspace PetCare.xcworkspace -scheme PetCareTests -destination 'platform=iOS Simulator,name=iPhone 11' test
