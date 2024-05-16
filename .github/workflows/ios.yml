@@ -17,7 +17,7 @@ jobs:
       - name: Build and Test
         run: |
           xcodebuild \
-           -project PetCare \
+           -project ./PetCare.xcodeproj \
            -scheme PetCare \
            -sdk iphonesimulator \
            -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.1' \
