@@ -13,7 +13,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: SwiftFormat
         run: swiftformat . --lint
       - name: SwiftLint
@@ -24,5 +24,5 @@ jobs:
            -project [PetCare] \
            -scheme [PetCare] \
            -sdk iphonesimulator \
-           -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
+           -destination 'platform=iOS Simulator,name=iPhone 14,OS=17.1' \
             test || exit 1
