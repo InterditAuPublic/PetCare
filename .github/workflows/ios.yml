@@ -19,4 +19,4 @@ jobs:
         uses: NiftyStack/install-cocoapods-action@1.0.1
       - name: Build and Test
         run: |
-          xcodebuild test-without-building -skip-testing:PetCareUITests -workspace PetCare.xcworkspace -scheme PetCare -destination 'platform=iOS Simulator,name=iPhone 11,OS=17.1' -enableCodeCoverage YES
+          xcodebuild test -skip-testing PetCareUITests -workspace PetCare.xcworkspace -scheme PetCare -destination 'platform=iOS Simulator,name=iPhone 11,OS=17.1' -enableCodeCoverage YES
