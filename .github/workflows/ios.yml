@@ -9,19 +9,20 @@ on:
       - Test
 
 jobs:
-  test:
+  build_project:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Install CocoaPods
-      run: |
-        sudo gem install cocoapods
-        pod install
-
-    - name: xcodebuild -version
-      run: xcodebuild -version
-
-    - name: Build and test
-      run: |
-        xcodebuild -workspace 'PetCare.xcworkspace' -scheme 'PetCare' -destination 'platform=iOS Simulator,name=iPhone 13' test
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: SwiftFormat
+        run: swiftformat . --lint
+      - name: SwiftLint
+        run: swiftlint lint --strict
+      - name: Build and Test
+        run: |
+          xcodebuild \
+           -project [PetCare] \
+           -scheme [PetCare] \
+           -sdk iphonesimulator \
+           -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
+            test || exit 1
