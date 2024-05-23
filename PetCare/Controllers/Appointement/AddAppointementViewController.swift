@@ -132,7 +132,7 @@ class AddAppointmentViewController: UIViewController, UIScrollViewDelegate, Form
         print(appointment)
 
         // Save the appointment to CoreData
-        CoreDataManager.shared.saveAppointement(appointement: appointment)
+        CoreDataManager.shared.saveAppointement(appointment: appointment)
 
         // Recording the event of adding an appointment
         Analytics.logEvent("appointment_added", parameters: nil)

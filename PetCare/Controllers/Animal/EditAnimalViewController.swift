@@ -74,7 +74,7 @@ class EditAnimalViewController: UIViewController {
         animal.sexe = formFields[4].value as? Bool
         animal.breed = formFields[5].value as? String
         animal.birthdate = formFields[6].value as? Date
-        animal.weight = formFields[7].value as? String
+        animal.weight = formFields[7].value as? Double
         animal.color = formFields[8].value as? String
         animal.comments = formFields[9].value as? String
         animal.name = name

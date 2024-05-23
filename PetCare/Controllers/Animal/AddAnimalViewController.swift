@@ -81,7 +81,7 @@ class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, Ad
             case NSLocalizedString("breed", comment: ""):
                 self.animalToSave.breed = value as? String
             case NSLocalizedString("weight", comment: ""):
-                self.animalToSave.weight = value as? String
+                self.animalToSave.weight = value as? Double
             case NSLocalizedString("color", comment: ""):
                 self.animalToSave.color = value as? String
             case NSLocalizedString("comments", comment: ""):

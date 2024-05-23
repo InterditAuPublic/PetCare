@@ -15,7 +15,7 @@ struct Animal: Codable {
     var species: Species?
     var breed: String?
     var birthdate: Date?
-    var weight: String?
+    var weight: Double?
     var color: String?
     var comments: String?
     var image: String?
@@ -23,9 +23,12 @@ struct Animal: Codable {
     var Appoitements: [Appointement]?
 }
 
+// TODO: check this
 enum Species: String, CaseIterable, Codable {
     case dog = "Dog"
     case cat = "Cat"
+    
+    // TODO: ADD TEST FOR TEXT
     
     var text: String {
         switch self {
