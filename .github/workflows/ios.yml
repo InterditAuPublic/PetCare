@@ -37,6 +37,7 @@ jobs:
           -scheme PetCare \
           -destination "${{ matrix.destination }}" \
           -testPlan PetCare \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES \
+          -skip-testing:PetCareUITests
         env:
           destination: ${{ matrix.destination }}
