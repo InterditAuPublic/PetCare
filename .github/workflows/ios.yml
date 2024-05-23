@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Test    
+    name: Run Logic Tests
     runs-on: macOS-latest
     strategy:
       matrix:
@@ -19,9 +19,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
+      - name: Install CocoaPods Dependencies
+        if: exists('Podfile')
         run: |
+          sudo gem install cocoapods
           pod install --repo-update
+        shell: bash
+
+      - name: Resolve SPM Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies
         shell: bash
 
       - name: Build and Test
@@ -32,5 +39,5 @@ jobs:
           -destination "${{ matrix.destination }}" \
           -only-testing:PetCareTests \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES
-        env: 
+        env:
           destination: ${{ matrix.destination }}
