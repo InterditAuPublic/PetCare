@@ -3,10 +3,10 @@ name: iOS Unit Testing
 on:
   push:
     branches:
-      - Tests
+      - main
   pull_request:
     branches:
-      - Tests
+      - main
 
 jobs:
   test:
