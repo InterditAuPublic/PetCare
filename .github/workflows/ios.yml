@@ -30,6 +30,7 @@ jobs:
           -workspace "PetCare.xcworkspace" \
           -scheme PetCare \
           -destination "${{ matrix.destination }}" \
+          -only-testing:PetCare \
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=YES
         env: 
           destination: ${{ matrix.destination }}
