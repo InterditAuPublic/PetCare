@@ -1,0 +1,4 @@
+module GoogleAppMeasurementTarget {
+umbrella "/Users/melvin/Library/Developer/Xcode/DerivedData/PetCare-fhdvtryjsbfjaygcngbhknodalmr/SourcePackages/checkouts/GoogleAppMeasurement/GoogleAppMeasurementWrapper/include"
+export *
+}

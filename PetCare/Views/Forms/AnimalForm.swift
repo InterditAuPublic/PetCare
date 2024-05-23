@@ -78,7 +78,7 @@ class AnimalForm: FormView, FormDelegate {
             case NSLocalizedString("breed", comment: ""):
                 animal?.breed = value as? String
             case NSLocalizedString("weight", comment: ""):
-                animal?.weight = value as? String
+                animal?.weight = value as? Double
             case NSLocalizedString("color", comment: ""):
                 animal?.color = value as? String
             case NSLocalizedString("comments", comment: ""):
