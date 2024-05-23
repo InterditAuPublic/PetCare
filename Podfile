@@ -14,8 +14,4 @@ target 'PetCare' do
     # Pods for testing
   end
 
-  target 'PetCareUITests' do
-    # Pods for testing
-  end
-
 end

@@ -21,7 +21,6 @@ jobs:
 
       - name: Install CocoaPods Dependencies
         run: |
-          sudo gem install cocoapods
           pod install --repo-update
         shell: bash
 
