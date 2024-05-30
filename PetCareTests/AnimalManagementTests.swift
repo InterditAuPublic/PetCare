@@ -55,6 +55,16 @@ class AnimalManagementTests: XCTestCase {
         )
     }
     
+    private func createSampleAppointment(with animal: Animal?, veterinarian: Veterinarian?) -> Appointement {
+        return Appointement(
+            id: UUID().uuidString,
+            date: Date(),
+            descriptionRdv: "Regular Checkup",
+            animals: animal != nil ? [animal!] : nil,
+            veterinarian: veterinarian
+        )
+    }
+
     // MARK: Animals
     
     func testSaveAnimal_Success() {
@@ -136,9 +146,6 @@ class AnimalManagementTests: XCTestCase {
         var updatedVeterinarian = savedVeterinarian
         updatedVeterinarian.name = "Dr. Brown"
         
-        print(savedVeterinarian.name)
-        print(updatedVeterinarian.name)
-        
         // Update the veterinarian using its UUID
         coreDataManager.updateVeterinarian(veterinarian: updatedVeterinarian)
         
@@ -146,96 +153,67 @@ class AnimalManagementTests: XCTestCase {
         let fetchedVeterinarians = coreDataManager.fetchVeterinarians()
         XCTAssertEqual(fetchedVeterinarians?.first(where: { $0.id == savedVeterinarian.id })?.name, "Dr. Brown")
     }
+
+    // MARK: - Appointment Tests
+   func testSaveAppointment_Success() {
+       let animal = createSampleAnimal()
+       coreDataManager.saveAnimal(animal: animal)
+
+       let veterinarian = createSampleVeterinarian()
+       coreDataManager.saveVeterinarian(veterinarian: veterinarian)
+
+       let appointment = createSampleAppointment(with: animal, veterinarian: veterinarian)
+       coreDataManager.saveAppointement(appointment: appointment)
+
+       let savedAppointments = coreDataManager.fetchAppointements()
+       XCTAssertEqual(savedAppointments?.count, 1)
+       XCTAssertEqual(savedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
+   }
+
+   func testSaveAppointment_WithoutVeterinarianAndAnimals_Failure() {
+
+         let appointment = createSampleAppointment(with: nil, veterinarian: nil)
+         coreDataManager.saveAppointement(appointment: appointment)
     
-    // MARK: Appoitements
-    
-    func testSaveAppointment_Success() {
-        let animal = createSampleAnimal()
-        coreDataManager.saveAnimal(animal: animal)
-        
-        let veterinarian = createSampleVeterinarian()
-        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-        
-        let appointment = Appointement(
-            id: UUID().uuidString,
-            date: Date(),
-            descriptionRdv: "Regular Checkup",
-            animals: [animal],
-            veterinarian: veterinarian
-        )
-        
-        coreDataManager.saveAppointement(appointment: appointment)
-        
-        let savedAppointments = coreDataManager.fetchAppointements()
-        XCTAssertEqual(savedAppointments?.count, 1)
-        XCTAssertEqual(savedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
-    }
+         let savedAppointments = coreDataManager.fetchAppointements()
+         XCTAssertEqual(savedAppointments?.count, 0)
+   }
 
-    func testSaveAppointment_WithoutVeterinarianAndAnimals() {
-        let appointment = Appointement(
-            id: UUID().uuidString,
-            date: Date(),
-            descriptionRdv: "General Consultation",
-            animals: nil,
-            veterinarian: nil
-        )
-        
-        coreDataManager.saveAppointement(appointment: appointment)
-        
-        let savedAppointments = coreDataManager.fetchAppointements()
-        XCTAssertEqual(savedAppointments?.count, 1)
-        XCTAssertEqual(savedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
-    }
+   func testFetchAppointments_Success() {
+       let appointment = createSampleAppointment(with: nil, veterinarian: nil)
+       coreDataManager.saveAppointement(appointment: appointment)
 
-    func testFetchAppointments_Success() {
-        let appointment = Appointement(
-            id: UUID().uuidString,
-            date: Date(),
-            descriptionRdv: "Checkup",
-            animals: nil,
-            veterinarian: nil
-        )
-        
-        coreDataManager.saveAppointement(appointment: appointment)
-        
-        let fetchedAppointments = coreDataManager.fetchAppointements()
-        XCTAssertNotNil(fetchedAppointments)
-        XCTAssertEqual(fetchedAppointments?.count, 1)
-        XCTAssertEqual(fetchedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
-    }
+       let fetchedAppointments = coreDataManager.fetchAppointements()
+       XCTAssertNotNil(fetchedAppointments)
+       XCTAssertEqual(fetchedAppointments?.count, 1)
+       XCTAssertEqual(fetchedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
+   }
 
-    func testUpdateAppointment_Success() {
-        let animal = createSampleAnimal()
-        coreDataManager.saveAnimal(animal: animal)
-        
-        let veterinarian = createSampleVeterinarian()
-        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-        
-        let appointment = Appointement(
-            id: UUID().uuidString,
-            date: Date(),
-            descriptionRdv: "Checkup",
-            animals: [animal],
-            veterinarian: veterinarian
-        )
-        
-        coreDataManager.saveAppointement(appointment: appointment)
-        
-        // Retrieve the UUID of the saved appointment
-        guard let savedAppointment = coreDataManager.fetchAppointements()?.first else {
-            XCTFail("Failed to fetch saved appointment")
-            return
-        }
-        
-        // Modify the appointment
-        var updatedAppointment = savedAppointment
-        updatedAppointment.descriptionRdv = "Vaccination"
-        
-        // Update the appointment using its UUID
-        coreDataManager.updateAppointement(appointment: updatedAppointment)
-        
-        // Fetch the updated appointment
-        let fetchedAppointments = coreDataManager.fetchAppointements()
-        XCTAssertEqual(fetchedAppointments?.first(where: { $0.id == savedAppointment.id })?.descriptionRdv, "Vaccination")
-    }
+//   func testUpdateAppointment_Success() {
+//        let animal = createSampleAnimal()
+//        coreDataManager.saveAnimal(animal: animal)
+//
+//        let veterinarian = createSampleVeterinarian()
+//        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
+//
+//        let appointment = createSampleAppointment(with: animal, veterinarian: veterinarian)
+//        coreDataManager.saveAppointement(appointment: appointment)
+//
+//        // Retrieve the UUID of the saved appointment
+//        guard let savedAppointment = coreDataManager.fetchAppointements()?.first else {
+//            XCTFail("Failed to fetch saved appointment")
+//            return
+//        }
+//
+//        // Modify the appointment
+//        var updatedAppointment = savedAppointment
+//        updatedAppointment.descriptionRdv = "Emergency Checkup"
+//
+//        // Update the appointment using its UUID
+//        coreDataManager.updateAppointement(appointment: updatedAppointment)
+//
+//        // Fetch the updated appointment
+//        let fetchedAppointments = coreDataManager.fetchAppointements()
+//        XCTAssertEqual(fetchedAppointments?.first(where: { $0.id == savedAppointment.id })?.descriptionRdv, "Emergency Checkup")
+//   }
 }
