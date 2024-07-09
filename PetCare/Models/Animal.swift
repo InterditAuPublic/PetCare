@@ -8,19 +8,20 @@
 import Foundation
 
 struct Animal: Codable {
-    var id: String?
-    var identifier: String? // I-CAD number
-    var name: String?
-    var sexe: Bool?
+    var id: String
+    var identifier: String? // ICAD Chip number
+    var name: String
+    var sexe: Bool
+    var sterilized: Bool
     var species: Species?
     var breed: String?
     var birthdate: Date?
     var weight: Double?
     var color: String?
     var comments: String?
-    var image: String?
+    var image: Data?
     
-    var Appoitements: [Appointement]?
+    var appointments: [Appointment]?
 }
 
 // TODO: check this

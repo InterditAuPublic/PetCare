@@ -9,18 +9,13 @@ import UIKit
 
 class VeterinarianTableViewCell: UITableViewCell {
     
-    // MARK: - Properties
-    private var veterinarian: Veterinarian?
-    private var vc = UIViewController()
+    static let reuseIdentifier = "VeterinarianTableViewCell"
     
-    // MARK: - UI Components
-    
-    let iconImageView: UIImageView = {
+    let veterinarianImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
         imageView.image = UIImage(named: "veterinary")
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -35,229 +30,48 @@ class VeterinarianTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
-        label.textColor = .darkGray
-        label.numberOfLines = 0
+        label.textColor = .gray
         return label
     }()
-    
-    let phoneIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .blue
-        imageView.image = UIImage(systemName: "phone.fill")
-        return imageView
-    }()
-    
-    let navigationIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .blue
-        imageView.image = UIImage(systemName: "location.fill")
-        return imageView
-    }()
-    
-    // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        setupUI()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupUI()
-    }
-    
-    // MARK: - UI Setup
-    
-    private func setupUI() {
-        // Create a horizontal stack view for the layout
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 8 // Adjust the spacing between components
+        contentView.addSubview(veterinarianImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(addressLabel)
         
-        // Create a vertical stack view for the labels
-        let labelsStackView = UIStackView()
-        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
-        labelsStackView.axis = .vertical
-        labelsStackView.spacing = 8 // Adjust the spacing between labels
-        
-        // Add subviews to the labels stack view
-        labelsStackView.addArrangedSubview(nameLabel)
-        labelsStackView.addArrangedSubview(addressLabel)
-        
-        // Create a vertical stack view for the icons
-        let iconsStackView = UIStackView()
-        iconsStackView.translatesAutoresizingMaskIntoConstraints = false
-        iconsStackView.distribution = .fillEqually
-        iconsStackView.axis = .vertical
-        iconsStackView.spacing = 8 // Adjust the spacing between icons
-        
-        // Add subviews to the icons stack view
-        iconsStackView.addArrangedSubview(phoneIconImageView)
-        iconsStackView.addArrangedSubview(navigationIconImageView)
-        
-        // Add subviews to the main stack view
-        stackView.addArrangedSubview(iconImageView)
-        stackView.addArrangedSubview(labelsStackView)
-        stackView.addArrangedSubview(iconsStackView)
-        
-        let phoneTapGesture = UITapGestureRecognizer(target: self, action: #selector(phoneIconTapped))
-        phoneIconImageView.isUserInteractionEnabled = true
-        phoneIconImageView.addGestureRecognizer(phoneTapGesture)
-        
-        let navigationTapGesture = UITapGestureRecognizer(target: self, action: #selector(navigationIconTapped))
-        navigationIconImageView.isUserInteractionEnabled = true
-        navigationIconImageView.addGestureRecognizer(navigationTapGesture)
-        
-        // Add the stack view to the contentView
-        contentView.addSubview(stackView)
-        
-        // Set constraints for the stack view
+        // Contraintes pour l'image
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            
-            // Set the height and width constraint for the image view
-            iconImageView.widthAnchor.constraint(equalToConstant: 60),
-            iconImageView.heightAnchor.constraint(equalToConstant: 60)
+            veterinarianImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            veterinarianImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            veterinarianImageView.widthAnchor.constraint(equalToConstant: 50),
+            veterinarianImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        // Contraintes pour le nom
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: veterinarianImageView.trailingAnchor, constant: 16),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16)
+        ])
+        
+        // Contraintes pour l'adresse
+        NSLayoutConstraint.activate([
+            addressLabel.leadingAnchor.constraint(equalTo: veterinarianImageView.trailingAnchor, constant: 16),
+            addressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            addressLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
     
-    
-    
-    
-    // MARK: - Tap Gesture Handlers
-    @objc private func phoneIconTapped() {
-        guard let phoneNumber = veterinarian?.phone, !phoneNumber.isEmpty else {
-            //TODO: Display an alert to handle the case where there is no phone number available
-            return
-        }
-        
-        if let phoneURL = URL(string: "tel://\(phoneNumber)"), UIApplication.shared.canOpenURL(phoneURL) {
-            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc private func navigationIconTapped() {
-        guard let veterinarian = veterinarian,
-              let address = veterinarian.address,
-              let city = veterinarian.city else {
-            //TODO: Display an alert to handle the case where there is no address or city available
-            return
-        }
-        
-        let alertController = UIAlertController(title: "Choose Map Application", message: nil, preferredStyle: .actionSheet)
-        
-        findApplicationCanOpenAddress(address: address, city: city).forEach { alertController.addAction($0) }
-        
-        // Present the alert controller
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = self
-            popoverController.sourceRect = CGRect(x: self.bounds.midX, y: self.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-        }
-        let vc = findViewController()
-        vc!.present(alertController, animated: true)
-    }
-    
-    // MARK: - Map Applications
-    
-    private func openInAppleMaps(address: String, city: String) {
-        if let appleMapsURL = URL(string: "http://maps.apple.com/?address=\(address),\(city)") {
-            UIApplication.shared.open(appleMapsURL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func openInGoogleMaps(address: String, city: String) {
-        if let googleMapsURL = URL(string: "http://maps.google.com/maps/?q=\(address),\(city)") {
-            UIApplication.shared.open(googleMapsURL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func openInWaze(address: String, city: String) {
-        if let wazeURL = URL(string: "http://waze.com/?address=\(address),\(city)") {
-            UIApplication.shared.open(wazeURL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func findApplicationCanOpenAddress(address: String, city: String) -> [UIAlertAction] {
-        var mapApplications: [UIAlertAction] = []
-        
-        if UIApplication.shared.canOpenURL(URL(string: "http://maps.apple.com/")!) {
-            let appleMapsAction = UIAlertAction(title: "Apple Maps", style: .default) { _ in
-                self.openInAppleMaps(address: address, city: city)
-            }
-            mapApplications.append(appleMapsAction)
-        }
-        
-        if UIApplication.shared.canOpenURL(URL(string: "http://comgooglemaps/")!) {
-            let googleMapsAction = UIAlertAction(title: "Google Maps", style: .default) { _ in
-                self.openInGoogleMaps(address: address, city: city)
-            }
-            mapApplications.append(googleMapsAction)
-        }
-        
-        if UIApplication.shared.canOpenURL(URL(string: "http://waze.com/")!) {
-            let wazeAction = UIAlertAction(title: "Waze", style: .default) { _ in
-                self.openInWaze(address: address, city: city)
-            }
-            mapApplications.append(wazeAction)
-        }
-        
-        let copyAddressAction = UIAlertAction(title: "Copy Address", style: .default) { _ in
-            UIPasteboard.general.string = "\(address), \(city)"
-            // Show a toast message when the adress is copy to the clipboard
-            let toastLabel = UILabel(frame: CGRect(x: self.frame.size.width/2 - 75, y: self.frame.size.height/2, width: 150, height: 35))
-            toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            toastLabel.textColor = UIColor.white
-            toastLabel.textAlignment = .center
-            toastLabel.text = "Address copied"
-            toastLabel.alpha = 1.0
-            toastLabel.layer.cornerRadius = 10
-            toastLabel.clipsToBounds = true
-            self.addSubview(toastLabel)
-            UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
-                toastLabel.alpha = 0.0
-            }, completion: { _ in
-                toastLabel.removeFromSuperview()
-            })
-        }
-        mapApplications.append(copyAddressAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        mapApplications.append(cancelAction)
-        
-        return mapApplications
-    }
-    
-    // MARK: - Configuration
     
     func configure(with veterinarian: Veterinarian) {
-        nameLabel.text = veterinarian.name
-        
-        var fullAddress = ""
-        if let address = veterinarian.address {
-            fullAddress += address + ", "
-        }
-        if let zipcode = veterinarian.zipcode {
-            fullAddress += zipcode + " "
-        }
-        if let city = veterinarian.city {
-            fullAddress += city + ", "
-        }
-        if let country = veterinarian.country {
-            fullAddress += country
-        }
-        addressLabel.text = fullAddress
-        
-        // Store the veterinarian model for later use in button actions
-        self.veterinarian = veterinarian
+        nameLabel.text = "Dr. " + veterinarian.name
+        addressLabel.text = veterinarian.address + ", " + veterinarian.zipcode + ", " + veterinarian.city
     }
 }
+

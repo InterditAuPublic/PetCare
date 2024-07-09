@@ -6,58 +6,118 @@
 //
 
 import UIKit
-class AppointementView: UIView {
-    
-    let datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .dateAndTime
-        return datePicker
-    }()
-    
-    let descriptionTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Description du RDV"
-        return textField
-    }()
-    
-    let pickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
-    }()
-    
+import DTTextField
+
+class AppointmentView: UIScrollView {
+
+    // MARK: - Properties
+
+    private let dateLabel: UILabel = createLabel(with: "Date:")
+    private let timeLabel: UILabel = createLabel(with: "Time:")
+    private let veterinarianLabel: UILabel = createLabel(with: "Veterinarian:")
+    private let animalsLabel: UILabel = createLabel(with: "Animals:")
+
+    let datePicker: UIDatePicker = createDatePicker()
+    let veterinarianPicker: UIPickerView = createPickerView()
+    let animalsTableView: UITableView = createTableView()
+    let descriptionTextField: DTTextField = createDTTextField(placeholder: NSLocalizedString("comments_placeholder", comment: ""))
+
+    var veterinarians: [Veterinarian] = []
+    var animals: [Animal] = []
+
+    // MARK: - Initialization
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        setupView()
     }
-    
-    required init?(coder aDecoder: NSCoder) {
+
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func setupLayout() {
-        addSubview(datePicker)
-        addSubview(descriptionTextField)
-        addSubview(pickerView)
-        
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
-        pickerView.translatesAutoresizingMaskIntoConstraints = false
-        
+
+    func populate(with appointment: Appointment) {
+        datePicker.date = appointment.date
+        descriptionTextField.text = appointment.descriptionRdv
+    }
+
+    // MARK: - Private Methods
+
+    private func setupView() {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerView)
+
         NSLayoutConstraint.activate([
-            datePicker.topAnchor.constraint(equalTo: topAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: trailingAnchor),
-            datePicker.heightAnchor.constraint(equalToConstant: 200),
-            
-            descriptionTextField.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
-            descriptionTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            descriptionTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            descriptionTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-            pickerView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 20),
-            pickerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            pickerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            pickerView.heightAnchor.constraint(equalToConstant: 150)
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerView.widthAnchor.constraint(equalTo: widthAnchor)
         ])
+
+        let stackView = UIStackView(arrangedSubviews: [
+            dateLabel, datePicker,
+            veterinarianLabel, veterinarianPicker,
+            animalsLabel, animalsTableView,
+            descriptionTextField
+        ])
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        containerView.addSubview(stackView)
+
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
+        ])
+
+        // Adding a height constraint for the animalsTableView to ensure it appears
+        animalsTableView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+
+    // MARK: - Utility Methods
+
+    private static func createLabel(with text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        return label
+    }
+
+    private static func createDTTextField(placeholder: String) -> DTTextField {
+        let textField = DTTextField()
+        textField.borderStyle = .roundedRect
+        textField.tintColor = .orange
+        textField.placeholder = placeholder
+        return textField
+    }
+
+    private static func createPickerView() -> UIPickerView {
+        let pickerView = UIPickerView()
+        return pickerView
+    }
+
+    private static func createDatePicker() -> UIDatePicker {
+        let datePicker = UIDatePicker()
+        datePicker.minimumDate = .now
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.preferredDatePickerStyle = .inline
+        return datePicker
+    }
+
+    private static func createTableView() -> UITableView {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }
+
+    // Display an error message below the text field
+    func toggleError(field: DTTextField, errorMessage: String ) {
+        field.errorMessage = errorMessage
+        field.showError()
+        field.canShowBorder = true
     }
 }

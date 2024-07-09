@@ -7,68 +7,69 @@
 
 import UIKit
 
-class VeterinariansViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class VeterinariansViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NoVeterinarianDelegate {    
     
     var veterinarians: [Veterinarian] = []
+    var veterinariansTableView: UITableView!
+    var noVeterinarianView: NoVeterinarianView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        setupNavigationBar()
+        setupTableView()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         fetchVeterinarians()
         updateUI()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddVetButton))
+    private func setupNavigationBar() {
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         navigationItem.rightBarButtonItem = addButton
     }
     
+    private func setupTableView() {
+        veterinariansTableView = UITableView(frame: view.bounds, style: .plain)
+        veterinariansTableView.register(VeterinarianTableViewCell.self, forCellReuseIdentifier: VeterinarianTableViewCell.reuseIdentifier)
+        veterinariansTableView.delegate = self
+        veterinariansTableView.dataSource = self
+        view.addSubview(veterinariansTableView)
+    }
+    
     private func fetchVeterinarians() {
-        if let fetchedVeterinarians = CoreDataManager.shared.fetchVeterinarians() {
-            veterinarians = fetchedVeterinarians
-        }
+        veterinarians = CoreDataManager.shared.fetchVeterinarians() ?? []
     }
     
     private func updateUI() {
-        DispatchQueue.main.async {
-            if self.veterinarians.isEmpty {
-                // TODO: Display the NoVeterinarianView
-                //                let noVeterinarianView = NoVeterinarianView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-                //                noVeterinarianView.center = self.view.center
-                //           
-                //                
-                //                // Remove any existing table view
-                //                self.view.subviews.forEach { $0.removeFromSuperview() }
-                //                
-                //                // Add the NoveterinarianView
-                //                self.view.addSubview(noVeterinarianView)
-            } else {
-                // Display the UITableView
-                let veterinariansTableView = UITableView(frame: self.view.bounds, style: .plain)
-                veterinariansTableView.register(VeterinarianTableViewCell.self, forCellReuseIdentifier: "veterinarianCell")
-                veterinariansTableView.delegate = self
-                veterinariansTableView.dataSource = self
-                
-                // Remove any existing NoVeterinarianView
-                self.view.subviews.forEach { subview in
-                    //                    if subview is NoVeterinarianView {
-                    //                        subview.removeFromSuperview()
-                    //                    }
-                }
-                
-                // Add the UITableView
-                self.view.addSubview(veterinariansTableView)
-            }
+        
+        if veterinarians.isEmpty {
+            showNoVeterinariansView()
+        } else {
+            veterinariansTableView.isHidden = false
+            veterinariansTableView.reloadData()
+            noVeterinarianView?.removeFromSuperview()
+            noVeterinarianView = nil
         }
     }
     
-    // MARK: - Navigation
+    private func showNoVeterinariansView() {
+        veterinariansTableView.isHidden = true
+        if noVeterinarianView == nil {
+            noVeterinarianView = NoVeterinarianView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+            noVeterinarianView?.center = view.center
+            noVeterinarianView?.delegate = self
+            view.addSubview(noVeterinarianView!)
+        }
+    }
     
+    @objc internal func didTapAddButton() {
+        navigationController?.pushViewController(AddVeterinarianViewController(), animated: true)
+    }
     
     // MARK: - TableView
     
@@ -77,20 +78,56 @@ class VeterinariansViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "veterinarianCell", for: indexPath) as! VeterinarianTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: VeterinarianTableViewCell.reuseIdentifier, for: indexPath) as! VeterinarianTableViewCell
         let veterinarian = veterinarians[indexPath.row]
         cell.configure(with: veterinarian)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let veterinarianToDelete = veterinarians[indexPath.row]
-            CoreDataManager.shared.deleteVeterinarian(veterinarian: veterinarianToDelete)
-            fetchVeterinarians()
-            updateUI()
-            tableView.deleteRows(at: [indexPath], with: .fade)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let veterinarian = veterinarians[indexPath.row]
+        var actions: [UIContextualAction] = []
+        
+        let deleteAction = UIContextualAction(style: .destructive, title:  NSLocalizedString("delete", comment: "")) { (action, view, completionHandler) in
+                // show alert to confirm deletion of veterinarian, if it have appointments show a warning 
+            let alert = UIAlertController(title: NSLocalizedString("delete_veterinarian_title", comment: ""), message: NSLocalizedString("delete_veterinarian_message", comment: ""), preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("delete", comment: ""), style: .destructive, handler: { (action) in
+                CoreDataManager.shared.deleteVeterinarian(veterinarian: veterinarian)
+                self.veterinarians.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                self.updateUI()
+            }))
+
+            self.present(alert, animated: true, completion: nil)
+            completionHandler(true)
+    
         }
+        actions.append(deleteAction)
+        
+        if let phoneNumber = veterinarian.phone, !phoneNumber.isEmpty {
+            let callAction = UIContextualAction(style: .normal, title: NSLocalizedString("call", comment: "")) { (action, view, completionHandler) in
+                if let phoneURL = URL(string: "tel://\(phoneNumber)") {
+                    UIApplication.shared.open(phoneURL)
+                }
+                completionHandler(true)
+            }
+            callAction.backgroundColor = .systemGreen
+            actions.append(callAction)
+        }
+        
+        if let email = veterinarian.email, !email.isEmpty {
+            let emailAction = UIContextualAction(style: .normal, title: NSLocalizedString("email", comment: "")) { (action, view, completionHandler) in
+                if let emailURL = URL(string: "mailto:\(email)") {
+                    UIApplication.shared.open(emailURL)
+                }
+                completionHandler(true)
+            }
+            emailAction.backgroundColor = .systemBlue
+            actions.append(emailAction)
+        }
+        
+        return UISwipeActionsConfiguration(actions: actions)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -99,13 +136,6 @@ class VeterinariansViewController: UIViewController, UITableViewDelegate, UITabl
         let veterinarianDetailViewController = VeterinarianDetailViewController(veterinarian: selectedVeterinarian)
         veterinarianDetailViewController.veterinarian = selectedVeterinarian
         navigationController?.pushViewController(veterinarianDetailViewController, animated: true)
-    }
-}
-
-
-extension VeterinariansViewController {
-    @objc func didTapAddVetButton() {
-        self.navigationController?.pushViewController(AddVetViewController(), animated: true)
     }
 }
 

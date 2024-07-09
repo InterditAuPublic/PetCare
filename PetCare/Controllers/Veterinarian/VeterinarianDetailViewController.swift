@@ -9,7 +9,7 @@ import UIKit
 
 class VeterinarianDetailViewController: UIViewController {
     
-    var veterinarian: Veterinarian?
+    var veterinarian: Veterinarian
     var veterinarianDetailView: VeterinarianDetailView?
     
     init(veterinarian: Veterinarian) {
@@ -18,24 +18,22 @@ class VeterinarianDetailViewController: UIViewController {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = veterinarian?.name
+        navigationItem.title = "Dr ." + veterinarian.name
         navigationItem.largeTitleDisplayMode = .never
         setupUI()
-        
     }
     
-    
     private func setupUI() {
-        guard let veterinarian = veterinarian else { return }
-        let veterinarianDetailView = VeterinarianDetailView(veterinarian: veterinarian)
+        veterinarianDetailView = VeterinarianDetailView()
+        guard let veterinarianDetailView = veterinarianDetailView else { return }
+
         view.addSubview(veterinarianDetailView)
         veterinarianDetailView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -46,18 +44,15 @@ class VeterinarianDetailViewController: UIViewController {
             veterinarianDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        /*veterinarianDetailView.veterinarianForm?.delegate = self*/
+        veterinarianDetailView.veterinarian = veterinarian
         
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
         navigationItem.rightBarButtonItem = editButton
     }
     
     @objc private func editButtonTapped() {
-        
         // navigate to the edit view controller
-        guard let veterinarian = veterinarian else { return }
-        let veterinarianEditViewController = VeterinarianEditViewController(veterinarian: veterinarian)
+        let veterinarianEditViewController = EditVeterinarianViewController(veterinarian: veterinarian)
         navigationController?.pushViewController(veterinarianEditViewController, animated: true)
     }
-    
 }

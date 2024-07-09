@@ -2,218 +2,238 @@
 //  AnimalManagementTests.swift
 //  PetCareTests
 //
-//  Created by Melvin Poutrel on 23/05/2024.
+//  Created by Melvin Poutrel on 05/01/2024.
 //
 
 import XCTest
+import CoreData
 @testable import PetCare
 
 class AnimalManagementTests: XCTestCase {
     var coreDataManager: CoreDataManager!
     var mockCoreDataStack: MockCoreDataStack!
-
+    
     override func setUp() {
         super.setUp()
         mockCoreDataStack = MockCoreDataStack()
         coreDataManager = CoreDataManager(coreDataStack: mockCoreDataStack)
     }
-
+    
     override func tearDown() {
-        coreDataManager = nil
         mockCoreDataStack = nil
+        coreDataManager = nil
         super.tearDown()
     }
-
-    // Helper method to create a sample Animal object
-    private func createSampleAnimal() -> Animal {
-        return Animal(
-            id: UUID().uuidString,
-            identifier: "123",
-            name: "Buddy",
-            sexe: true,
-            species: .dog,
-            breed: "Golden Retriever",
-            birthdate: Date(),
-            weight: 30.0,
-            color: "Golden",
-            comments: "Friendly and active"
-        )
-    }
-
-    // Helper method to create a sample Veterinarian object
-    private func createSampleVeterinarian() -> Veterinarian {
-        return Veterinarian(
-            id: UUID().uuidString,
-            name: "Dr. Smith",
-            address: "123 Pet St",
-            zipcode: "12345",
-            city: "PetCity",
-            country: "Petland",
-            phone: "123-456-7890",
-            email: "dr.smith@example.com",
-            note: "Experienced veterinarian"
-        )
-    }
     
-    private func createSampleAppointment(with animal: Animal?, veterinarian: Veterinarian?) -> Appointement {
-        return Appointement(
-            id: UUID().uuidString,
-            date: Date(),
-            descriptionRdv: "Regular Checkup",
-            animals: animal != nil ? [animal!] : nil,
-            veterinarian: veterinarian
-        )
+    // MARK: - Animal Tests
+    
+    // Test the saveAnimal method of the CoreDataManager succeds
+    func testSaveAnimal() throws {
+        let animalForm = AnimalForm(id: UUID().uuidString, identifier: "123", name: "Rex", sexe: false, sterilized: false, species: .dog, breed: "Labrador", birthdate: Date(), weight: 30, color: "Brown", comments: "Friendly", image: nil)
+        coreDataManager.saveAnimal(form: animalForm)
+
+        let fetchedAnimal = coreDataManager.fetchAnimal(byId: animalForm.id!)
+        XCTAssertNotNil(fetchedAnimal)
+        XCTAssertEqual(fetchedAnimal?.identifier, "123")
+        XCTAssertEqual(fetchedAnimal?.name, "Rex")
     }
 
-    // MARK: Animals
-    
-    func testSaveAnimal_Success() {
-        let animal = createSampleAnimal()
-        
-        coreDataManager.saveAnimal(animal: animal)
-        
-        let savedAnimals = coreDataManager.fetchAnimals()
-        XCTAssertEqual(savedAnimals?.count, 1)
-        XCTAssertEqual(savedAnimals?.first?.identifier, animal.identifier)
-    }
-    
-    func testFetchAnimals_Success() {
-        let animal = createSampleAnimal()
-        coreDataManager.saveAnimal(animal: animal)
-        
-        let fetchedAnimals = coreDataManager.fetchAnimals()
-        XCTAssertNotNil(fetchedAnimals)
-        XCTAssertEqual(fetchedAnimals?.count, 1)
-        XCTAssertEqual(fetchedAnimals?.first?.name, animal.name)
-    }
-
+    // Test the updateAnimal method of the CoreDataManager succeds
     func testUpdateAnimal_Success() {
-        let animal = createSampleAnimal()
-        coreDataManager.saveAnimal(animal: animal)
-        
-        // Retrieve the UUID of the saved animal
-        guard let savedAnimal = coreDataManager.fetchAnimals()?.first else {
-            XCTFail("Failed to fetch saved animal")
-            return
-        }
-        
-        // Modify the animal
-        var updatedAnimal = savedAnimal
-        updatedAnimal.name = "Max"
-        
-        // Update the animal using its UUID
-        coreDataManager.updateAnimal(animal: updatedAnimal)
-        
-        // Fetch the updated animal
-        let fetchedAnimals = coreDataManager.fetchAnimals()
-        XCTAssertEqual(fetchedAnimals?.first(where: { $0.identifier == animal.identifier })?.name, "Max")
+        let animalForm = AnimalForm(
+            identifier: "123",
+            name: "Rex",
+            sexe: true,
+            sterilized: true,
+            species: .dog,
+            breed: "Labrador",
+            birthdate: Date(),
+            weight: 10.0,
+            color: "Brown",
+            comments: "Friendly dog",
+            image: nil
+        )
+
+        coreDataManager.saveAnimal(form: animalForm)
+
+        let animal = coreDataManager.fetchAnimals()?.first
+        XCTAssertEqual(animal?.identifier, "123")
+        XCTAssertEqual(animal?.name, "Rex")
+        XCTAssertEqual(animal?.sexe, true)
+        XCTAssertEqual(animal?.species, .dog)
+        XCTAssertEqual(animal?.breed, "Labrador")
+        XCTAssertEqual(animal?.weight, 10.0)
+        XCTAssertEqual(animal?.color, "Brown")
+        XCTAssertEqual(animal?.comments, "Friendly dog")
+
+        let updatedAnimalForm = AnimalForm(
+            id: animal!.id,
+            identifier: "456",
+            name: "Max",
+            sexe: false,
+            sterilized: false,
+            species: .cat,
+            breed: "Siamese",
+            birthdate: Date(),
+            weight: 5.0,
+            color: "White",
+            comments: "Shy cat",
+            image: nil
+        )
+
+        coreDataManager.updateAnimal(form: updatedAnimalForm)
+
+        let updatedAnimal = coreDataManager.fetchAnimals()?.first
+        XCTAssertEqual(updatedAnimal?.identifier, "456")
+        XCTAssertEqual(updatedAnimal?.name, "Max")
+        XCTAssertEqual(updatedAnimal?.sexe, false)
+        XCTAssertEqual(updatedAnimal?.species, .cat)
+        XCTAssertEqual(updatedAnimal?.breed, "Siamese")
+        XCTAssertEqual(updatedAnimal?.weight, 5.0)
+        XCTAssertEqual(updatedAnimal?.color, "White")
+        XCTAssertEqual(updatedAnimal?.comments, "Shy cat")
+
+        coreDataManager.deleteAnimal(animal: updatedAnimal!)
     }
 
+    // Test the deleteAnimal method of the CoreDataManager succeds
+    func testDeleteAnimal_Success() {
+        let animalForm = AnimalForm(
+            identifier: "123",
+            name: "Rex",
+            sexe: true,
+            sterilized: false,
+            species: .dog,
+            breed: "Labrador",
+            birthdate: Date(),
+            weight: 10.0,
+            color: "Brown",
+            comments: "Friendly dog",
+            image: nil
+        )
+
+        coreDataManager.saveAnimal(form: animalForm)
+
+        let animal = coreDataManager.fetchAnimals()?.first
+        XCTAssertEqual(animal?.identifier, "123")
+        XCTAssertEqual(animal?.name, "Rex")
+        XCTAssertEqual(animal?.sexe, true)
+        XCTAssertEqual(animal?.species, .dog)
+        XCTAssertEqual(animal?.breed, "Labrador")
+        XCTAssertEqual(animal?.weight, 10.0)
+        XCTAssertEqual(animal?.color, "Brown")
+        XCTAssertEqual(animal?.comments, "Friendly dog")
+
+        coreDataManager.deleteAnimal(animal: animal!)
+
+        let deletedAnimal = coreDataManager.fetchAnimals()?.first
+        XCTAssertNil(deletedAnimal)
+    }
+
+    // Test the deleteAnimal method of the CoreDataManager fails
+    func testDeleteAnimal_Failure() {
+        let animalForm = AnimalForm(
+            id: "AZERTYUIOPMLKJHGFDSQ",
+            identifier: "123",
+            name: "Rex",
+            sexe: true,
+            sterilized: false,
+            species: .dog,
+            breed: "Labrador",
+            birthdate: Date(),
+            weight: 10.0,
+            color: "Brown",
+            comments: "Friendly dog",
+            image: nil
+        )
+
+        coreDataManager.saveAnimal(form: animalForm)
+        
+        var animal = coreDataManager.fetchAnimals()?.first
+
+        animal?.id = "QWERTYUIOPMLKJHGFDSQ"
+
+        coreDataManager.deleteAnimal(animal: animal!)
+
+        let animals = coreDataManager.fetchAnimals()
+        XCTAssertEqual(animals?.count, 1)
+    }
+   
+
+    // Test the fetchAnimals method of the CoreDataManager succeds
+    func testFetchAnimals_Success() {
+        let animalForm = AnimalForm(
+            identifier: "123",
+            name: "Rex",
+            sexe: true,
+            sterilized: false,
+            species: .dog,
+            breed: "Labrador",
+            birthdate: Date(),
+            weight: 10.0,
+            color: "Brown",
+            comments: "Friendly dog",
+            image: nil
+        )
+
+        coreDataManager.saveAnimal(form: animalForm)
+
+        let animal = coreDataManager.fetchAnimals()?.first
+        XCTAssertEqual(animal?.identifier, "123")
+        XCTAssertEqual(animal?.name, "Rex")
+        XCTAssertEqual(animal?.sexe, true)
+        XCTAssertEqual(animal?.species, .dog)
+        XCTAssertEqual(animal?.breed, "Labrador")
+        XCTAssertEqual(animal?.weight, 10.0)
+        XCTAssertEqual(animal?.color, "Brown")
+        XCTAssertEqual(animal?.comments, "Friendly dog")
+
+        coreDataManager.deleteAnimal(animal: animal!)
+    }
+
+    // Test the fetchAnimals method of the CoreDataManager fails
+    func testFetchAnimals_Failure() {
+        let animals = coreDataManager.fetchAnimals()
+        XCTAssertEqual(animals?.count, 0)
+    }
     
-    // MARK: Veterinarians
+    // Test the fetchAnimal method of the CoreDataManager succeds
+    func testFetchAnimalById_Success() {
+        let animalForm = AnimalForm(
+            identifier: "123456789",
+            name: "Flamby",
+            sexe: false,
+            sterilized: false,
+            species: .dog,
+            breed: "Bichon frise",
+            birthdate: Date(),
+            weight: 10.0,
+            color: "White",
+            comments: "Very friendly dog",
+            image: nil
+        )
 
-    func testSaveVeterinarian_Success() {
-        let veterinarian = createSampleVeterinarian()
+        coreDataManager.saveAnimal(form: animalForm)
+
+        let animal = coreDataManager.fetchAnimals()?.first
+        let animalId = animal?.id
         
-        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-        
-        let savedVeterinarians = coreDataManager.fetchVeterinarians()
-        XCTAssertEqual(savedVeterinarians?.count, 1)
-        XCTAssertEqual(savedVeterinarians?.first?.name, veterinarian.name)
+        let fetchedAnimal = coreDataManager.fetchAnimal(byId: animalId!)
+        XCTAssertEqual(fetchedAnimal?.identifier, "123456789")
+        XCTAssertEqual(fetchedAnimal?.name, "Flamby")
+        XCTAssertEqual(fetchedAnimal?.sexe, false)
+        XCTAssertEqual(fetchedAnimal?.species, .dog)
+        XCTAssertEqual(fetchedAnimal?.breed, "Bichon frise")
+        XCTAssertEqual(fetchedAnimal?.weight, 10.0)
+        XCTAssertEqual(fetchedAnimal?.color, "White")
+        XCTAssertEqual(fetchedAnimal?.comments, "Very friendly dog")
+
+        coreDataManager.deleteAnimal(animal: fetchedAnimal!)
     }
-
-    func testFetchVeterinarians_Success() {
-        let veterinarian = createSampleVeterinarian()
-        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-        
-        let fetchedVeterinarians = coreDataManager.fetchVeterinarians()
-        XCTAssertNotNil(fetchedVeterinarians)
-        XCTAssertEqual(fetchedVeterinarians?.count, 1)
-        XCTAssertEqual(fetchedVeterinarians?.first?.name, veterinarian.name)
-    }
-
-    func testUpdateVeterinarian_Success() {
-        let veterinarian = createSampleVeterinarian()
-        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-        
-        // Retrieve the UUID of the saved veterinarian
-        guard let savedVeterinarian = coreDataManager.fetchVeterinarians()?.first else {
-            XCTFail("Failed to fetch saved veterinarian")
-            return
-        }
-        
-        // Modify the veterinarian
-        var updatedVeterinarian = savedVeterinarian
-        updatedVeterinarian.name = "Dr. Brown"
-        
-        // Update the veterinarian using its UUID
-        coreDataManager.updateVeterinarian(veterinarian: updatedVeterinarian)
-        
-        // Fetch the updated veterinarian
-        let fetchedVeterinarians = coreDataManager.fetchVeterinarians()
-        XCTAssertEqual(fetchedVeterinarians?.first(where: { $0.id == savedVeterinarian.id })?.name, "Dr. Brown")
-    }
-
-    // MARK: - Appointment Tests
-   func testSaveAppointment_Success() {
-       let animal = createSampleAnimal()
-       coreDataManager.saveAnimal(animal: animal)
-
-       let veterinarian = createSampleVeterinarian()
-       coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-
-       let appointment = createSampleAppointment(with: animal, veterinarian: veterinarian)
-       coreDataManager.saveAppointement(appointment: appointment)
-
-       let savedAppointments = coreDataManager.fetchAppointements()
-       XCTAssertEqual(savedAppointments?.count, 1)
-       XCTAssertEqual(savedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
-   }
-
-   func testSaveAppointment_WithoutVeterinarianAndAnimals_Failure() {
-
-         let appointment = createSampleAppointment(with: nil, veterinarian: nil)
-         coreDataManager.saveAppointement(appointment: appointment)
     
-         let savedAppointments = coreDataManager.fetchAppointements()
-         XCTAssertEqual(savedAppointments?.count, 0)
-   }
-
-   func testFetchAppointments_Success() {
-       let appointment = createSampleAppointment(with: nil, veterinarian: nil)
-       coreDataManager.saveAppointement(appointment: appointment)
-
-       let fetchedAppointments = coreDataManager.fetchAppointements()
-       XCTAssertNotNil(fetchedAppointments)
-       XCTAssertEqual(fetchedAppointments?.count, 1)
-       XCTAssertEqual(fetchedAppointments?.first?.descriptionRdv, appointment.descriptionRdv)
-   }
-
-//   func testUpdateAppointment_Success() {
-//        let animal = createSampleAnimal()
-//        coreDataManager.saveAnimal(animal: animal)
-//
-//        let veterinarian = createSampleVeterinarian()
-//        coreDataManager.saveVeterinarian(veterinarian: veterinarian)
-//
-//        let appointment = createSampleAppointment(with: animal, veterinarian: veterinarian)
-//        coreDataManager.saveAppointement(appointment: appointment)
-//
-//        // Retrieve the UUID of the saved appointment
-//        guard let savedAppointment = coreDataManager.fetchAppointements()?.first else {
-//            XCTFail("Failed to fetch saved appointment")
-//            return
-//        }
-//
-//        // Modify the appointment
-//        var updatedAppointment = savedAppointment
-//        updatedAppointment.descriptionRdv = "Emergency Checkup"
-//
-//        // Update the appointment using its UUID
-//        coreDataManager.updateAppointement(appointment: updatedAppointment)
-//
-//        // Fetch the updated appointment
-//        let fetchedAppointments = coreDataManager.fetchAppointements()
-//        XCTAssertEqual(fetchedAppointments?.first(where: { $0.id == savedAppointment.id })?.descriptionRdv, "Emergency Checkup")
-//   }
+    // Test the fetchAnimal method of the CoreDataManager fails
+    func testFetchAnimalById_Failure() {
+        let animal = coreDataManager.fetchAnimal(byId: "QWERTYUIOPMLKJHGFDSQ")
+        XCTAssertNil(animal)
+    }
 }

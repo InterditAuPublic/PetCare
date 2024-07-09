@@ -1,22 +1,22 @@
 //
-//  NoAnimalView.swift
+//  NoVeterinarianView.swift
 //  PetCare
 //
-//  Created by Melvin Poutrel on 08/01/2024.
+//  Created by Melvin Poutrel on 22/06/2024.
 //
 
 import UIKit
 
-class NoAnimalView: UIView {
+class NoVeterinarianView: UIView {
     
-    weak var delegate: NoAnimalsDelegate?
+    weak var delegate: NoVeterinarianDelegate?
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .orange
         button.layer.cornerRadius = 10
-        button.setTitle(NSLocalizedString("add_animal", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("add_veterinarian", comment: ""), for: .normal)
         button.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -24,7 +24,7 @@ class NoAnimalView: UIView {
     
     private let messageLabel: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("no_animals_message", comment: "You don't have any animals yet. \nTap the button below to add a new animal.")
+        label.text = NSLocalizedString("no_veterinarians_message", comment: "You don't have any veterinarian yet. Tap the button below to add a new one.")
         label.numberOfLines = 0
         label.textAlignment = .center
         label.textColor = .gray
@@ -35,14 +35,14 @@ class NoAnimalView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
+    private func setupViews() {
         backgroundColor = .white
         
         addSubview(addButton)
@@ -68,6 +68,7 @@ class NoAnimalView: UIView {
     }
 }
 
-protocol NoAnimalsDelegate: AnyObject {
+protocol NoVeterinarianDelegate: AnyObject {
     func didTapAddButton()
 }
+

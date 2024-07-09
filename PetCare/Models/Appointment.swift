@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Appointement: Codable {
-    var id: String?
-    var date: Date?
+struct Appointment: Codable {
+    var id: String
+    var date: Date
     var descriptionRdv: String?
-    var animals: [Animal]?
-    var veterinarian: Veterinarian?
+    var animals: [Animal]
+    var veterinarian: Veterinarian!
 }

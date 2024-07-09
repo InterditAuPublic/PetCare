@@ -45,7 +45,7 @@ class OtherCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func setup(_ item: Appointement) {
+    func setup(_ item: Appointment) {
         print("// ------- SETUP OTHER ------- //")
         cellImageView.image = UIImage(named: "veterinary")
         cellTitleLbl.text = item.descriptionRdv

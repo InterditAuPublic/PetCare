@@ -76,13 +76,22 @@ class AnimalHomeCollectionViewCell: UICollectionViewCell {
 
     // Configure the cell with the provided item
     func setup(_ item: Animal) {
-        var defaultImage: String
-        if item.species?.rawValue == "Dog" {
+        let defaultImage: String
+        if item.species == .dog {
             defaultImage = "dog_default_image"
         } else {
             defaultImage = "cat_default_image"
         }
-        cellImageView.image = UIImage(named: item.image ?? defaultImage)
+
+        // Utilize the animal's image if available, otherwise use the default image
+        if let imageData = item.image, let image = UIImage(data: imageData) {
+            cellImageView.image = image
+        } else {
+            cellImageView.image = UIImage(named: defaultImage)
+        }
+        
+        // Update the title with the animal's name
         titleLabel.text = item.name
     }
+ 
 }

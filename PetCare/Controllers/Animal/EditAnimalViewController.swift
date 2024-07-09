@@ -7,10 +7,14 @@
 
 import UIKit
 
-class EditAnimalViewController: UIViewController {
-
-    var editAnimalView: EditAnimalView?
-    var animal: Animal?
+class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    // MARK: - Properties
+    
+    let editAnimalView = AnimalView()
+    var animal: Animal
+    
+    // MARK: - Initialization
     
     init(animal: Animal) {
         self.animal = animal
@@ -18,76 +22,92 @@ class EditAnimalViewController: UIViewController {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - View Lifecycle
+    
+    override func loadView() {
+        view = editAnimalView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = NSLocalizedString("edit_animal_title", comment: "")
         view.backgroundColor = .white
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = animal?.name
-        navigationItem.largeTitleDisplayMode = .never
+        let editButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateAnimal))
         
-        super.viewDidLoad()
-        view.backgroundColor = .white
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openImagePicker))
+        editAnimalView.imageView.addGestureRecognizer(tapGesture)
         
-        editAnimalView = EditAnimalView(animal: animal)
-        guard let editAnimalView = editAnimalView else { return }
+        navigationItem.rightBarButtonItem = editButton
+        editAnimalView.populate(with: animal)
         
-        view.addSubview(editAnimalView)
-        editAnimalView.translatesAutoresizingMaskIntoConstraints = false
+        navigationController?.navigationBar.prefersLargeTitles = false
         
-        NSLayoutConstraint.activate([
-            editAnimalView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            editAnimalView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            editAnimalView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            editAnimalView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
         
-        editAnimalView.animalForm?.delegate = self
-        
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
-        navigationItem.rightBarButtonItem = saveButton
     }
     
+    // MARK: - Actions
     
-    @objc private func saveButtonTapped() {
-        guard let animalForm = editAnimalView?.animalForm else { return }
-        let formFields = animalForm.getFormFields()
-        
-        guard let name = formFields[2].value as? String, !name.isEmpty else {
-            //            showAlert(message: "Vous devez entrer un nom pour votre animal")
+    @objc private func updateAnimal() {
+        guard let name = editAnimalView.nameTextField.text, !name.isEmpty else {
+            editAnimalView.toggleError(field: editAnimalView.nameTextField, errorMessage: NSLocalizedString("name_error", comment: ""))
             return
         }
         
-        // Validate species
-        guard let speciesRawValue = formFields[3].value as? String,
-              let specie = Species(rawValue: speciesRawValue) else { // TODO: If not changed unable to save the changes
-            //            showAlert(message: "Vous devez sélectionner une espèce pour votre animal")
-            return
-        }
-        
-        var animal = Animal()
-        animal.id = self.animal?.id
-        animal.image = formFields[0].value as? String
-        animal.identifier = formFields[1].value as? String
-        animal.sexe = formFields[4].value as? Bool
-        animal.breed = formFields[5].value as? String
-        animal.birthdate = formFields[6].value as? Date
-        animal.weight = formFields[7].value as? Double
-        animal.color = formFields[8].value as? String
-        animal.comments = formFields[9].value as? String
-        animal.name = name
-        animal.species = specie
-        
-        // save the animal to the database
-        CoreDataManager.shared.updateAnimal(animal: animal)
-        
-        navigationController?.popViewController(animated: true)
-    }
-}
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
 
-extension EditAnimalViewController: FormDelegate {
-    func formDidUpdateValue(_ value: Any?, forField field: FormField) {
+        guard let weightText = editAnimalView.weightTextField.text, !weightText.isEmpty, let weightNumber = numberFormatter.number(from: weightText) else {
+            editAnimalView.toggleError(field: editAnimalView.weightTextField, errorMessage: NSLocalizedString("weight_format_error", comment: ""))
+            return
+        }
+        
+        let weight = weightNumber.doubleValue
+        
+        // Create an AnimalForm object and populate its properties
+        let animalForm = AnimalForm(
+            id: animal.id,
+            identifier: editAnimalView.identifierTextField.text,
+            name: name,
+            sexe: editAnimalView.sexSegmentedControl.selectedSegmentIndex == 0 ? false : true,
+            sterilized: editAnimalView.sterilizedSegmentedControl.selectedSegmentIndex == 0 ? false : true,
+            species: Species.allCases[editAnimalView.speciesSegmentedControl.selectedSegmentIndex],
+            breed: editAnimalView.breedTextField.text,
+            birthdate: editAnimalView.birthdatePicker.date,
+            weight: weight,
+            color: editAnimalView.colorTextField.text,
+            comments: editAnimalView.commentsTextField.text,
+            image: editAnimalView.imageView.image?.pngData()
+        )
+        
+        CoreDataManager.shared.updateAnimal(form: animalForm)
+        
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc private func openImagePicker() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let selectedImage = info[.originalImage] as? UIImage {
+            editAnimalView.imageView.image = selectedImage
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

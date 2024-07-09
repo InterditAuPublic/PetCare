@@ -1,123 +1,91 @@
-//
-//  AddAnimalViewController.swift
-//  PetCare
-//
-//  Created by Melvin Poutrel on 08/01/2024.
-//
-
 import UIKit
 
-class AddAnimalViewController: UIViewController, UIGestureRecognizerDelegate, AddAnimalDelegate, FormDelegate {
-    
+class AddAnimalViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
-    var animalToSave = Animal()
-    let addAnimalView = AddAnimalView()
-//    let speciesOptions: [Species] = Species.allSpecies
+
+    let addAnimalView = AnimalView()
     
-    // MARK: - View Lifecycle
+    override func loadView() {
+        view = addAnimalView
+    }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = NSLocalizedString("add_animal_title", comment: "")
         view.backgroundColor = .white
-        configureNavigationBar()
-        setupUI()
-    }
-    
-    // MARK: - UI Setup
-    private func configureNavigationBar() {
-//        navigationController?.navigationBar.tintColor = .orange
-    }
-    
-    private func setupUI() {
-        setupAddAnimalView()
-    }
-    
-    private func setupAddAnimalView() {
-        view.addSubview(addAnimalView)
-        addAnimalView.animalDelegate = self
-        addAnimalView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            addAnimalView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            addAnimalView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addAnimalView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addAnimalView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
-        addAnimalView.animalForm?.delegate = self
+        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveAnimal))
+        navigationItem.rightBarButtonItem = addButton
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openImagePicker))
+        addAnimalView.imageView.addGestureRecognizer(tapGesture)
+    }
+    
+    // MARK: - Actions
+
+    @objc private func saveAnimal() {
+        guard let name = addAnimalView.nameTextField.text, !name.isEmpty else {
+            addAnimalView.toggleError(field: addAnimalView.nameTextField, errorMessage: NSLocalizedString("name_error", comment: ""))
+            return
+        }
+
+        let numberFormatter = NumberFormatter()
+        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
+
+        guard let weightText = addAnimalView.weightTextField.text, !weightText.isEmpty, let weightNumber = numberFormatter.number(from: weightText) else {
+            addAnimalView.toggleError(field: addAnimalView.weightTextField, errorMessage: NSLocalizedString("weight_format_error", comment: ""))
+            return
+        }
+
+        let weight = weightNumber.doubleValue
+
+        let image = addAnimalView.imageView.image
+
+        let animalForm = AnimalForm(
+            identifier: addAnimalView.identifierTextField.text,
+            name: name,
+            sexe: addAnimalView.sexSegmentedControl.selectedSegmentIndex == 0 ? false : true,
+            sterilized: addAnimalView.sterilizedSegmentedControl.selectedSegmentIndex == 0 ? false : true,
+            species: Species.allCases[addAnimalView.speciesSegmentedControl.selectedSegmentIndex],
+            breed: addAnimalView.breedTextField.text,
+            birthdate: addAnimalView.birthdatePicker.date,
+            weight: weight,
+            color: addAnimalView.colorTextField.text,
+            comments: addAnimalView.commentsTextField.text,
+            image: image?.pngData()
+        )
+
+        CoreDataManager.shared.saveAnimal(form: animalForm)
+
+        navigationController?.popViewController(animated: true)
+    }
+    
+
+
+    
+    @objc private func openImagePicker() {
+        guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
+
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
-        navigationItem.rightBarButtonItem = saveButton
-    }
-    
-    @objc private func saveButtonTapped() {
-        guard let animalForm = addAnimalView.animalForm else { return }
-
-        let formFields = animalForm.getFormFields()
-
-        self.animalToSave.image = formFields[0].value as? String
-
-        // save the animal to the database
-        CoreDataManager.shared.saveAnimal(animal: self.animalToSave)
-    }
-    
-    func selectedSpecies(name: String, species: Species) {
-        print("Selected species: \(name) - \(species)")
-    }
-    
-    func nextButtonTapped(with animalInfo: [String : Any]) {
-        print("next")
-    }
-
-    func formDidUpdateValue(_ value: Any?, forField field: FormField) {
-        switch field {
-        case let textField as TextFormField:
-            switch textField.labelText {
-            case NSLocalizedString("identifier", comment: ""):
-                print("no i'm her")
-                self.animalToSave.identifier = value as? String
-            case NSLocalizedString("name", comment: ""):
-                self.animalToSave.name = value as? String
-            case NSLocalizedString("breed", comment: ""):
-                self.animalToSave.breed = value as? String
-            case NSLocalizedString("weight", comment: ""):
-                self.animalToSave.weight = value as? Double
-            case NSLocalizedString("color", comment: ""):
-                self.animalToSave.color = value as? String
-            case NSLocalizedString("comments", comment: ""):
-                self.animalToSave.comments = value as? String
-            default:
-                break
-            }
-        case let pickerField as PickerFormField:
-            if pickerField.labelText == NSLocalizedString("species", comment: "") {
-                self.animalToSave.species = value as? Species
-            }
-        case let dateField as DateFormField:
-            if dateField.labelText == NSLocalizedString("birthdate", comment: "") {
-                self.animalToSave.birthdate = value as? Date
-            }
-        case let segmentField as SegmentFormField:
-            if segmentField.labelText == NSLocalizedString("sex", comment: "") {
-                self.animalToSave.sexe = (value as! String) == "Female" ? false : true
-            }
-        default:
-            break
+        if let selectedImage = info[.originalImage] as? UIImage {
+            addAnimalView.imageView.image = selectedImage
         }
     }
     
-    // MARK: - Helper Methods
-    
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Attention", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
-    }
-    
-    // TODO:  implement this method when CoreDataManager is implemented
-    private func saveAnimalToCoreData(_ animal: Animal) {
-        
-        CoreDataManager.shared.saveAnimal(animal: animal)
-        print("Animal saved to Core Data")
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

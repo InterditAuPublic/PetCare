@@ -2,128 +2,178 @@
 //  HomeViewController.swift
 //  PetCare
 //
-//  Created by Melvin Poutrel on 08/01/2024.
+//  Created by Melvin Poutrel on 22/02/2024.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController, AnimalCellDelegate {
-
-    private var appointmentCollectionView: UICollectionView!
-    private var animalCollectionView: UICollectionView!
-    private var appointments: [Appointement] = []
-    private var animals: [Animal] = []
-
+class HomeViewController: UIViewController {
+    private var collectionView: UICollectionView!
+    private var sections: [Section] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchAppointments()
-        fetchAnimals()
+        fetchAppointmentsAndAnimals()
+    }
+    
+    private func fetchAppointmentsAndAnimals() {
+        guard let fetchNextAppointments = CoreDataManager.shared.fetchUpcomingAppointmentsSortedByDate(),
+              let fetchedAnimals = CoreDataManager.shared.fetchAnimals(),
+              let fetchPastAppointments = CoreDataManager.shared.fetchPastAppointmentsSortedByDate() else {
+            return
+        }
+        
+        let animals: [Any] = fetchedAnimals.isEmpty ? [NSLocalizedString("no_animals", comment: "")] : fetchedAnimals
+        
+        let animalsSection = Section.animal(title: NSLocalizedString("my_animals", comment: ""), items: animals)
+        
+        let nextAppointments: [Any] = fetchNextAppointments.isEmpty ? [NSLocalizedString("no_upcoming_appointments", comment: "")] : fetchNextAppointments
+        let pastAppointments: [Any] = fetchPastAppointments.isEmpty ? [NSLocalizedString("no_past_appointments", comment: "")] : fetchPastAppointments
+        
+        let appointmentsSection = Section.appointment(title: NSLocalizedString("next_appointments", comment: ""), items: nextAppointments)
+        let pastAppointmentsSection = Section.appointment(title: NSLocalizedString("prev_appointments", comment: ""), items: pastAppointments)
+        
+        sections = [animalsSection, appointmentsSection, pastAppointmentsSection]
+        collectionView.reloadData()
     }
 
     private func setupCollectionView() {
-        setupAnimalCollectionView()
-        setupAppointmentCollectionView()
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+        
+        collectionView.register(AnimalHomeCollectionViewCell.self, forCellWithReuseIdentifier: "AnimalHomeCollectionViewCell")
+        collectionView.register(AppointmentCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCollectionViewCell")
+        collectionView.register(NoItemCollectionViewCell.self, forCellWithReuseIdentifier: "NoItemCollectionViewCell")
+        collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderCollectionReusableView")
     }
-
-    private func setupAnimalCollectionView() {
-        let animalLayout = UICollectionViewFlowLayout()
-        animalLayout.scrollDirection = .horizontal
-
-        animalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: animalLayout)
-        animalCollectionView.backgroundColor = .white
-        animalCollectionView.dataSource = self
-        animalCollectionView.delegate = self
-        animalCollectionView.register(AnimalCollectionViewCell.self, forCellWithReuseIdentifier: "AnimalCell")
-        animalCollectionView.allowsSelection = true
-        animalCollectionView.allowsMultipleSelection = false
-
-        view.addSubview(animalCollectionView)
-
-        animalCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            animalCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            animalCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            animalCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            animalCollectionView.heightAnchor.constraint(equalToConstant: 200)
-        ])
-    }
-
-    private func setupAppointmentCollectionView() {
-        let appointmentLayout = UICollectionViewFlowLayout()
-        appointmentLayout.scrollDirection = .vertical
-
-        appointmentCollectionView = UICollectionView(frame: .zero, collectionViewLayout: appointmentLayout)
-        appointmentCollectionView.backgroundColor = .red
-        appointmentCollectionView.dataSource = self
-        appointmentCollectionView.delegate = self
-        appointmentCollectionView.register(AppointmentCollectionViewCell.self, forCellWithReuseIdentifier: "AppointmentCell")
-
-        view.addSubview(appointmentCollectionView)
-
-        appointmentCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            appointmentCollectionView.topAnchor.constraint(equalTo: animalCollectionView.bottomAnchor),
-            appointmentCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            appointmentCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            appointmentCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-
-    private func fetchAppointments() {
-        if let fetchedAppointments = CoreDataManager.shared.fetchAppointements() {
-            appointments = fetchedAppointments
-            appointmentCollectionView.reloadData()
+    
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { [weak self] sectionIndex, layoutEnvironment in
+            guard let self = self else { return nil }
+            let section = self.sections[sectionIndex]
+            switch section {
+            case .animal:
+                return self.createAnimalLayout()
+            case .appointment:
+                return self.createAppointmentLayout()
+            }
         }
     }
+    
+    private func createAnimalLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .absolute(80), heightDimension: .absolute(100)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
+        section.interGroupSpacing = 15
+        section.contentInsets = .init(top: 10, leading: 15, bottom: 30, trailing: 15)
+        section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
+        return section
+    }
+    
+    private func createAppointmentLayout() -> NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1)))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(0.3)), subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .groupPagingCentered
+        section.interGroupSpacing = 20
+        section.contentInsets = .init(top: 10, leading: 15, bottom: 30, trailing: 10)
+        section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
+        return section
+    }
+    
+    private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(50))
+        return NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    }
+}
 
-    private func fetchAnimals() {
-        if let fetchedAnimals = CoreDataManager.shared.fetchAnimals() {
-            animals = fetchedAnimals
-            animalCollectionView.reloadData()
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sections[section].count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = sections[indexPath.section]
+        switch section {
+        case .animal(_, let items):
+            if let message = items[indexPath.row] as? String {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoItemCollectionViewCell", for: indexPath) as! NoItemCollectionViewCell
+                cell.setup(message)
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnimalHomeCollectionViewCell", for: indexPath) as! AnimalHomeCollectionViewCell
+                cell.setup(items[indexPath.row] as! Animal)
+                return cell
+            }
+        case .appointment(_, let items):
+            if let message = items[indexPath.row] as? String {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoItemCollectionViewCell", for: indexPath) as! NoItemCollectionViewCell
+                cell.setup(message)
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCollectionViewCell", for: indexPath) as! AppointmentCollectionViewCell
+                cell.setup(items[indexPath.row] as! Appointment)
+                return cell
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderCollectionReusableView", for: indexPath) as! HeaderCollectionReusableView
+        headerView.setup(sections[indexPath.section].title)
+        return headerView
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch sections[indexPath.section] {
+        case .animal(_, let items):
+            if let animal = items[indexPath.row] as? Animal {
+                let animalDetailVC = AnimalDetailsViewController(animal: animal)
+                navigationController?.pushViewController(animalDetailVC, animated: true)
+            }
+        case .appointment(_, let items):
+            if let appointment = items[indexPath.row] as? Appointment {
+                let appointmentDetailVC = AppointmentDetailsViewController(appointment: appointment)
+                navigationController?.pushViewController(appointmentDetailVC, animated: true)
+            }
         }
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == appointmentCollectionView ? appointments.count : animals.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == appointmentCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCollectionViewCell
-            let appointment = appointments[indexPath.item]
-            cell.configure(with: appointment)
-            return cell
-        } else if collectionView == animalCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnimalCell", for: indexPath) as! AnimalCollectionViewCell
-            let animal = animals[indexPath.item]
-            cell.delegate = self
-            cell.configure(with: animal)
-//            cell.backgroundColor = .orange
-            return cell
+enum Section {
+    case animal(title: String, items: [Any])
+    case appointment(title: String, items: [Any])
+    
+    var title: String {
+        switch self {
+        case .animal(let title, _), .appointment(let title, _):
+            return title
         }
-
-        return UICollectionViewCell()
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - 20, height: 120)
-    }
-
-    func didTap(on cell: AnimalCollectionViewCell) {
-        if let indexPath = animalCollectionView.indexPath(for: cell) {
-            let selectedAnimal = animals[indexPath.item]
-            let animalDetailVC = AnimalDetailViewController(selectedAnimal: selectedAnimal)
-            navigationController?.pushViewController(animalDetailVC, animated: true)
-        } else {
-            print("No index!")
+    
+    var count: Int {
+        switch self {
+        case .animal(_, let items):
+            return items.count
+        case .appointment(_, let items):
+            return items.count
         }
     }
 }

@@ -8,16 +8,15 @@
 import Foundation
 
 struct Veterinarian: Codable {
-    var id: String?
-    var name: String?
-    var address: String?
-    var zipcode: String?
-    var city: String?
-    var country: String?
+    var id: String
+    var name: String!
+    var address: String!
+    var zipcode: String!
+    var city: String!
     var phone: String?
     var email: String?
     var note: String?
     
-    var Appointements: [Appointement]?
+    var appointements: [Appointment]?
 }
 

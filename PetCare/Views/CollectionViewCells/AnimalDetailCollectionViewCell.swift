@@ -1,57 +1,50 @@
-//
-//  AnimalDetailCollectionViewCell.swift
-//  PetCare
-//
-//  Created by Melvin Poutrel on 04/02/2024.
-//
-
 import UIKit
 
-class AnimalDetailCollectionViewCell: UICollectionViewCell {
+class AnimalDetailsCell: UICollectionViewCell {
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private let valueLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let titleLabel = UILabel()
+    let valueLabel = UILabel()
+    let imageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setupCell()
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupCell()
     }
 
-    private func setupUI() {
-        // Add subviews and configure constraints
-        addSubview(titleLabel)
-        addSubview(valueLabel)
+    private func setupCell() {
+        titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        valueLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        imageView.contentMode = .scaleAspectFit
 
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, valueLabel, imageView])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .leading
+
+        contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-
-            valueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            valueLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            valueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            valueLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
     }
 
-    func configure(title: String, value: String) {
-        print("in config")
+    func configure(title: String, value: String?) {
         titleLabel.text = title
         valueLabel.text = value
+        imageView.image = nil
+    }
+
+    func configure(title: String, image: UIImage) {
+        titleLabel.text = title
+        valueLabel.text = nil
+        imageView.image = image
     }
 }
