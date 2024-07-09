@@ -36,6 +36,7 @@ class AppointmentDetailsViewController: UIViewController {
         title = NSLocalizedString("appointments", comment: "")
         view.backgroundColor = .white
         appointmentDetailsView.configure(with: appointment)
+        navigationItem.largeTitleDisplayMode = .never
 
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editAppointment))
         navigationItem.rightBarButtonItem = editButton

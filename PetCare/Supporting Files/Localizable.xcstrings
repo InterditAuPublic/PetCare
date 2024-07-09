@@ -165,6 +165,16 @@
         }
       }
     },
+    "Animals" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animals"
+          }
+        }
+      }
+    },
     "Animals: " : {
       "localizations" : {
         "en" : {
@@ -293,6 +303,12 @@
     },
     "call" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Call"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -303,6 +319,12 @@
     },
     "cancel" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -495,6 +517,9 @@
         }
       }
     },
+    "date: (dateFormatter.string(from: appointment.date))" : {
+
+    },
     "Date: %@ at %@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -554,7 +579,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Suppression d'un animal"
           }
         }
@@ -654,6 +679,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Optionnel"
+          }
+        }
+      }
+    },
+    "description:" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description: "
           }
         }
       }
@@ -778,10 +813,17 @@
       }
     },
     "error" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Error"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Erreur"
           }
         }
@@ -876,6 +918,12 @@
     },
     "Male" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Male"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1004,6 +1052,12 @@
     },
     "No comments" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No comments"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1013,10 +1067,23 @@
       }
     },
     "No email available" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adresse email indisponible"
+          }
+        }
+      }
     },
     "No notes available" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No notes available"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1094,12 @@
     },
     "No phone number available" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No phone number available"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1037,10 +1110,16 @@
     },
     "no_animal_selected" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Animal selected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous devez sélectionner un animal afin de créer un rendez-vous"
+            "value" : "Sélectionner un animal"
           }
         }
       }
@@ -1129,6 +1208,16 @@
         }
       }
     },
+    "no_description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No description"
+          }
+        }
+      }
+    },
     "no_past_appointments" : {
       "localizations" : {
         "en" : {
@@ -1180,10 +1269,16 @@
     },
     "no_veterinarian_selected" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No veterinary selected"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vous devez sélectionner un vétérinaire afin de créer un rendez-vous"
+            "value" : "Sélectionner un vétérinaire"
           }
         }
       }
@@ -1223,10 +1318,17 @@
       }
     },
     "ok" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "fr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Ok"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "Ok"
           }
         }
@@ -1334,20 +1436,32 @@
     },
     "select_animal" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must select at least one animal to create an appointment."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sélectionner un animal"
+            "value" : "Vous devez sélectionner au moins un animal afin de créer un rendez-vous"
           }
         }
       }
     },
     "select_veterinarian" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must select a veterinary to create an appointment."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sélectionner un vétérinaire"
+            "value" : "Vous devez sélectionner un vétérinaire afin de créer un rendez-vous"
           }
         }
       }
@@ -1471,6 +1585,12 @@
     "Unknown" : {
       "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1497,7 +1617,6 @@
       }
     },
     "veterinarian" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1728,23 +1847,6 @@
         }
       }
     },
-    "veterinarian_validation_message" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You must select a Veterinarian"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous devez sélectionner un vétérinaire"
-          }
-        }
-      }
-    },
     "veterinarian_zipcode_placeholder" : {
       "localizations" : {
         "en" : {
@@ -1796,7 +1898,20 @@
       }
     },
     "weight_format_error" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid format"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format invalide"
+          }
+        }
+      }
     },
     "weight_placeholder" : {
       "extractionState" : "stale",

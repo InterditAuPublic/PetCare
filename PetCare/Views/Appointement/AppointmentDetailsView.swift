@@ -18,7 +18,7 @@ class AppointmentDetailsView: UIScrollView {
     private let dateLabel: UILabel = createLabel()
     private let descriptionLabel: UILabel = createLabel()
     private let veterinarianLabel: UILabel = createLabel()
-    private let animalsLabel: UILabel = createLabel(with: "Animals")
+    private let animalsLabel: UILabel = createLabel(with: NSLocalizedString("Animals", comment: ""))
     private let animalsTableView: UITableView = createTableView()
     
     var animals: [Animal] = [] {
@@ -138,9 +138,9 @@ class AppointmentDetailsView: UIScrollView {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        dateLabel.text = "Date: \(dateFormatter.string(from: appointment.date))"
-        descriptionLabel.text = "Description: \(appointment.descriptionRdv ?? "N/A")"
-        veterinarianLabel.text = "Veterinarian: \(appointment.veterinarian.name ?? "N/A")"
+        dateLabel.text = NSLocalizedString("date: \(dateFormatter.string(from: appointment.date))", comment: "")
+        descriptionLabel.text = NSLocalizedString("description:", comment: "") + (appointment.descriptionRdv ?? NSLocalizedString("no_description", comment: ""))
+        veterinarianLabel.text = NSLocalizedString("veterinarian", comment: "") + " Dr. " + appointment.veterinarian.name
         animals = appointment.animals
     }
 }
@@ -156,121 +156,5 @@ extension AppointmentDetailsView: UITableViewDataSource, UITableViewDelegate {
         let animal = animals[indexPath.row]
         cell.configure(with: animal)
         return cell
-    }
-}
-
-
-import UIKit
-
-class AppointmentDetailView: UIView {
-    
-    // MARK: - Properties
-    
-    // Labels for displaying appointment details
-    private let titleLabel: UILabel = createLabel(font: .boldSystemFont(ofSize: 24), textColor: .label)
-    private let descriptionLabel: UILabel = createLabel()
-    private let animalsLabel: UILabel = createLabel()
-    private let veterinarianNameLabel: UILabel = createLabel()
-    private let veterinarianAddressLabel: UILabel = createLabel()
-    private let veterinarianPhoneLabel: UILabel = createLabel()
-    private let veterinarianEmailLabel: UILabel = createLabel()
-    
-    // MARK: - Initialization
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
-    }
-    
-    // MARK: - Setup View
-    
-    private func setupView() {
-        // Create a vertical stack view to arrange all labels
-        let stackView = UIStackView(arrangedSubviews: [
-            titleLabel,
-            createSectionView(title: NSLocalizedString("Description", comment: ""), content: descriptionLabel),
-            createSectionView(title: NSLocalizedString("Animals", comment: ""), content: animalsLabel),
-            createSectionView(title: NSLocalizedString("Veterinarian Name", comment: ""), content: veterinarianNameLabel),
-            createSectionView(title: NSLocalizedString("Veterinarian Address", comment: ""), content: veterinarianAddressLabel),
-            createSectionView(title: NSLocalizedString("Veterinarian Phone", comment: ""), content: veterinarianPhoneLabel),
-            createSectionView(title: NSLocalizedString("Veterinarian Email", comment: ""), content: veterinarianEmailLabel)
-        ])
-        
-        // Configure stack view properties
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add stack view to main view
-        addSubview(stackView)
-        
-        // Set constraints for stack view
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -20)
-        ])
-    }
-    
-    // MARK: - Populate Details
-    
-    // Function to populate the view with appointment details
-    func configure(with appointment: Appointment) {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        
-        titleLabel.text = dateFormatter.string(from: appointment.date)
-        descriptionLabel.text = appointment.descriptionRdv ?? NSLocalizedString("no_description_available", comment: "")
-        animalsLabel.text = appointment.animals.map { $0.name }.joined(separator: ", ")
-        veterinarianNameLabel.text = "Dr. " + (appointment.veterinarian.name ?? NSLocalizedString("no_name_available", comment: ""))
-        veterinarianAddressLabel.text = "\(appointment.veterinarian.address ?? NSLocalizedString("no_address_available", comment: "")), \(appointment.veterinarian.zipcode ?? NSLocalizedString("no_zipcode_available", comment: "")), \(appointment.veterinarian.city ?? NSLocalizedString("no_city_available", comment: ""))"
-        veterinarianPhoneLabel.text = appointment.veterinarian.phone ?? NSLocalizedString("no_phone_number_available", comment: "")
-        veterinarianEmailLabel.text = appointment.veterinarian.email ?? NSLocalizedString("no_email_available", comment: "")
-    }
-    
-    // MARK: - Factory Methods
-    
-    // Factory method to create and configure UILabels
-    private static func createLabel(font: UIFont = .systemFont(ofSize: 16), textColor: UIColor = .secondaryLabel) -> UILabel {
-        let label = UILabel()
-        label.font = font
-        label.textColor = textColor
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }
-    
-    // Factory method to create section views with title and content
-    private func createSectionView(title: String, content: UIView) -> UIView {
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = .boldSystemFont(ofSize: 18)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, content])
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let sectionView = UIView()
-        sectionView.translatesAutoresizingMaskIntoConstraints = false
-        sectionView.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: sectionView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: sectionView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: sectionView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: sectionView.bottomAnchor)
-        ])
-        
-        return sectionView
     }
 }

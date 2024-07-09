@@ -44,13 +44,13 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
         guard let selectedVeterinarianIndex = addAppointmentView.veterinarianPicker.selectedRow(inComponent: 0) as Int?,
               veterinarians.indices.contains(selectedVeterinarianIndex) else {
             // Show an alert if no veterinarian is selected
-            showAlert(message: NSLocalizedString("select_veterinarian", comment: ""))
+            showAlert(title: NSLocalizedString("no_veterinarian_selected", comment: ""), message: NSLocalizedString("select_veterinarian", comment: ""))
             return
         }
 
         guard !selectedAnimals.isEmpty else {
             // Show an alert if no animals are selected
-            showAlert(message: NSLocalizedString("select_animal", comment: ""))
+            showAlert(title: NSLocalizedString("no_animal_selected", comment: ""), message: NSLocalizedString("select_animal", comment: ""))
             return
         }
 
@@ -86,12 +86,12 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
         addAppointmentView.animalsTableView.reloadData()
     }
 
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: NSLocalizedString("error", comment: ""), message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: nil))
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-
+    
     // MARK: - UIPickerViewDataSource
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
