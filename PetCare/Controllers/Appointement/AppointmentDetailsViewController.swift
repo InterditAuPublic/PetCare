@@ -11,7 +11,7 @@ class AppointmentDetailsViewController: UIViewController {
         
     // MARK: - Properties
     
-    let appointmentDetailsView = AppointmentDetailView()
+    let appointmentDetailsView = AppointmentDetailsView()
     var appointment: Appointment
     
     // MARK: - Initialization
@@ -33,7 +33,7 @@ class AppointmentDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("appointment_details_title", comment: "")
+        title = NSLocalizedString("appointments", comment: "")
         view.backgroundColor = .white
         appointmentDetailsView.configure(with: appointment)
 

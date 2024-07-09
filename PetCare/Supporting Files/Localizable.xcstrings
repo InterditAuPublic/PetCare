@@ -165,9 +165,6 @@
         }
       }
     },
-    "Animals" : {
-
-    },
     "Animals: " : {
       "localizations" : {
         "en" : {
@@ -193,9 +190,6 @@
           }
         }
       }
-    },
-    "appointment_details_title" : {
-
     },
     "appointments" : {
       "extractionState" : "manual",
@@ -298,10 +292,24 @@
       }
     },
     "call" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appeler"
+          }
+        }
+      }
     },
     "cancel" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        }
+      }
     },
     "cat" : {
       "extractionState" : "manual",
@@ -505,25 +513,116 @@
       }
     },
     "delete" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
+          }
+        }
+      }
     },
     "delete_animal_message" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this animal? Associated appointments will not be deleted, but the animal will no longer appear in the list."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Êtes-vous sûr de vouloir supprimer cet animal ? Les rendez-vous associés ne seront pas supprimés, mais l'animal ne sera plus visible dans la liste."
+          }
+        }
+      }
     },
     "delete_animal_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete animal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Suppression d'un animal"
+          }
+        }
+      }
     },
     "delete_appointment_message" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this appointment?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Êtes-vous certains de vouloir supprimer ce rendez-vous ?"
+          }
+        }
+      }
     },
     "delete_appointment_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete appointment"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suppression d'un rendez-vous"
+          }
+        }
+      }
     },
     "delete_veterinarian_message" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete this veterinarian? All associated appointments will also be deleted."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Êtes-vous sûr de vouloir supprimer ce vétérinaire ? Tous les rendez-vous associés seront également supprimés."
+          }
+        }
+      }
     },
     "delete_veterinarian_title" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete veterinarian"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suppression d'un vétérinaire"
+          }
+        }
+      }
     },
     "description" : {
       "extractionState" : "stale",
@@ -541,9 +640,6 @@
           }
         }
       }
-    },
-    "Description" : {
-
     },
     "description_placeholder" : {
       "extractionState" : "stale",
@@ -920,16 +1016,34 @@
 
     },
     "No notes available" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune note disponible"
+          }
+        }
+      }
     },
     "No phone number available" : {
-
-    },
-    "no_address_available" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas de numéro de téléphone disponible"
+          }
+        }
+      }
     },
     "no_animal_selected" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous devez sélectionner un animal afin de créer un rendez-vous"
+          }
+        }
+      }
     },
     "no_animals" : {
       "localizations" : {
@@ -983,7 +1097,20 @@
       }
     },
     "no_appointments" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No appointments with this veterinary."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun rendez-vous avec ce vétérinaire"
+          }
+        }
+      }
     },
     "no_appointments_message" : {
       "comment" : "You don't have any appointment yet. \nTap the button below to add a new one.",
@@ -1002,18 +1129,6 @@
         }
       }
     },
-    "no_city_available" : {
-
-    },
-    "no_description_available" : {
-
-    },
-    "no_email_available" : {
-
-    },
-    "no_name_available" : {
-
-    },
     "no_past_appointments" : {
       "localizations" : {
         "en" : {
@@ -1029,9 +1144,6 @@
           }
         }
       }
-    },
-    "no_phone_number_available" : {
-
     },
     "no_sterialisez" : {
       "extractionState" : "manual",
@@ -1067,7 +1179,14 @@
       }
     },
     "no_veterinarian_selected" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous devez sélectionner un vétérinaire afin de créer un rendez-vous"
+          }
+        }
+      }
     },
     "no_veterinarians_message" : {
       "comment" : "You don't have any veterinarian yet. Tap the button below to add a new one.",
@@ -1085,9 +1204,6 @@
           }
         }
       }
-    },
-    "no_zipcode_available" : {
-
     },
     "note" : {
       "extractionState" : "manual",
@@ -1107,7 +1223,14 @@
       }
     },
     "ok" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
     },
     "petcare" : {
       "extractionState" : "manual",
@@ -1210,10 +1333,24 @@
       }
     },
     "select_animal" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner un animal"
+          }
+        }
+      }
     },
     "select_veterinarian" : {
-
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélectionner un vétérinaire"
+          }
+        }
+      }
     },
     "settings" : {
       "extractionState" : "manual",
@@ -1375,18 +1512,6 @@
           }
         }
       }
-    },
-    "Veterinarian Address" : {
-
-    },
-    "Veterinarian Email" : {
-
-    },
-    "Veterinarian Name" : {
-
-    },
-    "Veterinarian Phone" : {
-
     },
     "veterinarian_adresse" : {
       "extractionState" : "stale",
@@ -1649,17 +1774,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vétérinaire :"
-          }
-        }
-      }
-    },
-    "Veterinarian: No veterinarian assigned" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vétérinaire : Pas de vétérinaire assigné"
           }
         }
       }
