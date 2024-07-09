@@ -17,7 +17,6 @@
 		B00640852B4F815E002A4139 /* AnimalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640842B4F815E002A4139 /* AnimalDetailsView.swift */; };
 		B00640882B4F8A3A002A4139 /* AnimalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00640872B4F8A3A002A4139 /* AnimalForm.swift */; };
 		B019FBAA2B6FD239007535C2 /* AnimalDetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019FBA92B6FD238007535C2 /* AnimalDetailCollectionViewCell.swift */; };
-		B01DA34C2C15B50F004BA9F0 /* DTTextField in Frameworks */ = {isa = PBXBuildFile; productRef = B01DA34B2C15B50F004BA9F0 /* DTTextField */; };
 		B01EF7862C36DB3700B10005 /* NoItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01EF7852C36DB3700B10005 /* NoItemCollectionViewCell.swift */; };
 		B02773AB2C243DE300051729 /* SelectAnimalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02773AA2C243DE300051729 /* SelectAnimalTableViewCell.swift */; };
 		B02773AD2C244F5D00051729 /* AppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02773AC2C244F5D00051729 /* AppointmentTableViewCell.swift */; };
@@ -59,6 +58,7 @@
 		B09FBCF42BFF9BDC00F64192 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBCF32BFF9BDC00F64192 /* CoreDataStack.swift */; };
 		B09FBCF62BFFA13300F64192 /* MockCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBCF52BFFA13300F64192 /* MockCoreDataStack.swift */; };
 		B0A2BDA12C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2BDA02C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift */; };
+		B0A2BDA42C3D9B1700AB1960 /* DTTextField in Frameworks */ = {isa = PBXBuildFile; productRef = B0A2BDA32C3D9B1700AB1960 /* DTTextField */; };
 		B0A652612B650DA000ED57FC /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A6525F2B650DA000ED57FC /* cat.json */; };
 		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
@@ -182,7 +182,7 @@
 				B0968E272BF6522B00EF7710 /* FirebaseAnalytics in Frameworks */,
 				B0968E292BF6522B00EF7710 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				B0968E2F2BF6522B00EF7710 /* FirebaseAppCheck in Frameworks */,
-				B01DA34C2C15B50F004BA9F0 /* DTTextField in Frameworks */,
+				B0A2BDA42C3D9B1700AB1960 /* DTTextField in Frameworks */,
 				4AE2AB32616B763E05841470 /* Pods_PetCare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,7 +506,7 @@
 				B0968E2A2BF6522B00EF7710 /* FirebaseAnalyticsSwift */,
 				B0968E2C2BF6522B00EF7710 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				B0968E2E2BF6522B00EF7710 /* FirebaseAppCheck */,
-				B01DA34B2C15B50F004BA9F0 /* DTTextField */,
+				B0A2BDA32C3D9B1700AB1960 /* DTTextField */,
 			);
 			productName = PetCare;
 			productReference = B04BDB3F2B486FC200592B31 /* PetCare.app */;
@@ -562,7 +562,7 @@
 			mainGroup = B04BDB362B486FC200592B31;
 			packageReferences = (
 				B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				B01DA34A2C15B50F004BA9F0 /* XCRemoteSwiftPackageReference "DTTextField" */,
+				B0A2BDA22C3D9B1700AB1960 /* XCRemoteSwiftPackageReference "DTTextField" */,
 			);
 			productRefGroup = B04BDB402B486FC200592B31 /* Products */;
 			projectDirPath = "";
@@ -907,7 +907,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 6T4FKUCAHQ;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PetCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -960,7 +960,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6T4FKUCAHQ;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PetCare/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1080,14 +1080,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B01DA34A2C15B50F004BA9F0 /* XCRemoteSwiftPackageReference "DTTextField" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/iDhaval/DTTextField";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.7.0;
-			};
-		};
 		B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1096,14 +1088,17 @@
 				minimumVersion = 10.26.0;
 			};
 		};
+		B0A2BDA22C3D9B1700AB1960 /* XCRemoteSwiftPackageReference "DTTextField" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iDhaval/DTTextField";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B01DA34B2C15B50F004BA9F0 /* DTTextField */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B01DA34A2C15B50F004BA9F0 /* XCRemoteSwiftPackageReference "DTTextField" */;
-			productName = DTTextField;
-		};
 		B0968E262BF6522B00EF7710 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1128,6 +1123,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B032B0902BF64EB500E742A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAppCheck;
+		};
+		B0A2BDA32C3D9B1700AB1960 /* DTTextField */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0A2BDA22C3D9B1700AB1960 /* XCRemoteSwiftPackageReference "DTTextField" */;
+			productName = DTTextField;
 		};
 /* End XCSwiftPackageProductDependency section */
 
