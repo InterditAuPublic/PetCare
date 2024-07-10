@@ -10,14 +10,22 @@ import UIKit
 class MainViewController: UIViewController {
     
     private var animationView: LoadingView?
+
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         configureAndShowAnimationView()
     }
     
+    // Configure and show the animation view
     private func configureAndShowAnimationView() {
+        guard animationView == nil else { return }
         animationView = LoadingView()
         animationView?.modalPresentationStyle = .fullScreen
         present(animationView!, animated: true) {
@@ -26,11 +34,14 @@ class MainViewController: UIViewController {
             }
         }
     }
-    
+
+    // Dismiss the animation view and load the main view
     private func hideAnimationViewAndLoadMainView() {
-        animationView?.dismiss(animated: true)
-        let navigationController = TabBarController()
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        animationView?.dismiss(animated: true) {
+            self.animationView = nil
+            let navigationController = TabBarController()
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true)
+        }
     }
 }
