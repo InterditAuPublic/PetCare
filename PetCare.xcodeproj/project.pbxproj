@@ -59,6 +59,7 @@
 		B09FBCF62BFFA13300F64192 /* MockCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09FBCF52BFFA13300F64192 /* MockCoreDataStack.swift */; };
 		B0A2BDA12C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2BDA02C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift */; };
 		B0A2BDA42C3D9B1700AB1960 /* DTTextField in Frameworks */ = {isa = PBXBuildFile; productRef = B0A2BDA32C3D9B1700AB1960 /* DTTextField */; };
+		B0A2BDA62C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2BDA52C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift */; };
 		B0A652612B650DA000ED57FC /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A6525F2B650DA000ED57FC /* cat.json */; };
 		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
@@ -145,6 +146,7 @@
 		B09FBCF32BFF9BDC00F64192 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B09FBCF52BFFA13300F64192 /* MockCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataStack.swift; sourceTree = "<group>"; };
 		B0A2BDA02C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoAppointmentCollectionViewCell.swift; sourceTree = "<group>"; };
+		B0A2BDA52C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinaryAppointmentTableViewCell.swift; sourceTree = "<group>"; };
 		B0A6525F2B650DA000ED57FC /* cat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cat.json; sourceTree = "<group>"; };
 		B0A652602B650DA000ED57FC /* dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dog.json; sourceTree = "<group>"; };
 		B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalViewController.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				B0F3A5032B5EB2420084A6E6 /* VeterinarianTableViewCell.swift */,
 				B02773AA2C243DE300051729 /* SelectAnimalTableViewCell.swift */,
 				B02773AC2C244F5D00051729 /* AppointmentTableViewCell.swift */,
+				B0A2BDA52C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -537,7 +540,7 @@
 		B04BDB372B486FC200592B31 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
+				BuildIndependentTargetsInParallel = NO;
 				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
@@ -694,6 +697,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A2BDA62C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift in Sources */,
 				B04459342B5FDC2A002CD33B /* AppointementView.swift in Sources */,
 				B04BDB4D2B486FC200592B31 /* PetCare.xcdatamodeld in Sources */,
 				B02773AD2C244F5D00051729 /* AppointmentTableViewCell.swift in Sources */,
