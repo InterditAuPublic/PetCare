@@ -111,7 +111,4 @@ class AppointmentTableViewCell: UITableViewCell {
         // Set Image (for now, using a placeholder as there's no specific image logic)
         petImageView.image = UIImage(named: "veterinary")
     }
-
-
-
 }

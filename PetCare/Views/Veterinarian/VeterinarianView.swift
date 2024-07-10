@@ -4,6 +4,7 @@
 //
 //  Created by Melvin Poutrel on 22/01/2024.
 //
+
 import UIKit
 import DTTextField
 
@@ -11,6 +12,7 @@ class VeterinarianView: UIScrollView {
     
     // MARK: - Properties
     
+    // Text fields for veterinarian information
     let nameTextField: DTTextField = createDTTextField(placeholder: NSLocalizedString("veterinarian_name_placeholder", comment: ""))
     let addressTextField: DTTextField = createDTTextField(placeholder: NSLocalizedString("veterinarian_adresse_placeholder", comment: ""))
     let zipcodeTextField: DTTextField = createDTTextField(placeholder: NSLocalizedString("veterinarian_zipcode_placeholder", comment: ""))
@@ -32,6 +34,7 @@ class VeterinarianView: UIScrollView {
     
     // MARK: - Public Methods
     
+    // Populate the text fields with veterinarian information
     func populate(with veterinarian: Veterinarian) {
         nameTextField.text = veterinarian.name
         addressTextField.text = veterinarian.address
@@ -52,6 +55,7 @@ class VeterinarianView: UIScrollView {
     // MARK: - Private Methods
     
     private func setupView() {
+        // Create a container view to hold the text fields
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
@@ -64,6 +68,7 @@ class VeterinarianView: UIScrollView {
             containerView.widthAnchor.constraint(equalTo: widthAnchor)
         ])
         
+        // Create a stack view to arrange the text fields vertically
         let stackView = UIStackView(arrangedSubviews: [
             nameTextField,
             addressTextField,
@@ -95,6 +100,7 @@ class VeterinarianView: UIScrollView {
     }
     
     private func resetFieldBorders() {
+        // Reset the border color of the text fields
         [nameTextField, addressTextField, zipcodeTextField, cityTextField, phoneTextField, emailTextField, noteTextField].forEach {
             $0.layer.borderColor = UIColor.black.cgColor
         }
@@ -102,12 +108,14 @@ class VeterinarianView: UIScrollView {
     
     // MARK: - Utility Methods
     
+    // Create a label with specified text
     private static func createLabel(with text: String) -> UILabel {
         let label = UILabel()
         label.text = text
         return label
     }
     
+    // Create a DTTextField with specified placeholder
     private static func createDTTextField(placeholder: String) -> DTTextField {
         let textField = DTTextField()
         textField.borderStyle = .roundedRect
