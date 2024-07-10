@@ -12,10 +12,9 @@ class AppointmentView: UIScrollView {
 
     // MARK: - Properties
 
-    private let dateLabel: UILabel = createLabel(with: "Date:")
-    private let timeLabel: UILabel = createLabel(with: "Time:")
-    private let veterinarianLabel: UILabel = createLabel(with: "Veterinarian:")
-    private let animalsLabel: UILabel = createLabel(with: "Animals:")
+    private let dateLabel: UILabel = createLabel(with: "Date: ")
+    private let veterinarianLabel: UILabel = createLabel(with: "Veterinarian: ")
+    private let animalsLabel: UILabel = createLabel(with: "Animaux : ")
 
     let datePicker: UIDatePicker = createDatePicker()
     let veterinarianPicker: UIPickerView = createPickerView()
@@ -36,6 +35,9 @@ class AppointmentView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Public Methods
+
+    // Populate the view with the data of the appointment
     func populate(with appointment: Appointment) {
         datePicker.date = appointment.date
         descriptionTextField.text = appointment.descriptionRdv
@@ -83,7 +85,7 @@ class AppointmentView: UIScrollView {
 
     private static func createLabel(with text: String) -> UILabel {
         let label = UILabel()
-        label.text = text
+        label.text = NSLocalizedString(text, comment: "")
         return label
     }
 

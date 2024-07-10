@@ -4,23 +4,21 @@
 //
 //  Created by Melvin Poutrel on 20/06/2024.
 //
-//
-//  EditAppointmentViewController.swift
-//  PetCare
-//
-//  Created by Melvin Poutrel on 20/06/2024.
-//
 
 import UIKit
 
 class EditAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
+    // MARK: - Properties
+    
     let editAppointmentView = AppointmentView()
     var appointment: Appointment
     var veterinarians: [Veterinarian] = []
     var animals: [Animal] = []
     var selectedAnimals: [Animal] = []
 
+    // MARK: - Initializers
+    
     init(appointment: Appointment) {
         self.appointment = appointment
         super.init(nibName: nil, bundle: nil)
@@ -30,6 +28,8 @@ class EditAppointmentViewController: UIViewController, UIPickerViewDelegate, UIP
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - View Lifecycle
 
     override func loadView() {
         view = editAppointmentView
@@ -60,6 +60,9 @@ class EditAppointmentViewController: UIViewController, UIPickerViewDelegate, UIP
         }
     }
 
+    // MARK: - Actions
+
+    /// Save the appointment with the updated data
     @objc private func saveAppointment() {
         guard let selectedVeterinarianIndex = editAppointmentView.veterinarianPicker.selectedRow(inComponent: 0) as Int?,
               veterinarians.indices.contains(selectedVeterinarianIndex) else {
@@ -89,16 +92,21 @@ class EditAppointmentViewController: UIViewController, UIPickerViewDelegate, UIP
         navigationController?.popToRootViewController(animated: true)
     }
 
+    // MARK: - Private Methods
+
+    /// Load the veterinarians from CoreData and populate the picker
     private func loadVeterinarians() {
         veterinarians = CoreDataManager.shared.fetchVeterinarians() ?? []
         editAppointmentView.veterinarianPicker.reloadAllComponents()
     }
 
+    /// Load the animals from CoreData and populate the table view
     private func loadAnimals() {
         animals = CoreDataManager.shared.fetchAnimals() ?? []
         editAppointmentView.animalsTableView.reloadData()
     }
 
+    /// Show an alert with a title and a message
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

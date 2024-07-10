@@ -10,14 +10,19 @@ import FirebaseAnalytics
 
 class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
 
-    let addAppointmentView = AppointmentView()
+    // MARK: - Properties
+    private let addAppointmentView = AppointmentView()
     var veterinarians: [Veterinarian] = []
     var animals: [Animal] = []
     var selectedAnimals: [Animal] = []
 
+    // MARK: - Initialization
+
     override func loadView() {
         view = addAppointmentView
     }
+
+    // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +44,8 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
         // Register the table view cell
         addAppointmentView.animalsTableView.register(SelectAnimalTableViewCell.self, forCellReuseIdentifier: SelectAnimalTableViewCell.reuseIdentifier)
     }
+
+    // MARK: - Actions
 
     @objc private func saveAppointment() {
         guard let selectedVeterinarianIndex = addAppointmentView.veterinarianPicker.selectedRow(inComponent: 0) as Int?,
@@ -64,15 +71,20 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
             animals: selectedAnimals
         )
 
+        // Save the appointment in CoreData
         CoreDataManager.shared.saveAppointment(form: appointmentForm)
-        
+
+        // Log the event in Firebase Analytics
         Analytics.logEvent("appointment_created", parameters: [
             "animal_count": selectedAnimals.count,
             "date": addAppointmentView.datePicker.date.timeIntervalSince1970
         ])
 
+        // Navigate to the previous screen
         navigationController?.popViewController(animated: true)
     }
+
+    // MARK: - Private Methods
 
     private func loadVeterinarians() {
         // Load veterinarians from CoreData or other source
@@ -86,6 +98,7 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
         addAppointmentView.animalsTableView.reloadData()
     }
 
+    /// Show an alert with a given title and message
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -116,10 +129,12 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     // MARK: - UITableViewDataSource
 
+    /// Return the number of rows in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return animals.count
-    }
+    }  
 
+    /// Configure the cell for the table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SelectAnimalTableViewCell.reuseIdentifier, for: indexPath) as! SelectAnimalTableViewCell
         let animal = animals[indexPath.row]
@@ -130,6 +145,7 @@ class AddAppointmentViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     // MARK: - UITableViewDelegate
 
+    /// Handle the selection of a row in the table view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
 

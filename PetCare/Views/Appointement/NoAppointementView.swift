@@ -9,6 +9,8 @@ import UIKit
 
 class NoAppointmentView: UIView {
     
+    // MARK: - Properties
+
     weak var delegate: NoAppointmentDelegate?
     
     private lazy var addButton: UIButton = {
@@ -32,6 +34,8 @@ class NoAppointmentView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +46,8 @@ class NoAppointmentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
+
     private func setupViews() {
         backgroundColor = .white
         
@@ -63,10 +69,13 @@ class NoAppointmentView: UIView {
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
     }
     
+    /// Action when the user taps the add button
     @objc private func didTapAddButton() {
         delegate?.didTapAddAppointment()
     }
 }
+
+// MARK: - NoAppointmentDelegate
 
 protocol NoAppointmentDelegate: AnyObject {
     func didTapAddAppointment()

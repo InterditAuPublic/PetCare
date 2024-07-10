@@ -138,9 +138,9 @@ class AppointmentDetailsView: UIScrollView {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        dateLabel.text = NSLocalizedString("date: \(dateFormatter.string(from: appointment.date))", comment: "")
+        dateLabel.text = NSLocalizedString("Date: ", comment: "") + dateFormatter.string(from: appointment.date)
         descriptionLabel.text = NSLocalizedString("description:", comment: "") + (appointment.descriptionRdv ?? NSLocalizedString("no_description", comment: ""))
-        veterinarianLabel.text = NSLocalizedString("veterinarian", comment: "") + " Dr. " + appointment.veterinarian.name
+        veterinarianLabel.text = NSLocalizedString("Veterinarian: ", comment: "") + " Dr. " + appointment.veterinarian.name
         animals = appointment.animals
     }
 }

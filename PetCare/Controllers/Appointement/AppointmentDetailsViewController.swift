@@ -45,6 +45,7 @@ class AppointmentDetailsViewController: UIViewController {
 
     // MARK: - Actions
 
+    /// Navigate to the EditAppointmentViewController when the user taps on the edit button
     @objc private func editAppointment() {
         let editAppointmentViewController = EditAppointmentViewController(appointment: appointment)
         navigationController?.pushViewController(editAppointmentViewController, animated: true)

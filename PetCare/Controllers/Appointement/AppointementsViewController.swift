@@ -9,9 +9,13 @@ import UIKit
 
 class AppointmentsViewController: UIViewController, NoAppointmentDelegate {
     
+    // MARK: - Properties
+
     var tableView: UITableView!
     var appointments: [Appointment] = []
     var noAppoitmentView: NoAppointmentView?
+    
+    // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +35,10 @@ class AppointmentsViewController: UIViewController, NoAppointmentDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
+
+
+    // MARK: - UI Setup
+
     private func setupNavigationBar() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddAppointment))
         navigationItem.rightBarButtonItem = addButton
@@ -55,13 +62,7 @@ class AppointmentsViewController: UIViewController, NoAppointmentDelegate {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
-    private func fetchAppointments() {
-        if let fetchedAppointments = CoreDataManager.shared.fetchAppointmentsSortedByDate() {
-            appointments = fetchedAppointments
-        }
-    }
-    
+
     private func updateUI() {
         if appointments.isEmpty {
             showNoAppoitmentView()
@@ -70,6 +71,14 @@ class AppointmentsViewController: UIViewController, NoAppointmentDelegate {
             tableView.reloadData()
             noAppoitmentView?.removeFromSuperview()
             noAppoitmentView = nil
+        }
+    }
+    
+    // MARK: - Helpers
+
+    private func fetchAppointments() {
+        if let fetchedAppointments = CoreDataManager.shared.fetchAppointmentsSortedByDate() {
+            appointments = fetchedAppointments
         }
     }
     
@@ -83,6 +92,9 @@ class AppointmentsViewController: UIViewController, NoAppointmentDelegate {
         }
     }
     
+    // MARK: - NoAppointmentDelegate
+
+    /// Called when the user taps the "Add Appointment" button in the NoAppointmentView to add a new appointment
     @objc internal func didTapAddAppointment() {
         navigationController?.pushViewController(AddAppointmentViewController(), animated: true)
     }
