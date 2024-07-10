@@ -8,7 +8,21 @@
 import UIKit
 
 class NoAnimalView: UIView {
+
+
+    // MARK: - Initializers
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Properties
+
     weak var delegate: NoAnimalsDelegate?
     
     private lazy var addButton: UIButton = {
@@ -32,15 +46,6 @@ class NoAnimalView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     private func setupView() {
         backgroundColor = .white
@@ -67,6 +72,8 @@ class NoAnimalView: UIView {
         delegate?.didTapAddButton()
     }
 }
+
+// MARK: - NoAnimalsDelegate
 
 protocol NoAnimalsDelegate: AnyObject {
     func didTapAddButton()

@@ -1,10 +1,21 @@
+//
+//  AnimalsViewController.swift
+//  PetCare
+//
+//  Created by Melvin Poutrel on 08/01/2024.
+//
+
 import UIKit
 
 class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NoAnimalsDelegate {
 
+    // MARK: - Properties
+
     var animals: [Animal] = []
     var tableView: UITableView!
     var noAnimalView: NoAnimalView?
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +32,8 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateUI()
     }
 
+    // MARK: - UI Setup
+
     private func setupNavigationBar() {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddButton))
         navigationItem.rightBarButtonItem = addButton
@@ -34,10 +47,6 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.addSubview(tableView)
     }
 
-    private func fetchAnimals() {
-        animals = CoreDataManager.shared.fetchAnimals() ?? []
-    }
-
     private func updateUI() {
         if animals.isEmpty {
             showNoAnimalsView()
@@ -48,16 +57,25 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
             noAnimalView = nil
         }
     }
-    
+
     private func showNoAnimalsView() {
-      tableView.isHidden = true
-      if noAnimalView == nil {
-          noAnimalView = NoAnimalView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-          noAnimalView?.center = view.center
-          noAnimalView?.delegate = self
-          view.addSubview(noAnimalView!)
+        tableView.isHidden = true
+        if noAnimalView == nil {
+            noAnimalView = NoAnimalView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+            noAnimalView?.center = view.center
+            noAnimalView?.delegate = self
+            view.addSubview(noAnimalView!)
+        }
     }
-  }
+
+    // MARK: - Data
+
+    private func fetchAnimals() {
+        animals = CoreDataManager.shared.fetchAnimals() ?? []
+    }
+
+
+    // MARK: - Actions
 
     @objc internal func didTapAddButton() {
         navigationController?.pushViewController(AddAnimalViewController(), animated: true)
@@ -65,11 +83,13 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     // MARK: TableView
-    
+
+    // Number of rows in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return animals.count
     }
 
+    // Configure the cell with the animal data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AnimalTableViewCell.reuseIdentifier, for: indexPath) as! AnimalTableViewCell
         let animal = animals[indexPath.row]
@@ -77,9 +97,10 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
 
+    // Swipe to delete an animal
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Show alert to confirm deletion of animal, if it has appointments show a warning
+            // Show alert to confirm deletion of animal
             let animal = animals[indexPath.row]
             let alert = UIAlertController(title: NSLocalizedString("delete_animal_title", comment: ""), message: NSLocalizedString("delete_animal_message", comment: ""), preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil))
@@ -93,6 +114,7 @@ class AnimalsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    // On clic on a cell, navigate to the selected animal details view controller
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAnimal = animals[indexPath.row]
         let animalDetailViewController = AnimalDetailsViewController(animal: selectedAnimal)

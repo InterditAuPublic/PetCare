@@ -97,6 +97,7 @@ class AnimalView: UIScrollView {
         imageView.image = animal.image != nil ? UIImage(data: animal.image!) : nil
     }
     
+    // Toggle error state for a text field
     func toggleError(field: DTTextField, errorMessage: String ) {
         field.errorMessage = errorMessage
         field.showError()

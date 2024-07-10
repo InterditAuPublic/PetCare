@@ -172,6 +172,12 @@
             "state" : "translated",
             "value" : "Animals"
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animaux"
+          }
         }
       }
     },
@@ -483,6 +489,16 @@
         }
       }
     },
+    "Comments: " : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commentaires : "
+          }
+        }
+      }
+    },
     "date" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -501,7 +517,6 @@
       }
     },
     "Date: " : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -516,9 +531,6 @@
           }
         }
       }
-    },
-    "date: (dateFormatter.string(from: appointment.date))" : {
-
     },
     "Date: %@ at %@" : {
       "extractionState" : "stale",
@@ -690,11 +702,14 @@
             "state" : "translated",
             "value" : "Description: "
           }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description : "
+          }
         }
       }
-    },
-    "details" : {
-
     },
     "dog" : {
       "extractionState" : "manual",
@@ -896,8 +911,21 @@
         }
       }
     },
-    "info" : {
-
+    "Identifier: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifier :"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifiant : "
+          }
+        }
+      }
     },
     "male" : {
       "extractionState" : "manual",
@@ -1214,6 +1242,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No description"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune description"
           }
         }
       }

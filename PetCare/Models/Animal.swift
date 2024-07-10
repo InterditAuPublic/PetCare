@@ -9,7 +9,7 @@ import Foundation
 
 struct Animal: Codable {
     var id: String
-    var identifier: String? // ICAD Chip number
+    var identifier: String? // I-CAD Chip number
     var name: String
     var sexe: Bool
     var sterilized: Bool
@@ -24,12 +24,9 @@ struct Animal: Codable {
     var appointments: [Appointment]?
 }
 
-// TODO: check this
 enum Species: String, CaseIterable, Codable {
     case dog = "Dog"
     case cat = "Cat"
-    
-    // TODO: ADD TEST FOR TEXT
     
     var text: String {
         switch self {

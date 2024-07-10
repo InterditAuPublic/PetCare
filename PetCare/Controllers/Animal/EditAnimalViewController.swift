@@ -30,7 +30,7 @@ class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegat
     override func loadView() {
         view = editAnimalView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("edit_animal_title", comment: "")
@@ -56,16 +56,20 @@ class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegat
             return
         }
         
+        // Setup number formatter
         let numberFormatter = NumberFormatter()
         numberFormatter.locale = Locale.current
         numberFormatter.numberStyle = .decimal
 
-        guard let weightText = editAnimalView.weightTextField.text, !weightText.isEmpty, let weightNumber = numberFormatter.number(from: weightText) else {
-            editAnimalView.toggleError(field: editAnimalView.weightTextField, errorMessage: NSLocalizedString("weight_format_error", comment: ""))
-            return
+        // Validate weight
+        var weight: Double?
+        if let weightText = editAnimalView.weightTextField.text, !weightText.isEmpty {
+            guard let weightNumber = numberFormatter.number(from: weightText) else {
+                editAnimalView.toggleError(field: editAnimalView.weightTextField, errorMessage: NSLocalizedString("weight_format_error", comment: ""))
+                return
+            }
+            weight = weightNumber.doubleValue
         }
-        
-        let weight = weightNumber.doubleValue
         
         // Create an AnimalForm object and populate its properties
         let animalForm = AnimalForm(
@@ -82,12 +86,16 @@ class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegat
             comments: editAnimalView.commentsTextField.text,
             image: editAnimalView.imageView.image?.pngData()
         )
-        
+    
+        // Update the animal in the database
         CoreDataManager.shared.updateAnimal(form: animalForm)
-        
+        // Pop to the root view controller
         navigationController?.popToRootViewController(animated: true)
     }
     
+    // MARK: - Image Picker
+
+    // Open the image picker
     @objc private func openImagePicker() {
         guard UIImagePickerController.isSourceTypeAvailable(.photoLibrary) else { return }
 
@@ -96,9 +104,8 @@ class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegat
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    
-    // MARK: - UIImagePickerControllerDelegate
 
+    // Handle user selected image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         
@@ -107,6 +114,7 @@ class EditAnimalViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
+    // Dismiss the image picker when the user cancels
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }

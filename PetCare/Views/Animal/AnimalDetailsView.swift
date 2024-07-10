@@ -1,3 +1,10 @@
+//
+//  AnimalDetailsView.swift
+//  PetCare
+//
+//  Created by Melvin Poutrel on 11/01/2024.
+//
+
 import UIKit
 
 class AnimalDetailsView: UIView {
@@ -14,11 +21,13 @@ class AnimalDetailsView: UIView {
         return imageView
     }()
 
-    private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: [NSLocalizedString("info", comment: ""), NSLocalizedString("details", comment: "")])
-        control.selectedSegmentIndex = 0
-        control.translatesAutoresizingMaskIntoConstraints = false
-        return control
+    private let commentsTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 18)
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
 
     private let detailsStackView: UIStackView = {
@@ -27,15 +36,6 @@ class AnimalDetailsView: UIView {
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
-    }()
-
-    private let commentsTextView: UITextView = {
-        let textView = UITextView()
-        textView.font = UIFont.systemFont(ofSize: 18)
-        textView.isEditable = false
-        textView.isSelectable = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
     }()
 
     // Label Generators
@@ -47,10 +47,12 @@ class AnimalDetailsView: UIView {
         return label
     }
 
-    // Labels for details
+    // Labels for details stack view
+
+    private lazy var identifierLabel = createLabel(font: .systemFont(ofSize: 18))
     private lazy var nameLabel = createLabel(font: .boldSystemFont(ofSize: 24), textAlignment: .center)
     private lazy var speciesLabel = createLabel(font: .systemFont(ofSize: 18))
-    private lazy var sexeLabel = createLabel(font: .systemFont(ofSize: 18))
+    private lazy var sexLabel = createLabel(font: .systemFont(ofSize: 18))
     private lazy var sterilizedLabel = createLabel(font: .systemFont(ofSize: 18))
     private lazy var breedLabel = createLabel(font: .systemFont(ofSize: 18))
     private lazy var birthdateLabel = createLabel(font: .systemFont(ofSize: 18))
@@ -58,6 +60,7 @@ class AnimalDetailsView: UIView {
     private lazy var colorLabel = createLabel(font: .systemFont(ofSize: 18))
 
     // Initializer
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -75,17 +78,14 @@ class AnimalDetailsView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(animalImageView)
-        contentView.addSubview(segmentedControl)
         contentView.addSubview(detailsStackView)
         contentView.addSubview(commentsTextView)
-
-        // Setup segmented control action
-        segmentedControl.addTarget(self, action: #selector(segmentedControlChanged(_:)), for: .valueChanged)
 
         setupConstraints()
         setupDetailsStackView()
     }
 
+    // Setup Constraints
     private func setupConstraints() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -107,11 +107,7 @@ class AnimalDetailsView: UIView {
             animalImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             animalImageView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.65),
 
-            segmentedControl.topAnchor.constraint(equalTo: animalImageView.bottomAnchor, constant: 20),
-            segmentedControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            segmentedControl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            detailsStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
+            detailsStackView.topAnchor.constraint(equalTo: animalImageView.bottomAnchor, constant: 20),
             detailsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             detailsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
 
@@ -120,35 +116,19 @@ class AnimalDetailsView: UIView {
             commentsTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             commentsTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
-
-        // Initially hide commentsTextView
-        commentsTextView.isHidden = true
     }
 
+    // Setup Details Stack View
     private func setupDetailsStackView() {
         detailsStackView.addArrangedSubview(nameLabel)
+        detailsStackView.addArrangedSubview(identifierLabel)
         detailsStackView.addArrangedSubview(speciesLabel)
-        detailsStackView.addArrangedSubview(sexeLabel)
+        detailsStackView.addArrangedSubview(sexLabel)
         detailsStackView.addArrangedSubview(sterilizedLabel)
         detailsStackView.addArrangedSubview(breedLabel)
         detailsStackView.addArrangedSubview(birthdateLabel)
         detailsStackView.addArrangedSubview(weightLabel)
         detailsStackView.addArrangedSubview(colorLabel)
-    }
-
-    @objc private func segmentedControlChanged(_ sender: UISegmentedControl) {
-        UIView.transition(with: contentView, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            switch sender.selectedSegmentIndex {
-            case 0:
-                self.detailsStackView.isHidden = false
-                self.commentsTextView.isHidden = true
-            case 1:
-                self.detailsStackView.isHidden = true
-                self.commentsTextView.isHidden = false
-            default:
-                break
-            }
-        }, completion: nil)
     }
 
     // Configure View with Animal Data
@@ -167,8 +147,9 @@ class AnimalDetailsView: UIView {
         }
 
         nameLabel.text = animal.name
+        identifierLabel.text = NSLocalizedString("Identifier: ", comment: "") + (animal.identifier ?? "Unknown")
         speciesLabel.text = NSLocalizedString("Species: ", comment: "") + (animal.species?.text ?? "Unknown")
-        sexeLabel.text = NSLocalizedString("Sex: ", comment: "") + (animal.sexe ? NSLocalizedString("Female", comment: "") : NSLocalizedString("Male", comment: ""))
+        sexLabel.text = NSLocalizedString("Sex: ", comment: "") + (animal.sexe ? NSLocalizedString("Female", comment: "") : NSLocalizedString("Male", comment: ""))
         sterilizedLabel.text = NSLocalizedString("Sterilized: ", comment: "") + (animal.sterilized ? NSLocalizedString("yes", comment: "") : NSLocalizedString("no", comment: ""))
         breedLabel.text = NSLocalizedString("Breed: ", comment: "") + (animal.breed ?? "Unknown")
 
@@ -182,6 +163,6 @@ class AnimalDetailsView: UIView {
         weightLabel.text = NSLocalizedString("Weight: ", comment: "") + (animal.weight != nil ? "\(numberFormatter.string(from: NSNumber(value: animal.weight!))!) kg" : "Unknown")
 
         colorLabel.text = NSLocalizedString("Color: ", comment: "") + (animal.color ?? "Unknown")
-        commentsTextView.text = animal.comments ?? NSLocalizedString("No comments", comment: "")
+        commentsTextView.text = NSLocalizedString("Comments: ", comment: "") + (animal.comments ?? NSLocalizedString("No comments", comment: ""))
     }
 }

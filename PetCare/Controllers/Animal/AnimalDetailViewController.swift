@@ -2,8 +2,12 @@ import UIKit
 
 class AnimalDetailsViewController: UIViewController {
 
+    // MARK: - Properties
+    
     let animalDetailsView = AnimalDetailsView()
     var animal: Animal?
+
+    // MARK: - Initializers
 
     init(animal: Animal) {
         self.animal = animal
@@ -13,6 +17,8 @@ class AnimalDetailsViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         view = animalDetailsView
@@ -42,6 +48,7 @@ class AnimalDetailsViewController: UIViewController {
 
     // MARK: - Actions
 
+    /// Edit button tapped action to navigate to the edit animal view controller
     @objc private func editButtonTapped() {
         guard let animal = animal else { return }
         let editAnimalViewController = EditAnimalViewController(animal: animal)
