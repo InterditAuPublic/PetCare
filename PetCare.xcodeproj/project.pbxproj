@@ -37,12 +37,7 @@
 		B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB4E2B486FC300592B31 /* Assets.xcassets */; };
 		B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB502B486FC300592B31 /* LaunchScreen.storyboard */; };
 		B04BDB5D2B486FC300592B31 /* PetCareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB5C2B486FC300592B31 /* PetCareTests.swift */; };
-		B04BDB8A2B4B1BFF00592B31 /* 1.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB872B4B1BFF00592B31 /* 1.json */; };
-		B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB882B4B1BFF00592B31 /* 2.json */; };
-		B04BDB8C2B4B1BFF00592B31 /* 3.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB892B4B1BFF00592B31 /* 3.json */; };
 		B04BDB902B4B211100592B31 /* loadingCat.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8D2B4B211100592B31 /* loadingCat.json */; };
-		B04BDB912B4B211100592B31 /* 4.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8E2B4B211100592B31 /* 4.json */; };
-		B04BDB922B4B211100592B31 /* 5.json in Resources */ = {isa = PBXBuildFile; fileRef = B04BDB8F2B4B211100592B31 /* 5.json */; };
 		B04BDB942B4C11A600592B31 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04BDB932B4C11A600592B31 /* LoadingView.swift */; };
 		B05C3E412C2709C10036C5D2 /* NoVeterinarianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C3E402C2709C10036C5D2 /* NoVeterinarianView.swift */; };
 		B06A0B882C1601760012A656 /* VeterinarianManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06A0B872C1601760012A656 /* VeterinarianManagementTests.swift */; };
@@ -60,8 +55,6 @@
 		B0A2BDA12C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2BDA02C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift */; };
 		B0A2BDA42C3D9B1700AB1960 /* DTTextField in Frameworks */ = {isa = PBXBuildFile; productRef = B0A2BDA32C3D9B1700AB1960 /* DTTextField */; };
 		B0A2BDA62C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2BDA52C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift */; };
-		B0A652612B650DA000ED57FC /* cat.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A6525F2B650DA000ED57FC /* cat.json */; };
-		B0A652622B650DA000ED57FC /* dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B0A652602B650DA000ED57FC /* dog.json */; };
 		B0A652642B6A3FA300ED57FC /* EditAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */; };
 		B0B9F2252BFF96E00007D0D3 /* AnimalManagementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B9F2242BFF96E00007D0D3 /* AnimalManagementTests.swift */; };
 		B0CD9A772BA76A7F004621B5 /* AddAppointementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */; };
@@ -130,12 +123,7 @@
 		B04BDB532B486FC300592B31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B04BDB582B486FC300592B31 /* PetCareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetCareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B04BDB5C2B486FC300592B31 /* PetCareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCareTests.swift; sourceTree = "<group>"; };
-		B04BDB872B4B1BFF00592B31 /* 1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1.json; sourceTree = "<group>"; };
-		B04BDB882B4B1BFF00592B31 /* 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2.json; sourceTree = "<group>"; };
-		B04BDB892B4B1BFF00592B31 /* 3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3.json; sourceTree = "<group>"; };
 		B04BDB8D2B4B211100592B31 /* loadingCat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loadingCat.json; sourceTree = "<group>"; };
-		B04BDB8E2B4B211100592B31 /* 4.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4.json; sourceTree = "<group>"; };
-		B04BDB8F2B4B211100592B31 /* 5.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5.json; sourceTree = "<group>"; };
 		B04BDB932B4C11A600592B31 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B05C3E402C2709C10036C5D2 /* NoVeterinarianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoVeterinarianView.swift; sourceTree = "<group>"; };
 		B06A0B872C1601760012A656 /* VeterinarianManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinarianManagementTests.swift; sourceTree = "<group>"; };
@@ -147,8 +135,6 @@
 		B09FBCF52BFFA13300F64192 /* MockCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCoreDataStack.swift; sourceTree = "<group>"; };
 		B0A2BDA02C3D93C900AB1960 /* NoAppointmentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoAppointmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		B0A2BDA52C3E876A00AB1960 /* VeterinaryAppointmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeterinaryAppointmentTableViewCell.swift; sourceTree = "<group>"; };
-		B0A6525F2B650DA000ED57FC /* cat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cat.json; sourceTree = "<group>"; };
-		B0A652602B650DA000ED57FC /* dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dog.json; sourceTree = "<group>"; };
 		B0A652632B6A3FA300ED57FC /* EditAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAnimalViewController.swift; sourceTree = "<group>"; };
 		B0B9F2242BFF96E00007D0D3 /* AnimalManagementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalManagementTests.swift; sourceTree = "<group>"; };
 		B0CD9A762BA76A7F004621B5 /* AddAppointementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAppointementViewController.swift; sourceTree = "<group>"; };
@@ -374,14 +360,7 @@
 		B04BDB962B4C1AAB00592B31 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
-				B0A6525F2B650DA000ED57FC /* cat.json */,
-				B0A652602B650DA000ED57FC /* dog.json */,
-				B04BDB8E2B4B211100592B31 /* 4.json */,
-				B04BDB8F2B4B211100592B31 /* 5.json */,
 				B04BDB8D2B4B211100592B31 /* loadingCat.json */,
-				B04BDB872B4B1BFF00592B31 /* 1.json */,
-				B04BDB882B4B1BFF00592B31 /* 2.json */,
-				B04BDB892B4B1BFF00592B31 /* 3.json */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -583,15 +562,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B005C3E62BA1C28F00D1C3BE /* GoogleService-Info.plist in Resources */,
-				B04BDB922B4B211100592B31 /* 5.json in Resources */,
 				B04BDB522B486FC300592B31 /* LaunchScreen.storyboard in Resources */,
-				B0A652612B650DA000ED57FC /* cat.json in Resources */,
 				B04BDB4F2B486FC300592B31 /* Assets.xcassets in Resources */,
-				B04BDB8B2B4B1BFF00592B31 /* 2.json in Resources */,
-				B04BDB8C2B4B1BFF00592B31 /* 3.json in Resources */,
-				B04BDB8A2B4B1BFF00592B31 /* 1.json in Resources */,
-				B04BDB912B4B211100592B31 /* 4.json in Resources */,
-				B0A652622B650DA000ED57FC /* dog.json in Resources */,
 				B005C3EA2BA23A4B00D1C3BE /* Localizable.xcstrings in Resources */,
 				B04BDB902B4B211100592B31 /* loadingCat.json in Resources */,
 			);
